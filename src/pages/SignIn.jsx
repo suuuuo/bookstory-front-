@@ -8,7 +8,7 @@ const onNaverLogin = () => {
 };
 
 const onGoogleLogin = () => {
-  window.location.href = "http://localhost:8080/oauth2/authorization/naver";
+  window.location.href = "http://localhost:8080/login/oauth2/code/google";
 };
 
 export default function SignIn() {
