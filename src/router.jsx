@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
-import BookDetail from "./pages/bookdetail.jsx";
+import Bookdetailmain from "./pages/bookdetailmain.jsx";
 import QnA from "./pages/qna.jsx";
+import ProductPage from "./pages/productpage.jsx";
 
 
 const router = createBrowserRouter([
@@ -8,8 +9,8 @@ const router = createBrowserRouter([
         path: "/book/:bookId",
         element:
             <div>
-                <BookDetail/>
-                <QnA/>
+                <Bookdetailmain/>
+                <ProductPage/>
             </div>
 
     },

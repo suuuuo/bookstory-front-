@@ -33,9 +33,19 @@ export default function Bookdetailmain() {
 
     return (
         <div>
+            <h1>{book.itemName}</h1>
+            <p className="author">글쓴이: {book.author}</p>
+            <p className="publisher">출판사: {book.publisher}</p>
             <div>
-                <h2>책 설명</h2>
-                <p>{book.description}</p>
+                <img src="https://source.unsplash.com/featured/?book" alt="책 사진" className="book-image"
+                     style={{ width: '200px', height: 'auto' }}/>
+                <div>
+                    <p className="price">가격: {book.price}원</p>
+                    <label htmlFor="quantity">수량:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" defaultValue="1"/>
+                    <button type="button" className="add-to-cart">장바구니 담기</button>
+                    <button type="button" className="buy-now">책구매</button>
+                </div>
             </div>
         </div>
     );
