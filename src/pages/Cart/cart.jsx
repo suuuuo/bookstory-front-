@@ -59,6 +59,12 @@ export default function Cart() {
   }
   const [cartbooks, setcartbooks] = useState([]);
   useEffect(() => {
+    let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
+    console.log("로컬");
+    console.log(nonuser_cart);
+
+    let finaldata = nonuser_cart;
+    console.log(finaldata);
     (async () => {
       try {
         const response = await axios.get(
@@ -67,28 +73,22 @@ export default function Cart() {
         );
         console.log(response.data);
 
-        let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
-        console.log("로컬");
-        console.log(nonuser_cart);
-
-        const finaldata = nonuser_cart.concat(response.data);
-        console.log(finaldata);
-        //const cartbookData = response.data;
-        //setcartbooks(cartbookData);
-        setcartbooks(
-          finaldata.map((cartbook) => ({ ...cartbook, isChecked: "" }))
-        );
-        const defaultCartbooks = finaldata.map((cartbook) => ({
-          id: cartbook.id,
-        }));
-        console.log(defaultCartbooks);
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(defaultCartbooks)
-        );
+        finaldata = finaldata.concat(response.data);
       } catch (e) {
         console.error(e);
       }
+
+      console.log(finaldata);
+      //const cartbookData = response.data;
+      //setcartbooks(cartbookData);
+      setcartbooks(
+        finaldata.map((cartbook) => ({ ...cartbook, isChecked: "" }))
+      );
+      const defaultCartbooks = finaldata.map((cartbook) => ({
+        id: cartbook.id,
+      }));
+      console.log(defaultCartbooks);
+      localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
     })();
   }, []);
 
