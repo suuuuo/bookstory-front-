@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom'; // useParams 훅 import
 
-export default function Bookdetailmain() {
+export default function Main() {
 
     const [book, setBook] = useState({
         itemName: '',
