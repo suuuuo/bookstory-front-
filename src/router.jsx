@@ -8,7 +8,7 @@ const router = createBrowserRouter([
         path: "/book/:bookId",
         element:
             <div>
-                <BookDetail/>,
+                <BookDetail/>
                 <QnA/>
             </div>
 

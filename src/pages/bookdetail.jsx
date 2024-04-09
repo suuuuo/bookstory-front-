@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // useParams 훅 import
+import {useParams} from 'react-router-dom'; // useParams 훅 import
 
 export default function BookDetail() {
+
     const [book, setBook] = useState({
         itemName: '',
         author: '',
@@ -12,7 +13,7 @@ export default function BookDetail() {
         image: ''
     });
 
-    const { bookId } = useParams(); // URL에서 bookId 파라미터 값을 가져옴
+    const {bookId} = useParams(); // URL에서 bookId 파라미터 값을 가져옴
 
     useEffect(() => {
         const fetchBookDetails = async () => {
@@ -28,17 +29,20 @@ export default function BookDetail() {
         fetchBookDetails();
     }, [bookId]); // bookId가 변경될 때마다 useEffect 내의 로직을 다시 실행
 
+
+
     return (
         <div>
             <h1>{book.itemName}</h1>
             <p className="author">글쓴이: {book.author}</p>
             <p className="publisher">출판사: {book.publisher}</p>
             <div>
-                <img src={book.image} alt="책 사진" className="book-image" />
+                <img src="https://source.unsplash.com/featured/?book" alt="책 사진" className="book-image"
+                     style={{ width: '200px', height: 'auto' }}/>
                 <div>
                     <p className="price">가격: {book.price}원</p>
                     <label htmlFor="quantity">수량:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" defaultValue="1" />
+                    <input type="number" id="quantity" name="quantity" min="1" defaultValue="1"/>
                     <button type="button" className="add-to-cart">장바구니 담기</button>
                     <button type="button" className="buy-now">책구매</button>
                 </div>

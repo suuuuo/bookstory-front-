@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // useParams 훅 import
+import {useParams} from 'react-router-dom'; // useParams 훅 import
 
 export default function QnA() {
     const [questions, setQuestions] = useState([]);
     const [newQuestion, setNewQuestion] = useState('');
-    const { bookId } = useParams(); // URL에서 bookId 파라미터 값을 가져옴
+    const {bookId} = useParams(); // URL에서 bookId 파라미터 값을 가져옴
 
     useEffect(() => {
         // 질문 목록을 불러오는 함수
@@ -41,12 +41,25 @@ export default function QnA() {
         }
     };
 
+    const deleteQuestion = async (questionId) => {
+        try {
+            await axios.delete(`http://localhost:8080/api/questions/${questionId}`);
+            setQuestions(questions.filter(question => question.id !== questionId));
+        } catch (error) {
+            console.error('질문을 삭제하는데 실패.', error);
+        }
+    };
+
+
     return (
         <div>
             <h2>QnA</h2>
             <ul>
                 {questions.map((question, index) => (
-                    <li key={index}>{question.content}</li> // 각 질문의 내용을 표시
+                    <li key={index}>{question.content}
+                        <button onClick={() => deleteQuestion(question.id)}>삭제</button>
+                    </li> // 각 질문의 내용을 표시
+
                 ))}
             </ul>
             <form onSubmit={handleQuestionSubmit}>
