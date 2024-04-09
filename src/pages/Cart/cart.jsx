@@ -23,12 +23,24 @@ export default function Cart() {
     console.log("쓰레기통 클릭");
 
     let checkedcartbooks = localStorage.getItem("checkedcartbook");
+    console.log("체크된 상품");
+    console.log(checkedcartbooks);
 
     if (checkedcartbooks == null) {
       checkedcartbooks = [];
     } else {
       checkedcartbooks = JSON.parse(checkedcartbooks);
     }
+    console.log("테스트1");
+    let noncheck_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //담겨있는 상품리스트
+
+    Object.keys(checkedcartbooks).forEach(async (key) => {
+      noncheck_cart = noncheck_cart.filter(
+        (item) => item.id !== checkedcartbooks[key].id
+      );
+    });
+    localStorage.removeItem("nonuser_cart");
+    localStorage.setItem("nonuser_cart", JSON.stringify(noncheck_cart));
 
     Object.keys(checkedcartbooks).forEach(async (key) => {
       console.log(checkedcartbooks[key].id); // 로그 출력
@@ -65,6 +77,7 @@ export default function Cart() {
 
     let finaldata = nonuser_cart;
     console.log(finaldata);
+
     (async () => {
       try {
         const response = await axios.get(
