@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
-import Bookdetailmain from "./pages/bookdetailmain.jsx";
-import QnA from "./pages/qna.jsx";
-import ProductPage from "./pages/productpage.jsx";
+import Bookdetailmain from "./pages/bookdetail/bookdetailmain.jsx";
+import QnA from "./pages/bookdetail/qna.jsx";
+import ProductPage from "./pages/bookdetail/productpage.jsx";
 
 
 const router = createBrowserRouter([
