@@ -46,7 +46,7 @@ export default function Cart() {
         console.log(response.data);
         localStorage.removeItem("checkedcartbook");
         setcartbooks(
-          response.data.map((cartbook) => ({ ...cartbook, isChecked: "" }))
+          response.data.map((cartbook) => ({ ...cartbook, isChecked: "true" }))
         );
       } catch (e) {
         console.error(e);
@@ -77,12 +77,10 @@ export default function Cart() {
       } catch (e) {
         console.error(e);
       }
-
-      console.log(finaldata);
       //const cartbookData = response.data;
       //setcartbooks(cartbookData);
       setcartbooks(
-        finaldata.map((cartbook) => ({ ...cartbook, isChecked: "" }))
+        finaldata.map((cartbook) => ({ ...cartbook, isChecked: true }))
       );
       const defaultCartbooks = finaldata.map((cartbook) => ({
         id: cartbook.id,
@@ -92,7 +90,7 @@ export default function Cart() {
     })();
   }, []);
 
-  const [selectAll, setSelectAll] = useState(false);
+  const [selectAll, setSelectAll] = useState(true);
   // 전체 선택
   const selectAllHandler = (e) => {
     const checked = e.target.checked; // 전체 선택 상태

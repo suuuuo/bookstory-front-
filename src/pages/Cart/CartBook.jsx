@@ -108,9 +108,9 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
             margin: "15px 0 0 20px",
           }}
           type="checkbox"
-          //checked={cartbook.isChecked}
+          //checked={.isChecked}
           //onChange={(e) => onChange(e)}
-          checked={isChecked}
+          checked={cartbook.isChecked}
           onChange={handleCheckboxChange}
         ></input>
 
