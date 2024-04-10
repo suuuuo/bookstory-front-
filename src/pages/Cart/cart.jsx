@@ -13,11 +13,65 @@ import CartBook from "./CartBook";
 />;
 
 export default function Cart() {
-  const config = {
-    headers: {
-      Authorization: "momo1234@gmail.com",
-    },
-  };
+  const accesstoken = localStorage.getItem("access"); // 로컬 스토리지에서 토큰 가져옴
+
+  const [cartbooks, setcartbooks] = useState([]);
+  if (accesstoken === null) {
+    useEffect(() => {
+      let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
+      console.log("토큰 없음 - 비회원!");
+
+      setcartbooks(
+        nonuser_cart.map((cartbook) => ({ ...cartbook, isChecked: true }))
+      );
+      const defaultCartbooks = cartbooks.map((cartbook) => ({
+        id: cartbook.id,
+      }));
+      console.log(defaultCartbooks);
+      localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
+    }, []);
+  } else {
+    const config = {
+      headers: {
+        Authorization: accesstoken,
+      },
+    };
+
+    useEffect(() => {
+      let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
+      //로컬 스토리지에 있는 것들 db로 보내야?
+      console.log("토큰 있음 - 회원!");
+
+      let finaldata = nonuser_cart;
+
+      (async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:8080/api/v1/cart",
+            config
+          );
+          console.log(response.data);
+
+          finaldata = cartbooks.concat(response.data);
+        } catch (e) {
+          console.error(e);
+        }
+        //const cartbookData = response.data;
+        //setcartbooks(cartbookData);
+        setcartbooks(
+          finaldata.map((cartbook) => ({ ...cartbook, isChecked: true }))
+        );
+        const defaultCartbooks = cartbooks.map((cartbook) => ({
+          id: cartbook.id,
+        }));
+        console.log(defaultCartbooks);
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(defaultCartbooks)
+        );
+      })();
+    }, []);
+  }
 
   const AllcheckHandler = (e) => {
     console.log("쓰레기통 클릭");
@@ -65,43 +119,6 @@ export default function Cart() {
       }
     });
   };
-
-  {
-    /*로컬스토리지(비회원) 출력... DB(회원)출력*/
-  }
-  const [cartbooks, setcartbooks] = useState([]);
-  useEffect(() => {
-    let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
-    console.log("로컬");
-    console.log(nonuser_cart);
-
-    let finaldata = nonuser_cart;
-    console.log(finaldata);
-
-    (async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/api/v1/cart",
-          config
-        );
-        console.log(response.data);
-
-        finaldata = finaldata.concat(response.data);
-      } catch (e) {
-        console.error(e);
-      }
-      //const cartbookData = response.data;
-      //setcartbooks(cartbookData);
-      setcartbooks(
-        finaldata.map((cartbook) => ({ ...cartbook, isChecked: true }))
-      );
-      const defaultCartbooks = finaldata.map((cartbook) => ({
-        id: cartbook.id,
-      }));
-      console.log(defaultCartbooks);
-      localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
-    })();
-  }, []);
 
   const [selectAll, setSelectAll] = useState(true);
   // 전체 선택
@@ -176,7 +193,7 @@ export default function Cart() {
           margin: "8px auto",
         }}
       >
-        장바구니 ({cartbooks.length})
+        장바구니 {/*({cartbooks.length})*/}
       </p>
 
       <div className={CartStyle.whole}>
