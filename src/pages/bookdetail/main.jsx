@@ -30,7 +30,6 @@ export default function Main() {
     }, [bookId]); // bookId가 변경될 때마다 useEffect 내의 로직을 다시 실행
 
 
-
     return (
         <div>
             <h1>{book.itemName}</h1>
@@ -38,7 +37,7 @@ export default function Main() {
             <p className="publisher">출판사: {book.publisher}</p>
             <div>
                 <img src="https://source.unsplash.com/featured/?book" alt="책 사진" className="book-image"
-                     style={{ width: '200px', height: 'auto' }}/>
+                     style={{width: '200px', height: 'auto'}}/>
                 <div>
                     <p className="price">가격: {book.price}원</p>
                     <label htmlFor="quantity">수량:</label>
@@ -47,6 +46,7 @@ export default function Main() {
                     <button type="button" className="buy-now">책구매</button>
                 </div>
             </div>
+
         </div>
     );
 }

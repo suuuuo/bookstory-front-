@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom'; // useParams 훅 import
 
-export default function Bookdetailmain() {
+export default function BookDetail() {
 
     const [book, setBook] = useState({
         itemName: '',
@@ -30,13 +30,10 @@ export default function Bookdetailmain() {
     }, [bookId]); // bookId가 변경될 때마다 useEffect 내의 로직을 다시 실행
 
 
-
     return (
         <div>
-            <div>
-                <h2>책 설명</h2>
-                <p>{book.description}</p>
-            </div>
+            <h2>책 설명</h2>
+            <p>{book.description}</p>
         </div>
     );
 }

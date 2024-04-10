@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {useParams} from 'react-router-dom'; // useParams 훅 import
+import {useParams} from 'react-router-dom';
 
 export default function QnA() {
     const [questions, setQuestions] = useState([]);
@@ -58,7 +58,7 @@ export default function QnA() {
                 {questions.map((question, index) => (
                     <li key={index}>{question.content}
                         <button onClick={() => deleteQuestion(question.id)}>삭제</button>
-                    </li> // 각 질문의 내용을 표시
+                    </li>
 
                 ))}
             </ul>
