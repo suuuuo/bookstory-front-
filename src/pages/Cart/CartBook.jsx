@@ -9,13 +9,10 @@ import Cart from "./cart";
   href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
 />;
 
+{
+  /*체크박스 상태관리*/
+}
 export default function CartBook({ cartbook, isChecked, onChange }) {
-  const config = {
-    headers: {
-      Authorization: "momo1234@gmail.com", //토큰
-    },
-  };
-
   const handleCheckboxChange = (e) => {
     const checked = e.target.checked; //isChecked
     onChange(checked); // 상태 변경?
@@ -52,29 +49,61 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
       );
     }
   };
+
+  {
+    /*카운트 숫자 변경 시*/
+  }
   const [cartbooks, setcartbooks] = useState([]);
   const [count, setCount] = useState(cartbook.count);
   let countVar = cartbook.count;
 
-  const countUp = () => {
+  const accesstoken = localStorage.getItem("access");
+
+  const config = {
+    headers: {
+      Authorization: accesstoken, //토큰
+    },
+  };
+
+  const countUp = (e) => {
     setCount((pre) => (pre += 1));
     console.log(cartbook.id);
     console.log(count + 1);
 
-    (async () => {
-      try {
-        const response = await axios.put("http://localhost:8080/api/v1/cart", {
-          ...config,
-          data: {
-            id: cartbook.id,
-            count: count + 1,
-          },
-        });
-        console.log(response.data);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
+    if (accesstoken === null) {
+      //비회원
+      console.log("토큰 없음, 비회원!");
+
+      let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
+      console.log(updatecart);
+
+      Object.keys(updatecart).forEach(async (key) => {
+        if (cartbook.id === updatecart[key].id) {
+          updatecart[key].count = count + 1;
+        }
+      });
+      localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
+    } else {
+      //회원 - 확인 필요
+      console.log("토큰 있음, 회원!");
+      (async () => {
+        try {
+          const response = await axios.put(
+            "http://localhost:8080/api/v1/cart",
+            {
+              ...config,
+              data: {
+                id: cartbook.id,
+                count: count + 1,
+              },
+            }
+          );
+          console.log(response.data);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+    }
   };
 
   const countDown = () => {
@@ -86,8 +115,45 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
 
     console.log(cartbook.id);
     console.log(count - 1);
+    if (accesstoken === null) {
+      //비회원
+      console.log("토큰 없음, 비회원!");
+
+      let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
+      console.log(updatecart);
+
+      Object.keys(updatecart).forEach(async (key) => {
+        if (cartbook.id === updatecart[key].id) {
+          updatecart[key].count = count - 1;
+        }
+      });
+      localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
+    } else {
+      //회원 - 확인 필요
+      console.log("토큰 있음, 회원!");
+      (async () => {
+        try {
+          const response = await axios.put(
+            "http://localhost:8080/api/v1/cart",
+            {
+              ...config,
+              data: {
+                id: cartbook.id,
+                count: count - 1,
+              },
+            }
+          );
+          console.log(response.data);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+    }
   };
 
+  {
+    /*한 권 당 총 금액*/
+  }
   const totalprice = cartbook.price * count;
   console.log(totalprice);
 
