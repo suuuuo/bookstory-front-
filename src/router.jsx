@@ -4,7 +4,7 @@ import SignIn from "./pages/SignIn";
 import SocialLoginHandler from "./pages/SocialLoginHandler";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-import Home from "./pages/Home";
+import Home from "./pages/Home"; 
 
 const router = createBrowserRouter([
   {
