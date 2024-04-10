@@ -53,39 +53,38 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
   {
     /*카운트 숫자 변경 시*/
   }
-  const [cartbooks, setcartbooks] = useState([]);
+
   const [count, setCount] = useState(cartbook.count);
   let countVar = cartbook.count;
 
   const accesstoken = localStorage.getItem("access");
 
-  const config = {
-    headers: {
-      Authorization: accesstoken, //토큰
-    },
-  };
-
   const countUp = (e) => {
     setCount((pre) => (pre += 1));
-    console.log(cartbook.id);
-    console.log(count + 1);
 
     if (accesstoken === null) {
       //비회원
       console.log("토큰 없음, 비회원!");
 
       let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
-      console.log(updatecart);
 
       Object.keys(updatecart).forEach(async (key) => {
         if (cartbook.id === updatecart[key].id) {
           updatecart[key].count = count + 1;
         }
       });
+
       localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
     } else {
       //회원 - 확인 필요
       console.log("토큰 있음, 회원!");
+
+      const config = {
+        headers: {
+          Authorization: accesstoken, //토큰
+        },
+      };
+
       (async () => {
         try {
           const response = await axios.put(
@@ -112,15 +111,11 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
     } else {
       setCount((pre) => (pre -= 1));
     }
-
-    console.log(cartbook.id);
-    console.log(count - 1);
     if (accesstoken === null) {
       //비회원
       console.log("토큰 없음, 비회원!");
 
       let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
-      console.log(updatecart);
 
       Object.keys(updatecart).forEach(async (key) => {
         if (cartbook.id === updatecart[key].id) {
@@ -155,7 +150,6 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
     /*한 권 당 총 금액*/
   }
   const totalprice = cartbook.price * count;
-  console.log(totalprice);
 
   return (
     <div className={CartStyle.whole_card}>

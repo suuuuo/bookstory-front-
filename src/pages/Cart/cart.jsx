@@ -16,13 +16,18 @@ export default function Cart() {
   const accesstoken = localStorage.getItem("access"); // 로컬 스토리지에서 토큰 가져옴
 
   const [cartbooks, setcartbooks] = useState([]);
+  {
+    /* 장바구니 조회 */
+  }
   if (accesstoken === null) {
     useEffect(() => {
       let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
       console.log("토큰 없음 - 비회원!");
 
+      let cartbooks = nonuser_cart;
+
       setcartbooks(
-        nonuser_cart.map((cartbook) => ({ ...cartbook, isChecked: true }))
+        cartbooks.map((cartbook) => ({ ...cartbook, isChecked: true }))
       );
       const defaultCartbooks = cartbooks.map((cartbook) => ({
         id: cartbook.id,
@@ -73,53 +78,64 @@ export default function Cart() {
     }, []);
   }
 
+  {
+    /* 상품 삭제 */
+  }
   const AllcheckHandler = (e) => {
-    console.log("쓰레기통 클릭");
+    if (accesstoken === null) {
+      let checkedcartbooks = localStorage.getItem("checkedcartbook");
+      console.log("체크된 상품");
+      console.log(checkedcartbooks);
 
-    let checkedcartbooks = localStorage.getItem("checkedcartbook");
-    console.log("체크된 상품");
-    console.log(checkedcartbooks);
-
-    if (checkedcartbooks == null) {
-      checkedcartbooks = [];
-    } else {
-      checkedcartbooks = JSON.parse(checkedcartbooks);
-    }
-    console.log("테스트1");
-    let noncheck_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //담겨있는 상품리스트
-
-    Object.keys(checkedcartbooks).forEach(async (key) => {
-      noncheck_cart = noncheck_cart.filter(
-        (item) => item.id !== checkedcartbooks[key].id
-      );
-    });
-    localStorage.removeItem("nonuser_cart");
-    localStorage.setItem("nonuser_cart", JSON.stringify(noncheck_cart));
-
-    Object.keys(checkedcartbooks).forEach(async (key) => {
-      console.log(checkedcartbooks[key].id); // 로그 출력
-
-      try {
-        const response = await axios.delete(
-          "http://localhost:8080/api/v1/cart",
-          {
-            ...config,
-            data: {
-              id: checkedcartbooks[key].id,
-            },
-          }
-        );
-        console.log(response.data);
-        localStorage.removeItem("checkedcartbook");
-        setcartbooks(
-          response.data.map((cartbook) => ({ ...cartbook, isChecked: "true" }))
-        );
-      } catch (e) {
-        console.error(e);
+      if (checkedcartbooks == null) {
+        checkedcartbooks = [];
+      } else {
+        checkedcartbooks = JSON.parse(checkedcartbooks);
       }
-    });
+      console.log("테스트1");
+      let noncheck_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //담겨있는 상품리스트
+      Object.keys(checkedcartbooks).forEach(async (key) => {
+        noncheck_cart = noncheck_cart.filter(
+          (item) => item.id !== checkedcartbooks[key].id
+        );
+      });
+      localStorage.removeItem("nonuser_cart");
+      localStorage.setItem("nonuser_cart", JSON.stringify(noncheck_cart));
+      setcartbooks(
+        noncheck_cart.map((cartbook) => ({ ...cartbook, isChecked: false }))
+      );
+    } else {
+      Object.keys(checkedcartbooks).forEach(async (key) => {
+        console.log(checkedcartbooks[key].id); // 로그 출력
+
+        try {
+          const response = await axios.delete(
+            "http://localhost:8080/api/v1/cart",
+            {
+              ...config,
+              data: {
+                id: checkedcartbooks[key].id,
+              },
+            }
+          );
+          console.log(response.data);
+          localStorage.removeItem("checkedcartbook");
+          setcartbooks(
+            response.data.map((cartbook) => ({
+              ...cartbook,
+              isChecked: "true",
+            }))
+          );
+        } catch (e) {
+          console.error(e);
+        }
+      });
+    }
   };
 
+  {
+    /* 체크박스 */
+  }
   const [selectAll, setSelectAll] = useState(true);
   // 전체 선택
   const selectAllHandler = (e) => {
@@ -148,6 +164,11 @@ export default function Cart() {
     }
   };
 
+  const onChangeHandler = (e, count, id, isChecked) => {
+    finalTotalPrice(e);
+    CartbookCheckboxhandler(e, id, isChecked);
+  };
+
   // 카트북 체크박스
   const CartbookCheckboxhandler = (e, id, isChecked) => {
     const updatedCartbooks = cartbooks.map((cartbook) => {
@@ -156,6 +177,7 @@ export default function Cart() {
       }
       return cartbook;
     });
+    console.log(updatedCartbooks);
     setcartbooks(updatedCartbooks);
     // 모든 카트북이 체크되었는지 확인
     const allChecked =
@@ -164,14 +186,20 @@ export default function Cart() {
     setSelectAll(allChecked);
   };
 
-  const finalTotalPrice = () => {
+  {
+    /* 총 결제 금액 */
+  }
+  const finalTotalPrice = (e) => {
     const prices = cartbooks
       .filter((cartbook) => cartbook.isChecked)
       .map((cartbook) => cartbook.price * cartbook.count);
+
     const totalPrice = prices.reduce((acc, price) => acc + price, 0);
     return totalPrice;
   };
-
+  {
+    /* 배송비 */
+  }
   const deliveryfee = () => {
     const totalprice = finalTotalPrice();
     if (totalprice >= 50000) return 0;
@@ -240,7 +268,12 @@ export default function Cart() {
                 key={cartbook.id}
                 isChecked={cartbook.isChecked}
                 onChange={(e) =>
-                  CartbookCheckboxhandler(e, cartbook.id, cartbook.isChecked)
+                  onChangeHandler(
+                    e,
+                    cartbook.count,
+                    cartbook.id,
+                    cartbook.isChecked
+                  )
                 }
               />
             ))}
