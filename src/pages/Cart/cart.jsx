@@ -3,24 +3,20 @@ import { useState, useEffect } from "react";
 import CartStyle from "../../css/Cart.module.css";
 import axios from "axios";
 import CartBook from "./CartBook";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 {
   /*기본 화면 구성 : module.css 사용*/
 }
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-/>;
 
 export default function Cart() {
-  const accesstoken = localStorage.getItem("access"); // 로컬 스토리지에서 토큰 가져옴
-
-  const [cartbooks, setcartbooks] = useState([]);
   {
     /* 장바구니 조회 */
   }
-  if (accesstoken === null) {
-    useEffect(() => {
+  const [cartbooks, setcartbooks] = useState([]);
+  useEffect(() => {
+    const accesstoken = localStorage.getItem("access"); // 로컬 스토리지에서 토큰 가져옴
+    if (accesstoken === null) {
       let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
       console.log("토큰 없음 - 비회원!");
 
@@ -32,22 +28,20 @@ export default function Cart() {
       const defaultCartbooks = cartbooks.map((cartbook) => ({
         id: cartbook.id,
       }));
-      console.log(defaultCartbooks);
-      localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
-    }, []);
-  } else {
-    const config = {
-      headers: {
-        Authorization: accesstoken,
-      },
-    };
 
-    useEffect(() => {
+      localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
+    } else {
+      const config = {
+        headers: {
+          Authorization: accesstoken,
+        },
+      };
+
       let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart"));
       //로컬 스토리지에 있는 것들 db로 보내야?
       console.log("토큰 있음 - 회원!");
 
-      let finaldata = nonuser_cart;
+      let cartbooks = nonuser_cart;
 
       (async () => {
         try {
@@ -57,14 +51,14 @@ export default function Cart() {
           );
           console.log(response.data);
 
-          finaldata = cartbooks.concat(response.data);
+          cartbooks = cartbooks.concat(response.data);
         } catch (e) {
           console.error(e);
         }
         //const cartbookData = response.data;
         //setcartbooks(cartbookData);
         setcartbooks(
-          finaldata.map((cartbook) => ({ ...cartbook, isChecked: true }))
+          cartbooks.map((cartbook) => ({ ...cartbook, isChecked: true }))
         );
         const defaultCartbooks = cartbooks.map((cartbook) => ({
           id: cartbook.id,
@@ -75,8 +69,8 @@ export default function Cart() {
           JSON.stringify(defaultCartbooks)
         );
       })();
-    }, []);
-  }
+    }
+  }, []);
 
   {
     /* 상품 삭제 */
@@ -164,11 +158,6 @@ export default function Cart() {
     }
   };
 
-  const onChangeHandler = (e, count, id, isChecked) => {
-    finalTotalPrice(e);
-    CartbookCheckboxhandler(e, id, isChecked);
-  };
-
   // 카트북 체크박스
   const CartbookCheckboxhandler = (e, id, isChecked) => {
     const updatedCartbooks = cartbooks.map((cartbook) => {
@@ -189,14 +178,17 @@ export default function Cart() {
   {
     /* 총 결제 금액 */
   }
-  const finalTotalPrice = (e) => {
+  const finalTotalPrice = () => {
     const prices = cartbooks
       .filter((cartbook) => cartbook.isChecked)
       .map((cartbook) => cartbook.price * cartbook.count);
 
-    const totalPrice = prices.reduce((acc, price) => acc + price, 0);
+    let totalPrice = prices.reduce((acc, price) => acc + price, 0);
+
     return totalPrice;
+    navigate("/Cart");
   };
+
   {
     /* 배송비 */
   }
@@ -212,6 +204,15 @@ export default function Cart() {
         padding: "30px",
       }}
     >
+      <HelmetProvider>
+        <Helmet>
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+          />
+        </Helmet>
+      </HelmetProvider>
+
       <h1>장바구니 테스트</h1>
 
       <p
@@ -268,12 +269,7 @@ export default function Cart() {
                 key={cartbook.id}
                 isChecked={cartbook.isChecked}
                 onChange={(e) =>
-                  onChangeHandler(
-                    e,
-                    cartbook.count,
-                    cartbook.id,
-                    cartbook.isChecked
-                  )
+                  CartbookCheckboxhandler(e, cartbook.id, cartbook.isChecked)
                 }
               />
             ))}
@@ -385,9 +381,7 @@ export default function Cart() {
                     marginLeft: "auto",
                     fontWeight: "bold",
                   }}
-                >
-                  {finalTotalPrice()}
-                </p>
+                ></p>
               </div>
 
               <div className={CartStyle.rightcard_text}>
@@ -426,7 +420,15 @@ export default function Cart() {
             backgroundColor: "#E0E0E0",
           }}
         >
-          <summary role="button" className={CartStyle.cartnotice_button}>
+          <summary
+            role="button"
+            style={{
+              backgroundColor: "#E0E0E0",
+              border: "none",
+              color: "black",
+            }}
+            className={CartStyle.cartnotice_button}
+          >
             장바구니 유의사항
           </summary>
           <div className={CartStyle.cartnotice}>

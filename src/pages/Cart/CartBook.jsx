@@ -3,16 +3,13 @@ import { useState, useEffect } from "react";
 import CartStyle from "../../css/Cart.module.css";
 import axios from "axios";
 import Cart from "./cart";
-
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-/>;
+import { useNavigate } from "react-router-dom";
 
 {
   /*체크박스 상태관리*/
 }
 export default function CartBook({ cartbook, isChecked, onChange }) {
+  const navigate = useNavigate();
   const handleCheckboxChange = (e) => {
     const checked = e.target.checked; //isChecked
     onChange(checked); // 상태 변경?
