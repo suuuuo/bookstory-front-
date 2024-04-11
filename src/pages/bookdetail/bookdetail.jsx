@@ -19,7 +19,7 @@ export default function BookDetail() {
         const fetchBookDetails = async () => {
             try {
                 // 동적으로 bookId를 URL에 삽입하여 API 요청
-                const response = await axios.get(`http://localhost:8080/api/books/${bookId}`);
+                const response = await axios.get(`http://localhost:8080/api/v1/books/${bookId}`);
                 setBook(response.data);
             } catch (error) {
                 console.error('책 정보를 가져오는데 실패했습니다.', error);

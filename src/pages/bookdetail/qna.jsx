@@ -11,7 +11,7 @@ export default function QnA() {
         // 질문 목록을 불러오는 함수
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/questions/${bookId}`);
+                const response = await axios.get(`http://localhost:8080/api/v1/question/${bookId}`);
                 console.log(response);
                 setQuestions(response.data); // 서버로부터 받은 데이터로 상태 업데이트
             } catch (error) {
@@ -33,8 +33,8 @@ export default function QnA() {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/questions', questionData);
-            setQuestions([...questions, response.data]); // 새로운 질문을 목록에 추가
+            const response = await axios.post('http://localhost:8080/api/v1/question', questionData);
+            ㅜ([...questions, response.data]); // 새로운 질문을 목록에 추가
             setNewQuestion('');
         } catch (error) {
             console.error('질문을 추가하는데 실패했습니다.', error);
@@ -43,7 +43,7 @@ export default function QnA() {
 
     const deleteQuestion = async (questionId) => {
         try {
-            await axios.delete(`http://localhost:8080/api/questions/${questionId}`);
+            await axios.delete(`http://localhost:8080/api/v1/question/${questionId}`);
             setQuestions(questions.filter(question => question.id !== questionId));
         } catch (error) {
             console.error('질문을 삭제하는데 실패.', error);
