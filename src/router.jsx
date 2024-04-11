@@ -7,8 +7,10 @@ import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart/cart";
 import Main from "./pages/bookdetail/Main.jsx";
+
 import Qna from "./pages/bookdetail/Qna.jsx";
 import Productpage from "./pages/bookdetail/Productpage.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -75,10 +77,10 @@ const router = createBrowserRouter([
   {
     path: "/book/:bookId",
     element: (
-      <div className="book-detail">
+      <div >
           <Header/>
-        <Main />
-        <Productpage />
+              <Main />
+              <Productpage />
           <Footer/>
       </div>
     ),

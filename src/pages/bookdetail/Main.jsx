@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // useParams 훅 import
+import "../../css/BookMain.css"
 
 export default function Main() {
   const [book, setBook] = useState({
@@ -31,35 +32,45 @@ export default function Main() {
   }, [bookId]); // bookId가 변경될 때마다 useEffect 내의 로직을 다시 실행
 
   return (
-    <div>
-      <h1>{book.itemName}</h1>
-      <p className="author">글쓴이: {book.author}</p>
-      <p className="publisher">출판사: {book.publisher}</p>
-      <div>
-        <img
-          src="https://source.unsplash.com/featured/?book"
-          alt="책 사진"
-          className="book-image"
-          style={{ width: "200px", height: "auto" }}
-        />
-        <div>
-          <p className="price">가격: {book.price}원</p>
-          <label htmlFor="quantity">수량:</label>
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            min="1"
-            defaultValue="1"
-          />
-          <button type="button" className="add-to-cart">
-            장바구니 담기
-          </button>
-          <button type="button" className="buy-now">
-            책구매
-          </button>
+      <div className="container">
+        <div className="book-details">
+          <div className="book-info">
+            <h1>{book.itemName}</h1>
+            <p className="author">글쓴이: {book.author}</p>
+            <p className="publisher">출판사: {book.publisher}</p>
+            <img
+                src={book.image || "https://source.unsplash.com/featured/?book"}
+                alt="책 사진"
+                className="book-image"
+            />
+          </div>
+          <div className="purchase-info">
+            <p className="price">가격: {book.price}원</p>
+
+            <div className="quantity-container">
+              <label htmlFor="quantity">수량:</label>
+              <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  min="1"
+                  defaultValue="1"
+                  className="quantity-input"
+              />
+            </div>
+
+            <div className="buttons-container">
+              <button type="button" className="add-to-cart">
+                장바구니 담기
+              </button>
+              <button type="button" className="buy-now">
+                책구매
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   );
+
+
 }
