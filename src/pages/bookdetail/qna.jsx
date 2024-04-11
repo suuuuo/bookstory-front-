@@ -34,7 +34,7 @@ export default function QnA() {
 
         try {
             const response = await axios.post('http://localhost:8080/api/v1/question', questionData);
-            ㅜ([...questions, response.data]); // 새로운 질문을 목록에 추가
+            setQuestions([...questions, response.data]); // 새로운 질문을 목록에 추가
             setNewQuestion('');
         } catch (error) {
             console.error('질문을 추가하는데 실패했습니다.', error);
