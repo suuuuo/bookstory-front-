@@ -6,9 +6,9 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart/cart";
-import Main from "./pages/bookdetail/main.jsx";
-import QnA from "./pages/bookdetail/qna.jsx";
-import ProductPage from "./pages/bookdetail/productpage.jsx";
+import Main from "./pages/bookdetail/Main.jsx";
+import Qna from "./pages/bookdetail/Qna.jsx";
+import Productpage from "./pages/bookdetail/Productpage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -75,9 +75,11 @@ const router = createBrowserRouter([
   {
     path: "/book/:bookId",
     element: (
-      <div>
+      <div className="book-detail">
+          <Header/>
         <Main />
-        <ProductPage />
+        <Productpage />
+          <Footer/>
       </div>
     ),
   },
