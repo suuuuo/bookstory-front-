@@ -14,6 +14,19 @@ export default function Home() {
     console.log(countVar);
   };
 
+  // const [data, setData] = useState("Nothing...");
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:5000");
+  //       const data = await response.text();
+  //       setData(data);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   })();
+  // });
+
   return (
     <div
       style={{

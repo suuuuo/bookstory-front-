@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 export default function Header() {
+  const [isSignIn, setSignIn] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const refrash_token = window.localStorage.getItem("refrash_token");
+    const access_token = window.localStorage.getItem("access_token");
+
+    if (refrash_token && access_token) {
+      setSignIn(true);
+      return;
+    }
+    setSignIn(false);
+  }, [location]);
+
   return (
-    <div style={{ backgroundColor: "white", paddingBottom: 20 }}>
+		  <div style={{ backgroundColor: "white", paddingBottom: 20 }}>
       <div style={{ padding: 30, backgroundColor: "gray", textAlign: 'center' }}>
         <a>배너</a>
       </div>
@@ -8,9 +24,9 @@ export default function Header() {
       <div style={{ display: "flex", backgroundColor: "#F0EBEB", height: 50 }}>
         <nav style={{ marginLeft: 'auto', marginRight: 50 }}>
           <ul>
-            <li><a href="#" style={{fontSize : 15}}>회원가입</a></li>
+            <li><a href="/sign_up" style={{fontSize : 15}}>회원가입</a></li>
             <li>|</li>
-            <li><a href="#" style={{fontSize : 15}}>로그인</a></li>
+            <li><a href="/sign_in" style={{fontSize : 15}}>로그인</a></li>
             <li>|</li>
             <li><a href="#" style={{fontSize : 15}}>고객센터</a></li>
           </ul>
@@ -24,6 +40,7 @@ export default function Header() {
           type="search"
           name="search"
           placeholder="Search"
+		  A
           aria-label="Search"
           style={{ backgroundColor: "white", width: '70%', height : 40, marginTop : '2%'}}
         />
