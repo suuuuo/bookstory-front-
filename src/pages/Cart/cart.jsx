@@ -23,7 +23,7 @@ export default function Cart() {
       let cartbooks = nonuser_cart;
 
       setcartbooks(
-        cartbooks.map((cartbook) => ({ ...cartbook, isChecked: true }))
+        cartbooks.map((cartbook) => ({ ...cartbook, isChecked: true })),
       );
       const defaultCartbooks = cartbooks.map((cartbook) => ({
         id: cartbook.id,
@@ -47,7 +47,7 @@ export default function Cart() {
         try {
           const response = await axios.get(
             "http://localhost:8080/api/v1/cart",
-            config
+            config,
           );
           console.log(response.data);
 
@@ -58,7 +58,7 @@ export default function Cart() {
         //const cartbookData = response.data;
         //setcartbooks(cartbookData);
         setcartbooks(
-          cartbooks.map((cartbook) => ({ ...cartbook, isChecked: true }))
+          cartbooks.map((cartbook) => ({ ...cartbook, isChecked: true })),
         );
         const defaultCartbooks = cartbooks.map((cartbook) => ({
           id: cartbook.id,
@@ -66,7 +66,7 @@ export default function Cart() {
         console.log(defaultCartbooks);
         localStorage.setItem(
           "checkedcartbook",
-          JSON.stringify(defaultCartbooks)
+          JSON.stringify(defaultCartbooks),
         );
       })();
     }
@@ -90,13 +90,13 @@ export default function Cart() {
       let noncheck_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //담겨있는 상품리스트
       Object.keys(checkedcartbooks).forEach(async (key) => {
         noncheck_cart = noncheck_cart.filter(
-          (item) => item.id !== checkedcartbooks[key].id
+          (item) => item.id !== checkedcartbooks[key].id,
         );
       });
       localStorage.removeItem("nonuser_cart");
       localStorage.setItem("nonuser_cart", JSON.stringify(noncheck_cart));
       setcartbooks(
-        noncheck_cart.map((cartbook) => ({ ...cartbook, isChecked: false }))
+        noncheck_cart.map((cartbook) => ({ ...cartbook, isChecked: false })),
       );
     } else {
       Object.keys(checkedcartbooks).forEach(async (key) => {
@@ -110,7 +110,7 @@ export default function Cart() {
               data: {
                 id: checkedcartbooks[key].id,
               },
-            }
+            },
           );
           console.log(response.data);
           localStorage.removeItem("checkedcartbook");
@@ -118,7 +118,7 @@ export default function Cart() {
             response.data.map((cartbook) => ({
               ...cartbook,
               isChecked: "true",
-            }))
+            })),
           );
         } catch (e) {
           console.error(e);
@@ -151,7 +151,7 @@ export default function Cart() {
       localStorage.removeItem("checkedcartbook");
       localStorage.setItem(
         "checkedcartbook",
-        JSON.stringify(localupdatedCartbooks)
+        JSON.stringify(localupdatedCartbooks),
       );
     } else {
       localStorage.removeItem("checkedcartbook");

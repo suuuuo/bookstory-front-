@@ -1,48 +1,50 @@
 .main {
-    font-size: 13px;
-    font-weight: bold;
-    margin-left: 10%;
+  font-size: 13px;
+  font-weight: bold;
+  margin-left: 10%;
 }
 
 .title {
-    font-size: 20px;
-    margin-bottom: 27px;
+  font-size: 20px;
+  margin-bottom: 27px;
 }
 
-.member p, .stack p {
-    font-size: 15px;
-    margin-bottom: 0px;
+.member p,
+.stack p {
+  font-size: 15px;
+  margin-bottom: 0px;
 }
 
-.member ul, .stack ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
+.member ul,
+.stack ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 
 .member li {
-    list-style-type: none;
-    margin-bottom: 5px;
-    width: calc(10% - 70px); /* 3개의 아이템이 한 줄에 배치되도록 설정 */
+  list-style-type: none;
+  margin-bottom: 5px;
+  width: calc(10% - 70px); /* 3개의 아이템이 한 줄에 배치되도록 설정 */
 }
 
 .stack li {
-    list-style-type: none;
-    margin-bottom: 5px;
-    width: calc(10% - 70px);
+  list-style-type: none;
+  margin-bottom: 5px;
+  width: calc(10% - 70px);
 }
 
 /* 각 목록 아이템의 하이퍼링크 스타일 */
 .member li a {
-    text-decoration: none;
-    color: #333; /* 링크 색상 변경을 원하는 경우 */
+  text-decoration: none;
+  color: #333; /* 링크 색상 변경을 원하는 경우 */
 }
-  
+
 .member li a:hover {
-    text-decoration: underline; /* 마우스 오버시 밑줄 표시 */
-    cursor: pointer;
-    color: darkmagenta;
+  text-decoration: underline; /* 마우스 오버시 밑줄 표시 */
+  cursor: pointer;
+  color: darkmagenta;
 }

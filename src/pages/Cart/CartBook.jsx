@@ -33,16 +33,16 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
       const newcheckedcartbook = [...checkedcartbook, checkbox];
       localStorage.setItem(
         "checkedcartbook",
-        JSON.stringify(newcheckedcartbook)
+        JSON.stringify(newcheckedcartbook),
       );
     } else {
       //해제된 경우
       const newcheckedcartbook = checkedcartbook.filter(
-        (item) => item.id !== checkbox.id
+        (item) => item.id !== checkbox.id,
       );
       localStorage.setItem(
         "checkedcartbook",
-        JSON.stringify(newcheckedcartbook)
+        JSON.stringify(newcheckedcartbook),
       );
     }
   };
@@ -92,7 +92,7 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
                 id: cartbook.id,
                 count: count + 1,
               },
-            }
+            },
           );
           console.log(response.data);
         } catch (e) {
@@ -133,7 +133,7 @@ export default function CartBook({ cartbook, isChecked, onChange }) {
                 id: cartbook.id,
                 count: count - 1,
               },
-            }
+            },
           );
           console.log(response.data);
         } catch (e) {

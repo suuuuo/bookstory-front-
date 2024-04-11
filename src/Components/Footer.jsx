@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="content">
-      <FooterContent />
+        <FooterContent />
       </div>
     </footer>
   );
