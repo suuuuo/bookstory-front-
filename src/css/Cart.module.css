@@ -1,0 +1,146 @@
+
+.trashCard{
+    width: 725px;
+    height: 60px;
+    background-color: #EAEAEA;
+    margin-bottom: 25px; 
+    display:flex;
+}
+
+.book_image{
+    width: 135px;
+    height: 200px;
+    margin-top: 15px;
+    margin-left: 15px;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.trashicon_back{
+    background-color:white;
+    border-radius:50%;
+    width: 30px;
+    height:30px;
+    display: flex;
+    margin: auto 20px auto auto;
+}
+
+.whole{
+    width: 1050px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.whole_card{
+    width: 725px;
+    height: 235px;
+    border-collapse:collapse;
+    display: flex;
+    border-width:1px 0 1px 0;
+    border-style:solid;
+    margin-bottom:1px;
+}
+
+.countbtn{
+    width: 30px;
+    height: 30px;
+    background-color: lightblue;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.totalprice{
+    width: 120px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 60px;
+    margin-left: 90px;
+}
+
+.count{
+    text-align: center;
+    width: 35px;
+    height: 30px;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: gray;
+}
+
+.cart_right{
+    width: 250px;
+    height: 330px;
+    background-color:#F1F1F1;
+    margin: 85px 0 0 auto;
+}
+
+
+.right_card{
+    height: 120px;
+    width: 200px;
+    margin: 0 auto;
+    border-width: 0 0 1px 0;
+    border-style:solid;
+    border-color:gray;
+    display: flex;
+    padding-top:25px;
+}
+
+.rightcard_text{
+    width: 200px;
+    height: 20px;
+    display: flex;
+    margin: 0 auto 12px auto;
+}
+
+.orderbutton{
+    width: 180px;
+    height: 50px;
+    text-align:center;
+    font-size:16px;
+    color: gray;
+    font-weight:bold;
+    background-color:#E0E0E0;
+    margin: 25px 10px 0 10px;
+    cursor: pointer;
+    padding-top:12px;
+}
+
+.cartnotice{
+    font-size: 12px;
+    color:gray;
+    width: 580px;
+    height: 25px;
+    margin-left: 20px;
+    background-color: #E0E0E0; 
+}
+
+.cartnotice_button{
+    font-size : 18px;
+    font-weight: bold;
+    padding: 17px 17px 0 20px;
+    height: 60px;
+    color :black;
+    background-color: #E0E0E0; 
+    border:none;
+}
+.cartnotice_button:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: black;
+    background-color: #E0E0E0; 
+}
+
+.right-panel{
+    width: 1050px;
+    height: 50px;
+    background-color: antiquewhite;
+}
+
+.right-panel-active{
+    width: 1050px;
+    height: 50px;
+    background-color: #E0E0E0;
+}

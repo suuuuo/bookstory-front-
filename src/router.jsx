@@ -5,6 +5,7 @@ import SocialLoginHandler from "./pages/SocialLoginHandler";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./pages/Home"; 
+import Cart from "./pages/Cart/cart";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Test />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/cart",
+    element: (
+      <>
+        <Header />
+        <Cart />
         <Footer />
       </>
     ),
