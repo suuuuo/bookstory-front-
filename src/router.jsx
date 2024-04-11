@@ -5,7 +5,7 @@ import SocialLoginHandler from "./pages/SocialLoginHandler";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./pages/Home";
-import Cart from "./pages/Cart/cart";
+import Cart from "./pages/cart/cart.jsx";
 import Main from "./pages/bookdetail/main.jsx";
 import QnA from "./pages/bookdetail/qna.jsx";
 import ProductPage from "./pages/bookdetail/productpage.jsx";

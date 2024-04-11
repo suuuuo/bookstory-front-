@@ -1,6 +1,6 @@
 import "./css/FooterContent.css";
 
-const jh = "";
+const jh = "https://github.com/ji-jjang";
 const jm = "";
 const sm = "";
 const hy = "https://github.com/haileyeong";
@@ -16,19 +16,19 @@ function FooterContent() {
         <p>Member</p>
         <ul>
           <li>
-            <a href="{jh}">지준혁</a>
+            <a href={jh}>지준혁</a>
           </li>
           <li>
-            <a href="{jm}">박종민</a>
+            <a href={jm}>박종민</a>
           </li>
           <li>
-            <a href="{sm}">윤수민</a>
+            <a href={sm}>윤수민</a>
           </li>
           <li>
             <a href={hy}>이하영</a>
           </li>
           <li>
-            <a href="{yj}">황예준</a>
+            <a href={yj}>황예준</a>
           </li>
         </ul>
       </div>
