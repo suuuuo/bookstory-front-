@@ -40,6 +40,31 @@
   margin-bottom: 1px;
 }
 
+.card1{
+    width: 430px;
+    height: 230px;
+    display: flex;
+}
+
+.titlepart{
+    width: 200px;
+    height: 45px;
+    font-size: 14px;
+    margin: 55px 0 0 10px;
+    text-align: center;
+}
+
+.buttonpart{
+    width: 300px;
+    height: 230px;
+    border-left: 1px solid black;
+}
+
+.countpart{
+    padding-top: 20px;
+    padding-left: 106px;
+    display: flex;
+}
 .countbtn {
   width: 30px;
   height: 30px;
@@ -74,6 +99,12 @@
   margin: 85px 0 0 auto;
 }
 
+.carttop{
+    width: 1050px;
+    font-size: 20px;
+    margin: 8px auto;
+}
+
 .right_card {
   height: 120px;
   width: 200px;
@@ -105,6 +136,100 @@
   padding-top: 12px;
 }
 
+.allselect{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 21px 0 0 5px;
+}
+
+.pricetopcard{
+    height: 210px;
+    width: 200px;
+    margin: 0 auto;
+    padding-top: 35px;
+}
+
+.price_card2{
+    margin-bottom: 20px;
+    width: 200px;
+    height: 65px;
+}
+
+.imgstyle{
+    width: 20px;
+    height: 25px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.deliveryfee{
+    font-size: 14px;
+}
+
+.deliveryfee_text{
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.rightcard_text2{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.rightcard_text3{
+  font-size: 14px;
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.deliverynotice{
+    width: 200px;
+    height: 20px;
+    display: flex;
+    margin: auto;
+}
+
+.point_text{
+    font-size: 12px;
+    color: #7F7F7F;
+}
+
+.notice_card{
+    width: 600px;
+    height: 130px;
+    margin: 150px auto 0 auto;
+}
+.point_text2{
+    font-size: 12px;
+    margin-left: auto;
+    color: #7F7F7F;
+}
+
+.deliverynotice_text{
+    font-size: 10px;
+    color: gray;
+    margin-left: auto;
+}
+
+.right_cart3{
+    width: 200px;
+    height: 20px;
+    margin: 0 auto 5px auto;
+    display: flex;
+}
+
+.price_text{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.final_total{
+    font-size: 14px;
+    margin-left: auto;
+    font-weight: bold;
+}
+
+
 .cartnotice {
   font-size: 12px;
   color: gray;
@@ -113,6 +238,7 @@
   margin-left: 20px;
   background-color: #e0e0e0;
 }
+
 
 .cartnotice_button {
   font-size: 18px;
