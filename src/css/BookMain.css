@@ -15,7 +15,6 @@ h1{
 
 .container {
     display: flex;
-
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
@@ -25,18 +24,15 @@ h1{
     display: flex;
     justify-content: center; /* 요소들을 가운데 정렬 */
     align-items: flex-start;
-    margin-top: 20px;
+    margin-top: 30px;
     gap: 20px; /* 요소들 사이의 간격 */
 }
 
-.book-info, .purchase-info {
-    flex: 1; /* 각 요소가 동일한 너비를 갖도록 */
-    min-width: 0; /* 너비가 콘텐츠에 의해 결정되지 않도록 */
-}
-
 .book-info {
-    margin-right: auto;
+    margin-right: 100px;
     flex: 2.5;
+
+
 }
 
 .purchase-info {
@@ -46,13 +42,14 @@ h1{
 }
 
 .book-image {
-    width: 200px;
-    height: auto;
+
+    width: 380px; /* 이미지 너비를 380px로 설정 */
+    height: 490px;
     margin-bottom: 10px;
 }
 
-.author, .publisher, .price {
-    margin: 10px 0;
+.price {
+    font-size: 24px;
 }
 
 .add-to-cart, .buy-now {
@@ -61,24 +58,29 @@ h1{
 }
 
 .buttons-container {
-    display: flex; /* 버튼들을 가로로 나열 */
-    gap: 10px; /* 버튼 사이의 간격 조정 */
+    display: flex;
+    gap: 10px;
     position: absolute;
     width: 300px;
 }
 
-.quantity-input {
-    margin-right: 10px; /* 레이블과의 간격 조정 */
-    max-width: 80px;
-    padding: 0; /* 패딩 제거 */
-    border: 1px solid #ccc; /* 필요에 따른 보더 조정 */
-    box-sizing: border-box; /* 박스 사이징 조정 */
-}
+
 
 .quantity-container{
     width: 150px;
-    display: flex; /* 버튼들을 가로로 나열 */
-    gap: 10px; /* 버튼 사이의 간격 조정 */
+    display: flex;
+    gap: 10px;
     align-items: center;
+}
+
+.itemName{
+    text-align: center; /* 제목 중앙 정렬 */
+    margin-bottom: 20px; /* 제목 아래 마진 */
+    font-size: 32px;
+}
+
+.author, .publisher{
+    text-align: center;
+    font-size: 16px;
 }
 

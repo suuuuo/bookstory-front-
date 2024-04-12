@@ -1,0 +1,31 @@
+.qna-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd; /* 경계선 스타일 */
+}
+
+.qna-container h2 {
+    margin-bottom: 20px;
+}
+
+.qna-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.qna-container li {
+    padding: 10px;
+    border-bottom: 1px solid #eee; /* 항목 사이의 구분선 */
+    cursor: pointer;
+}
+
+.qna-container li ul {
+    padding: 10px;
+}
+
+.qna-container li ul li {
+    padding: 5px 0; /* 댓글 항목 스타일 */
+    font-size: 14px;
+    color: #666; /* 댓글 텍스트 색상 */
+}
