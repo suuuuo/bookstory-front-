@@ -35,7 +35,7 @@ export default function Main() {
       <div className="container">
         <div className="book-details">
           <div className="book-info">
-            <h1>{book.itemName}</h1>
+            <p className="itemName">{book.itemName}</p>
             <p className="author">글쓴이: {book.author}</p>
             <p className="publisher">출판사: {book.publisher}</p>
             <img
@@ -45,10 +45,11 @@ export default function Main() {
             />
           </div>
           <div className="purchase-info">
-            <p className="price">가격: {book.price}원</p>
-
+            <p className="price">책 가격: {book.price}원</p>
+            <div className="divider"></div>
+            <p>적립/혜택 XX P</p>
+            <div className="divider"></div>
             <div className="quantity-container">
-              <label htmlFor="quantity">수량:</label>
               <input
                   type="number"
                   id="quantity"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // useParams 훅 import
+import { useParams } from "react-router-dom";
+import "../../css/BookDetail.css"; // CSS 파일 임포트
 
 export default function BookDetail() {
   const [book, setBook] = useState({
@@ -12,14 +13,13 @@ export default function BookDetail() {
     image: "",
   });
 
-  const { bookId } = useParams(); // URL에서 bookId 파라미터 값을 가져옴
+  const { bookId } = useParams();
 
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        // 동적으로 bookId를 URL에 삽입하여 API 요청
         const response = await axios.get(
-          `http://localhost:8080/api/v1/books/${bookId}`,
+            `http://localhost:8080/api/v1/books/${bookId}`,
         );
         setBook(response.data);
       } catch (error) {
@@ -28,12 +28,13 @@ export default function BookDetail() {
     };
 
     fetchBookDetails();
-  }, [bookId]); // bookId가 변경될 때마다 useEffect 내의 로직을 다시 실행
+  }, [bookId]);
 
   return (
-    <div>
-      <h2>책 설명</h2>
-      <p>{book.description}</p>
-    </div>
+      <div className="bookDetailContainer">
+        <p className="bookDetailTitle">책 소개</p>
+        <div className="divider"></div>
+        <p className="bookDetailDescription">{book.description}</p>
+      </div>
   );
 }
