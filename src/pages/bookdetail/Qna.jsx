@@ -5,17 +5,13 @@ import { useParams } from "react-router-dom";
 export default function Qna() {
   const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
-  const { bookId } = useParams(); // URL에서 bookId 파라미터 값을 가져옴
+  const { bookId } = useParams();
 
   useEffect(() => {
-    // 질문 목록을 불러오는 함수
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/question/${bookId}`,
-        );
-        console.log(response);
-        setQuestions(response.data); // 서버로부터 받은 데이터로 상태 업데이트
+        const response = await axios.get(`http://localhost:8080/api/v1/question/${bookId}`);
+        setQuestions(response.data);
       } catch (error) {
         console.error("질문 목록을 불러오는데 실패했습니다.", error);
       }
@@ -24,10 +20,16 @@ export default function Qna() {
     if (bookId) {
       fetchQuestions();
     }
-  }, [bookId]); // bookId가 변경될 때마다 질문 목록을 다시 불러옵니다.
+  }, [bookId]);
 
   const handleQuestionSubmit = async (event) => {
     event.preventDefault();
+    const token = localStorage.getItem('access'); // 'access' 키에서 토큰 값 불러오기
+    if (!token) {
+      console.error('접근 권한이 없습니다.');
+      return; // 토큰이 없으면 함수 실행 중지
+    }
+
     const questionData = {
       bookId,
       content: newQuestion,
@@ -36,8 +38,9 @@ export default function Qna() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/question",
-        questionData,
+          "http://localhost:8080/api/v1/question",
+          questionData,
+          { headers: { Authorization: `Bearer ${token}` } }
       );
       setQuestions([...questions, response.data]); // 새로운 질문을 목록에 추가
       setNewQuestion("");
@@ -46,34 +49,24 @@ export default function Qna() {
     }
   };
 
-  const deleteQuestion = async (questionId) => {
-    try {
-      await axios.delete(`http://localhost:8080/api/v1/question/${questionId}`);
-      setQuestions(questions.filter((question) => question.id !== questionId));
-    } catch (error) {
-      console.error("질문을 삭제하는데 실패.", error);
-    }
-  };
-
   return (
-    <div>
-      <h2>QnA</h2>
-      <ul>
-        {questions.map((question, index) => (
-          <li key={index}>
-            {question.content}
-            <button onClick={() => deleteQuestion(question.id)}>삭제</button>
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={handleQuestionSubmit}>
+      <div>
+        <h2>QnA</h2>
+        <ul>
+          {questions.map((question, index) => (
+              <li key={index}>
+                {question.content}
+              </li>
+          ))}
+        </ul>
+        <form onSubmit={handleQuestionSubmit}>
         <textarea
-          value={newQuestion}
-          onChange={(e) => setNewQuestion(e.target.value)}
-          required
+            value={newQuestion}
+            onChange={(e) => setNewQuestion(e.target.value)}
+            required
         ></textarea>
-        <button type="submit">질문 제출</button>
-      </form>
-    </div>
+          <button type="submit">질문 제출</button>
+        </form>
+      </div>
   );
 }
