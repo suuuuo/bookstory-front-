@@ -6,9 +6,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/cart";
-import Main from "./pages/bookdetail/main.jsx";
-import QnA from "./pages/bookdetail/qna.jsx";
-import ProductPage from "./pages/bookdetail/productpage.jsx";
+import Main from "./pages/bookdetail/Main.jsx";
+import Productpage from "./pages/bookdetail/Productpage.jsx";
+
 
 const router = createBrowserRouter([
   {
