@@ -36,11 +36,15 @@ export default function Qna() {
       createdBy: "사용자명",
     };
 
+    const headers = { access: ` ${token.trim()}` };
+
+    console.log('headers:', headers); // 헤더 출력 로그
+
     try {
       const response = await axios.post(
           "http://localhost:8080/api/v1/question",
           questionData,
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers }
       );
       setQuestions([...questions, response.data]); // 새로운 질문을 목록에 추가
       setNewQuestion("");
