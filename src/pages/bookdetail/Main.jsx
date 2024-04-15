@@ -119,16 +119,16 @@ export default function Main() {
               name="quantity"
               min="1"
               defaultValue="1"
-              className="quantity-input"
+              className="number"
               ref={quantityRef}
             />
           </div>
 
           <div className="buttons-container">
-            <button type="button" className="add-to-cart" onClick={Cartbutton}>
+            <button class="secondary" type="button" className="add-to-cart" onClick={Cartbutton}>
               장바구니 담기
             </button>
-            <button type="button" className="buy-now">
+            <button class="secondary" type="button" className="buy-now">
               책구매
             </button>
           </div>

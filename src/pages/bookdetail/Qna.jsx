@@ -103,6 +103,7 @@ export default function Qna() {
       );
       setQuestions(questions.filter((q) => q.id !== questionId));
     } catch (error) {
+      alert("접근 권한이 없습니다.");
       console.error("질문을 삭제하는데 실패했습니다.", error.response);
     }
   };
@@ -119,6 +120,9 @@ export default function Qna() {
   };
 
   const handleEditClick = (index) => {
+
+
+
     setEditIndex(index);
     setEditContent(questions[index].content);
   };
@@ -147,6 +151,7 @@ export default function Qna() {
       setQuestions(updatedQuestions);
       setEditIndex(-1); // 편집 모드 종료
     } catch (error) {
+      alert("접근 권한이 없습니다.");
       console.error(
         "질문을 수정하는데 실패했습니다.",
         error.response.data.message,
@@ -251,7 +256,8 @@ export default function Qna() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            placeholder="제목을 입력하세요"
+            maxlength="15"
+            placeholder="제목을 입력하세요(15글자)"
           />
           <textarea
             id="question-textarea"
@@ -259,7 +265,7 @@ export default function Qna() {
             onChange={(e) => setNewQuestion(e.target.value)}
             required
           ></textarea>
-          <button type="submit" id="submit-button">
+          <button  type="submit" id="submit-button">
             질문 제출
           </button>
         </form>
