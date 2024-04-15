@@ -20,7 +20,7 @@ export default function Main() {
       try {
         // 동적으로 bookId를 URL에 삽입하여 API 요청
         const response = await axios.get(
-          `http://localhost:8080/api/v1/books/${bookId}`
+          `http://localhost:8080/api/v1/books/${bookId}`,
         );
         setBook(response.data);
       } catch (error) {
@@ -84,7 +84,7 @@ export default function Main() {
               bookId: bookId,
               count: count,
             },
-            config
+            config,
           );
           console.log(response.data);
         } catch (e) {

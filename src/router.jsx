@@ -9,7 +9,6 @@ import Cart from "./pages/cart";
 import Main from "./pages/bookdetail/Main.jsx";
 import Productpage from "./pages/bookdetail/Productpage.jsx";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,11 +74,11 @@ const router = createBrowserRouter([
   {
     path: "/book/:bookId",
     element: (
-      <div >
-          <Header/>
-              <Main />
-              <Productpage />
-          <Footer/>
+      <div>
+        <Header />
+        <Main />
+        <Productpage />
+        <Footer />
       </div>
     ),
   },

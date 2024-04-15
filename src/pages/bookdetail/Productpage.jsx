@@ -4,20 +4,24 @@ import Qna from "./Qna.jsx";
 import "../../css/ProductPage.css"; // CSS 파일 임포트
 
 export default function Productpage() {
-    const [activeSection, setActiveSection] = useState("bookDetail");
+  const [activeSection, setActiveSection] = useState("bookDetail");
 
-    return (
-        <div className="productPage-container">
-            <div className="textContainer">
-                <span className="clickableText" onClick={() => setActiveSection("bookDetail")}>상품 정보</span>
-                <span className="clickableText" onClick={() => setActiveSection("qna")}>Q&A</span>
-
-            </div>
-            <div className="divider"></div>
-            {activeSection === "bookDetail" && <BookDetail />}
-            {activeSection === "qna" && <Qna />}
-
-        </div>
-
-    );
+  return (
+    <div className="productPage-container">
+      <div className="textContainer">
+        <span
+          className="clickableText"
+          onClick={() => setActiveSection("bookDetail")}
+        >
+          상품 정보
+        </span>
+        <span className="clickableText" onClick={() => setActiveSection("qna")}>
+          Q&A
+        </span>
+      </div>
+      <div className="divider"></div>
+      {activeSection === "bookDetail" && <BookDetail />}
+      {activeSection === "qna" && <Qna />}
+    </div>
+  );
 }

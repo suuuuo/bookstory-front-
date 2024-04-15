@@ -1,32 +1,28 @@
-
 .productPage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    width: 1200px;
-    margin: 20px auto /* 상단과 하단에 20px 마진 추가 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 1200px;
+  margin: 20px auto; /* 상단과 하단에 20px 마진 추가 */
 }
-
 
 .textContainer {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
-
 
 .clickableText {
-    color: black;
-    margin: 8px;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 20px;
-    transition: color 0.3s ease;
+  color: black;
+  margin: 8px;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 20px;
+  transition: color 0.3s ease;
 }
 
-
 .clickableText:hover {
-    color: #555;
+  color: #555;
 }
