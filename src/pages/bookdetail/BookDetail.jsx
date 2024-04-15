@@ -19,7 +19,7 @@ export default function BookDetail() {
     const fetchBookDetails = async () => {
       try {
         const response = await axios.get(
-            `http://localhost:8080/api/v1/books/${bookId}`,
+          `http://localhost:8080/api/v1/books/${bookId}`,
         );
         setBook(response.data);
       } catch (error) {
@@ -31,10 +31,10 @@ export default function BookDetail() {
   }, [bookId]);
 
   return (
-      <div className="bookDetailContainer">
-        <p className="bookDetailTitle">책 소개</p>
-        <div className="divider"></div>
-        <p className="bookDetailDescription">{book.description}</p>
-      </div>
+    <div className="bookDetailContainer">
+      <p className="bookDetailTitle">책 소개</p>
+      <div className="divider"></div>
+      <p className="bookDetailDescription">{book.description}</p>
+    </div>
   );
 }

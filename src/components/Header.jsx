@@ -45,7 +45,9 @@ export default function Header() {
   return (
     <div style={{ backgroundColor: "white", paddingBottom: 20 }}>
       {/* 배너 */}
-      <div style={{ padding: 30, backgroundColor: "gray", textAlign: "center" }}>
+      <div
+        style={{ padding: 30, backgroundColor: "gray", textAlign: "center" }}
+      >
         <a>배너</a>
       </div>
 
@@ -153,10 +155,13 @@ export default function Header() {
                 <span className="close" onClick={closeModal}>
                   &times;
                 </span>
-                  {categories.map((category, index) => (
-                    <p><a href="#" key={index}>{category.name}</a></p>
-                  ))}
-                
+                {categories.map((category, index) => (
+                  <p>
+                    <a href="#" key={index}>
+                      {category.name}
+                    </a>
+                  </p>
+                ))}
               </div>
             </div>
           )}
