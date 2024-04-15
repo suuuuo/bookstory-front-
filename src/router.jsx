@@ -5,11 +5,17 @@ import SocialLoginHandler from "./pages/SocialLoginHandler";
 import Header from "./Components/Header.jsx"
 import Footer from "./Components/Footer";
 import Home from "./pages/Home";
+<<<<<<< HEAD
 import Cart from "./pages/cart/cart";
 import Main from "./pages/bookdetail/main.jsx";
 import QnA from "./pages/bookdetail/qna.jsx";
 import ProductPage from "./pages/bookdetail/productpage.jsx";
 import OrderList from "./pages/order/orderList.jsx";
+=======
+import Cart from "./pages/cart";
+import Main from "./pages/bookdetail/Main.jsx";
+import Productpage from "./pages/bookdetail/Productpage.jsx";
+>>>>>>> aa1bf74c6ac52cc74517bb1bf344940983f10e0a
 
 const router = createBrowserRouter([
   {
@@ -77,8 +83,10 @@ const router = createBrowserRouter([
     path: "/book/:bookId",
     element: (
       <div>
+        <Header />
         <Main />
-        <ProductPage />
+        <Productpage />
+        <Footer />
       </div>
     ),
   },

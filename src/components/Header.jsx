@@ -1,28 +1,57 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+
 export default function Header() {
   const [isSignIn, setSignIn] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const refrash_token = window.localStorage.getItem("refrash_token");
-    const access_token = window.localStorage.getItem("access_token");
+    const refreshToken = window.localStorage.getItem("refresh_token");
+    const accessToken = window.localStorage.getItem("access_token");
 
-    if (refrash_token && access_token) {
+    if (refreshToken && accessToken) {
       setSignIn(true);
-      return;
+    } else {
+      setSignIn(false);
     }
-    setSignIn(false);
   }, [location]);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+
+  const openModal = async (event) => {
+    try {
+      const response = await fetch("http://localhost:8080/v1/bringCategory");
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      setCategories(data);
+      setIsOpen(true);
+
+      // 클릭한 메뉴 버튼의 위치를 기준으로 모달의 위치를 조정합니다.
+      const rect = event.target.getBoundingClientRect();
+      setModalPosition({ top: rect.bottom + 10, left: rect.left });
+    } catch (error) {
+      console.error("Error fetching categories: ", error.message);
+    }
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div style={{ backgroundColor: "white", paddingBottom: 20 }}>
+      {/* 배너 */}
       <div
         style={{ padding: 30, backgroundColor: "gray", textAlign: "center" }}
       >
         <a>배너</a>
       </div>
 
+      {/* 회원가입, 로그인, 고객센터 링크 */}
       <div style={{ display: "flex", backgroundColor: "#F0EBEB", height: 50 }}>
         <nav style={{ marginLeft: "auto", marginRight: 50 }}>
           <ul>
@@ -47,6 +76,7 @@ export default function Header() {
         </nav>
       </div>
 
+      {/* 로고 및 검색 입력 */}
       <div style={{ display: "flex", marginTop: 50 }}>
         <div style={{ marginLeft: "auto" }}>
           <img alt="logo" src="img/bookstory.png" width={"30%"} />
@@ -54,7 +84,6 @@ export default function Header() {
             type="search"
             name="search"
             placeholder="Search"
-            A
             aria-label="Search"
             style={{
               backgroundColor: "white",
@@ -67,7 +96,7 @@ export default function Header() {
         <nav style={{ marginLeft: "auto" }}>
           <li>
             <button
-              class="contrast"
+              className="contrast"
               style={{
                 width: 60,
                 marginRight: "50%",
@@ -75,7 +104,7 @@ export default function Header() {
               }}
             >
               <img
-                alt="shoppin-cart"
+                alt="shopping-cart"
                 src="img/shopping-cart.svg"
                 width={"100"}
               />
@@ -83,7 +112,7 @@ export default function Header() {
           </li>
           <li>
             <button
-              class="contrast"
+              className="contrast"
               style={{
                 width: 60,
                 marginRight: "10%",
@@ -96,29 +125,62 @@ export default function Header() {
         </nav>
       </div>
 
+      {/* 메뉴 버튼 */}
       <div style={{ display: "flex", marginTop: 80, justifyContent: "center" }}>
         <nav>
-          <button class="contrast" style={{ backgroundColor: "white" }}>
+          <button
+            id="menuButton"
+            className="contrast"
+            onClick={openModal}
+            style={{ backgroundColor: "white" }}
+          >
             <img alt="menu" src="img/menu.svg" width={"40"} />
           </button>
+          {/* 모달 창 */}
+          {isOpen && (
+            <div
+              id="modal"
+              className="modal"
+              style={{
+                position: "fixed",
+                top: modalPosition.top,
+                left: modalPosition.left,
+                backgroundColor: "white",
+                padding: "20px",
+                border: "1px solid black",
+                zIndex: "1000",
+              }}
+            >
+              <div className="modal-content">
+                <span className="close" onClick={closeModal}>
+                  &times;
+                </span>
+                {categories.map((category, index) => (
+                  <p>
+                    <a href="#" key={index}>
+                      {category.name}
+                    </a>
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+          {/* 카테고리 메뉴 */}
           <ul>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">카테고리</a>
+              <a href="#">베스트셀러</a>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">카테고리</a>
+              <a href="#">신간도서</a>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">카테고리</a>
+              <a href="#">추천도서</a>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">카테고리</a>
+              <a href="#">국내도서</a>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">카테고리</a>
-            </li>
-            <li style={{ marginLeft: 50 }}>
-              <a href="#">카테고리</a>
+              <a href="#">해외도서</a>
             </li>
             <hr />
           </ul>
