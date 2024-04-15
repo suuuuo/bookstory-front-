@@ -120,9 +120,6 @@ export default function Qna() {
   };
 
   const handleEditClick = (index) => {
-
-
-
     setEditIndex(index);
     setEditContent(questions[index].content);
   };
@@ -265,7 +262,7 @@ export default function Qna() {
             onChange={(e) => setNewQuestion(e.target.value)}
             required
           ></textarea>
-          <button  type="submit" id="submit-button">
+          <button type="submit" id="submit-button">
             질문 제출
           </button>
         </form>
