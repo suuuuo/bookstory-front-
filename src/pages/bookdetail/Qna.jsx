@@ -4,11 +4,16 @@ import { useParams } from "react-router-dom";
 import "../../css/Qna.css"; // CSS 파일 임포트
 
 export default function Qna() {
+
   const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
+  const [title, setTitle] = useState("");
+  const [showForm, setShowForm] = useState(false); // 질문 드롭
   const { bookId } = useParams();
   const [hasToken, setHasToken] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null); // 드롭다운 상태 관리
+  const [editIndex, setEditIndex] = useState(-1); // 편집 중인 질문의 인덱스
+  const [editContent, setEditContent] = useState(""); // 편집 중인 내용
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -30,6 +35,7 @@ export default function Qna() {
 
     const token = localStorage.getItem('access');
     setHasToken(!!token);
+
   }, [bookId]);
 
   const handleQuestionSubmit = async (event) => {
@@ -42,10 +48,11 @@ export default function Qna() {
 
     const questionData = {
       bookId,
+      title,
       content: newQuestion,
       createdBy: "사용자명",
     };
-
+    console.log(questionData);
     const headers = { access: ` ${token.trim()}` };
 
     try {
@@ -60,6 +67,8 @@ export default function Qna() {
         status: response.data.status === 'ANSWER_PENDING' ? '답변예정' : response.data.status
       }]);
       setNewQuestion("");
+      setTitle("");
+      setShowForm(false);
     } catch (error) {
       console.error("질문을 추가하는데 실패했습니다.", error);
     }
@@ -86,8 +95,40 @@ export default function Qna() {
     // 이벤트 버블링 방지
     event.stopPropagation();
 
-    // 현재 활성화된 인덱스와 같으면 null을 설정하고, 그렇지 않으면 새 인덱스 설정
+
     setActiveIndex(index === activeIndex ? null : index);
+  };
+
+  const toggleForm = () => {
+      setShowForm(!showForm);
+
+  };
+
+  const handleEditClick = (index) => {
+    setEditIndex(index);
+    setEditContent(questions[index].content);
+  };
+
+  const handleContentChange = (e) => {
+    setEditContent(e.target.value);
+  };
+
+
+  const handleSave = async (index) => {
+    const questionId = questions[index].id;
+    const token = localStorage.getItem('access');
+    const headers = { access: `${token.trim()}` };
+
+    try {
+      await axios.put(`http://localhost:8080/api/v1/question/${questionId}`, { content: editContent }, { headers });
+      const updatedQuestions = [...questions];
+      console.log(updatedQuestions);
+      updatedQuestions[index] = { ...updatedQuestions[index], content: editContent };
+      setQuestions(updatedQuestions);
+      setEditIndex(-1); // 편집 모드 종료
+    } catch (error) {
+      console.error("질문을 수정하는데 실패했습니다.", error.response.data.message);
+    }
   };
 
   return (
@@ -105,7 +146,7 @@ export default function Qna() {
           <tr>
             <th>번호</th>
             <th>답변여부</th>
-            <th>내용</th>
+            <th>제목</th>
             <th>작성자</th>
             <th>등록일자</th>
           </tr>
@@ -116,7 +157,7 @@ export default function Qna() {
                 <tr onClick={(e) => toggleDropdown(e, index)}>
                   <td>{index + 1}</td>
                   <td>{question.status}</td>
-                  <td>{question.content}</td>
+                  <td>{question.title}</td>
                   <td>{question.createdBy}</td>
                   <td>{question.createdAt}</td>
                 </tr>
@@ -124,16 +165,36 @@ export default function Qna() {
                     <tr>
                       <td colSpan="6">
                         <div className="question-details">
-                          <p>{question.details}</p>
-                          {hasToken && (
-                              <div className="comment-actions">
-                                <button className="edit-button" onClick={() => {/* 편집 로직 */}}>
-                                  수정
-                                </button>
-                                <button className="delete-button" onClick={() => deleteQuestion(question.id)}>
-                                  삭제
-                                </button>
-                              </div>
+                          {editIndex === index ? (
+                              <>
+                                <textarea
+                                    value={editContent}
+                                    onChange={handleContentChange}
+                                    className="edit-textarea"
+                                ></textarea>
+                                <div className="comment-actions">
+                                  <button className="save-button" onClick={() => handleSave(index)}>
+                                    저장
+                                  </button>
+                                  <button className="cancel-button" onClick={() => setEditIndex(-1)}>
+                                    취소
+                                  </button>
+                                </div>
+                              </>
+                          ) : (
+                              <>
+                                <p>{question.content}</p>
+                                {hasToken && (
+                                    <div className="comment-actions">
+                                      <button className="edit-button" onClick={() => handleEditClick(index)}>
+                                        수정
+                                      </button>
+                                      <button className="delete-button" onClick={() => deleteQuestion(question.id)}>
+                                        삭제
+                                      </button>
+                                    </div>
+                                )}
+                              </>
                           )}
                         </div>
                       </td>
@@ -143,14 +204,28 @@ export default function Qna() {
           ))}
           </tbody>
         </table>
-        <form onSubmit={handleQuestionSubmit}>
-            <textarea
-                value={newQuestion}
-                onChange={(e) => setNewQuestion(e.target.value)}
-                required
-            ></textarea>
-          <button type="submit" className="submit-button">질문 제출</button>
-        </form>
+        <button onClick={toggleForm} className="submit-button">작성하기</button>
+
+        {showForm && (
+
+            <form id="question-form" onSubmit={handleQuestionSubmit}>
+              <input
+                  type="text"
+                  id="title-input"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  placeholder="제목을 입력하세요"
+              />
+              <textarea
+                  id="question-textarea"
+                  value={newQuestion}
+                  onChange={(e) => setNewQuestion(e.target.value)}
+                  required
+              ></textarea>
+              <button type="submit" id="submit-button">질문 제출</button>
+            </form>
+        )}
       </div>
   );
 }

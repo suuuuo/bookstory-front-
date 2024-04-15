@@ -1,5 +1,5 @@
 .qna-container {
-    max-width: 1300px;
+    min-width: 1100px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff; /* 배경색 설정 */
@@ -14,6 +14,10 @@
     color: #333; /* 제목 색상 */
     margin-bottom: 20px;
     padding-left: 10px;
+}
+
+.question-details p{
+    text-align: left;
 }
 
 .qna-table {
@@ -74,11 +78,12 @@
     margin-top: 10px;
 }
 
+
 .comment-actions button {
     margin-right: 10px;
     padding: 5px 10px;
     font-size: 14px; /* 버튼 내 텍스트 크기 */
-    background-color: #007bff;
+    background-color: black;
     color: white;
     border: none;
     border-radius: 4px;
@@ -86,7 +91,7 @@
 }
 
 .comment-actions button:hover {
-    background-color: #0056b3; /* 버튼 호버 색상 */
+    background-color: #545d64; /* 버튼 호버 색상 */
 }
 
 textarea {
@@ -100,17 +105,64 @@ textarea {
 }
 
 .submit-button {
-    width: 100%;
+    width: 8%; !important;
     padding: 10px 0;
-    background-color: #28a745; /* 제출 버튼 색상 */
+    background-color: #0d130f; /* 제출 버튼 색상 */
     color: white;
-    font-size: 16px; /* 제출 버튼 텍스트 크기 */
+    font-size: 14px; /* 제출 버튼 텍스트 크기 */
     border: none;
     border-radius: 4px;
-    cursor: pointer;
     margin-top: 10px;
+
 }
 
 .submit-button:hover {
-    background-color: #218838; /* 제출 버튼 호버 색상 */
+    background-color: #4c85ae; /* 제출 버튼 호버 색상 */
+}
+
+#title-input {
+    margin-top: 70px;
+}
+
+#question-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    align-items: flex-end; /* 폼 요소들을 오른쪽으로 정렬 */
+}
+
+#title-input,
+#question-textarea {
+    width: calc(100% - 22px); /* 오른쪽 마진 고려한 너비 */
+    font-size: 18px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#question-textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+#submit-button {
+    width: 100px;
+    padding: 10px;
+    background-color: #0d130f;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#submit-button:hover {
+    background-color: #1a1f1c;
+}
+
+#submit-button:active {
+    background-color: #08120d;
 }
