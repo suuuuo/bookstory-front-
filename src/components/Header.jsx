@@ -39,8 +39,8 @@ export default function Header() {
             </li>
             <li>|</li>
             <li>
-              <a href="#" style={{ fontSize: 15 }}>
-                고객센터
+              <a href="/myorders" style={{ fontSize: 15 }}>
+                주문 조회 테스트
               </a>
             </li>
           </ul>

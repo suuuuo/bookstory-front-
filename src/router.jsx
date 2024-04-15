@@ -2,13 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import Test from "./pages/Test";
 import SignIn from "./pages/SignIn";
 import SocialLoginHandler from "./pages/SocialLoginHandler";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./Components/Header.jsx"
+import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/cart/cart";
 import Main from "./pages/bookdetail/main.jsx";
 import QnA from "./pages/bookdetail/qna.jsx";
 import ProductPage from "./pages/bookdetail/productpage.jsx";
+import OrderList from "./pages/order/orderList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,16 @@ const router = createBrowserRouter([
         <Main />
         <ProductPage />
       </div>
+    ),
+  },
+  {
+    path: "/myorders",
+    element: (
+      <>
+        <Header />
+        <OrderList />
+        <Footer />
+      </>
     ),
   },
 ]);

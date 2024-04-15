@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Button, { Button2 } from "../components/Button";
+import Button, { Button2 } from "../Components/Button";
 
 export default function Home() {
   const [count, setCount] = useState(0);

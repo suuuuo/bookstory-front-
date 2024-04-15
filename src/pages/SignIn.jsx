@@ -43,7 +43,7 @@ export default function SignIn() {
 
         window.localStorage.setItem("access", access);
 
-        navigate("/");
+        navigate("/test");
       } catch (error) {
         alert(error.message);
       }
