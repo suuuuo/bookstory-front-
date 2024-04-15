@@ -1,0 +1,116 @@
+.qna-container {
+    max-width: 1300px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff; /* 배경색 설정 */
+    border: 1px solid #ddd; /* 경계선 설정 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.qna-title {
+    text-align: left;
+    font-size: 24px; /* 제목 폰트 크기 */
+    color: #333; /* 제목 색상 */
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+.qna-table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블 경계선 합치기 */
+    margin-bottom: 20px;
+}
+
+.qna-table th, .qna-table td {
+    text-align: left;
+    padding: 8px; /* 테이블 셀 패딩 */
+    font-size: 14px; /* 테이블 내용 폰트 크기 */
+    border-bottom: 1px solid #ddd; /* 행 사이 경계선 */
+}
+/* 열 너비 지정 */
+.qna-table colgroup {
+    width: 100%;
+}
+
+.qna-table colgroup col {
+    /* 각 열에 대한 너비 비율 지정 */
+    width: auto; /* 번호, 답변여부, 구분은 더 작게, 내용은 더 넓게 설정 */
+}
+
+.qna-table colgroup col:nth-child(1) { width: 5%; } /* 번호 */
+.qna-table colgroup col:nth-child(2) { width: 10%; } /* 답변여부 */
+.qna-table colgroup col:nth-child(3) { width: 50%; } /* 내용 */
+.qna-table colgroup col:nth-child(4) { width: 15%; } /* 작성자 */
+.qna-table colgroup col:nth-child(5) { width: 10%; } /* 등록일자 */
+
+
+.qna-table th {
+    background-color: #f8f8f8; /* 헤더 배경색 */
+    color: #333; /* 헤더 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    vertical-align: middle; /* 수직 중앙 정렬 */
+    font-size: 16px; /* 폰트 크기 증가 */
+    padding: 10px; /* 패딩 조정 */
+}
+.qna-table td {
+    background-color: #fff; /* 데이터 셀 배경색 하얀색으로 설정 */
+    color: black; /* 데이터 셀 글자색 검정색으로 설정 */
+    text-align: center; /* 글자 왼쪽 정렬 */
+    vertical-align: middle; /* 수직 중앙 정렬 */
+    padding: 10px; /* 셀 패딩 */
+}
+
+.qna-table td:nth-child(1), /* 번호 */
+.qna-table td:nth-child(2), /* 답변여부 */
+.qna-table td:nth-child(3) { /* 구분 */
+    text-align: center; /* 이들 셀만 중앙 정렬 */
+}
+
+
+.question-details p {
+    padding: 10px; /* 상세 정보 패딩 */
+    background-color: #f0f0f0; /* 상세 정보 배경색 */
+    margin-top: 10px;
+}
+
+.comment-actions button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-size: 14px; /* 버튼 내 텍스트 크기 */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-actions button:hover {
+    background-color: #0056b3; /* 버튼 호버 색상 */
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* 텍스트 영역 폰트 크기 */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #28a745; /* 제출 버튼 색상 */
+    color: white;
+    font-size: 16px; /* 제출 버튼 텍스트 크기 */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #218838; /* 제출 버튼 호버 색상 */
+}
