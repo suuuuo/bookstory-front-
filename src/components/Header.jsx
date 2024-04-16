@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isSignIn, setSignIn] = useState(false);
   const location = useLocation();
-
 
   useEffect(() => {
     const refreshToken = window.localStorage.getItem("refresh_token");
@@ -75,7 +74,7 @@ export default function Header() {
       <div style={{ display: "flex", marginTop: 50 }}>
         <div style={{ marginLeft: "auto" }}>
           <a href="/">
-          <img alt="logo" src="img/bookstory.png" width={"30%"} />
+            <img alt="logo" src="img/bookstory.png" width={"30%"} />
           </a>
           <input
             type="search"
@@ -92,21 +91,21 @@ export default function Header() {
         </div>
         <nav style={{ marginLeft: "auto" }}>
           <li>
-            <a href ="/cart">
-            <button
-              className="contrast"
-              style={{
-                width: 60,
-                marginRight: "50%",
-                backgroundColor: "white",
-              }}
-            >
-              <img
-                alt="shopping-cart"
-                src="img/shopping-cart.svg"
-                width={"100"}
-              />
-            </button>
+            <a href="/cart">
+              <button
+                className="contrast"
+                style={{
+                  width: 60,
+                  marginRight: "50%",
+                  backgroundColor: "white",
+                }}
+              >
+                <img
+                  alt="shopping-cart"
+                  src="img/shopping-cart.svg"
+                  width={"100"}
+                />
+              </button>
             </a>
           </li>
           <li>
@@ -154,10 +153,16 @@ export default function Header() {
                 <span className="close" onClick={closeModal}>
                   &times;
                 </span>
-                  {categories.map((category, index) => (
-                    <p><a href={`http://localhost:5173/category/${category.id}`} key={index}>{category.name}</a></p>
-                  ))}
-                
+                {categories.map((category, index) => (
+                  <p>
+                    <a
+                      href={`http://localhost:5173/category/${category.id}`}
+                      key={index}
+                    >
+                      {category.name}
+                    </a>
+                  </p>
+                ))}
               </div>
             </div>
           )}
@@ -181,7 +186,7 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      <hr width="100%" color="black"/>
+      <hr width="100%" color="black" />
     </div>
   );
 }

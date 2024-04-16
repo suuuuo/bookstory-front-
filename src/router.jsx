@@ -25,19 +25,19 @@ const router = createBrowserRouter([
     path: "/category/:id",
     element: (
       <>
-      <Header />
-      <BookCategory />
-      <Footer />
+        <Header />
+        <BookCategory />
+        <Footer />
       </>
-    )
+    ),
   },
   {
     path: "/:id",
-    element:(
+    element: (
       <>
-      <Header />
-      <Home />
-      <Footer />
+        <Header />
+        <Home />
+        <Footer />
       </>
     ),
   },
@@ -95,11 +95,11 @@ const router = createBrowserRouter([
   {
     path: "/book/:bookId",
     element: (
-      <div >
-          <Header/>
-              <Main />
-              <Productpage />
-          <Footer/>
+      <div>
+        <Header />
+        <Main />
+        <Productpage />
+        <Footer />
       </div>
     ),
   },
