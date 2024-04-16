@@ -46,7 +46,7 @@ const CartButton = ({ bookId, book, quantityRef }) => {
         }
 
         const iscomfirmed = window.confirm(
-          "상품이 담겼습니다! 장바구니로 이동하시겠습니까?"
+          "상품이 담겼습니다! 장바구니로 이동하시겠습니까?",
         );
         if (iscomfirmed) navigate("/cart");
       } else {
@@ -68,12 +68,12 @@ const CartButton = ({ bookId, book, quantityRef }) => {
               bookId: bookId,
               count: count,
             },
-            config
+            config,
           );
           console.log(response.data);
 
           const iscomfirmed = window.confirm(
-            "상품이 담겼습니다! 장바구니로 이동하시겠습니까?"
+            "상품이 담겼습니다! 장바구니로 이동하시겠습니까?",
           );
           if (iscomfirmed) navigate("/cart");
         } catch (e) {

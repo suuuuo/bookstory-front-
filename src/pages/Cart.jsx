@@ -63,7 +63,7 @@ export default function Cart() {
 
         localStorage.setItem(
           "checkedcartbook",
-          JSON.stringify(defaultCartbooks)
+          JSON.stringify(defaultCartbooks),
         );
 
         setcartbooks(nonuser_cartbooks1);
@@ -89,7 +89,7 @@ export default function Cart() {
                     bookId: nonuser_cart[key].id,
                     count: nonuser_cart[key].count,
                   },
-                  config
+                  config,
                 );
               } catch (e) {
                 console.error(e);
@@ -101,21 +101,21 @@ export default function Cart() {
               try {
                 const response = await axios.get(
                   `${baseApiUrl}/api/v1/cart`,
-                  config
+                  config,
                 );
                 const nonuser_cartbooks = response.data;
                 setcartbooks(
                   nonuser_cartbooks.map((cartbook) => ({
                     ...cartbook,
                     isChecked: true,
-                  }))
+                  })),
                 );
                 const defaultCartbooks = nonuser_cartbooks.map((cartbook) => ({
                   id: cartbook.id,
                 }));
                 localStorage.setItem(
                   "checkedcartbook",
-                  JSON.stringify(defaultCartbooks)
+                  JSON.stringify(defaultCartbooks),
                 );
               } catch (e) {
                 console.error(e);
@@ -128,21 +128,21 @@ export default function Cart() {
           try {
             const response = await axios.get(
               `${baseApiUrl}/api/v1/cart`,
-              config
+              config,
             );
             const nonuser_cartbooks = response.data;
             setcartbooks(
               nonuser_cartbooks.map((cartbook) => ({
                 ...cartbook,
                 isChecked: true,
-              }))
+              })),
             );
             const defaultCartbooks = nonuser_cartbooks.map((cartbook) => ({
               id: cartbook.id,
             }));
             localStorage.setItem(
               "checkedcartbook",
-              JSON.stringify(defaultCartbooks)
+              JSON.stringify(defaultCartbooks),
             );
           } catch (e) {
             console.error(e);
@@ -182,16 +182,16 @@ export default function Cart() {
         const newcheckedcartbook = [...checkedcartbook, checkbox];
         localStorage.setItem(
           "checkedcartbook",
-          JSON.stringify(newcheckedcartbook)
+          JSON.stringify(newcheckedcartbook),
         );
       } else {
         //해제된 경우
         const newcheckedcartbook = checkedcartbook.filter(
-          (item) => item.id !== checkbox.id
+          (item) => item.id !== checkbox.id,
         );
         localStorage.setItem(
           "checkedcartbook",
-          JSON.stringify(newcheckedcartbook)
+          JSON.stringify(newcheckedcartbook),
         );
       }
     };
@@ -252,7 +252,7 @@ export default function Cart() {
                 bookId: "",
                 count: count + 1,
               },
-              config
+              config,
             );
             Object.keys(cartbooks).forEach(async (key) => {
               if (cartbooks[key].id === cartbook.id) {
@@ -329,7 +329,7 @@ export default function Cart() {
                 id: cartbook.id,
                 count: count - 1,
               },
-              config
+              config,
             );
             Object.keys(cartbooks).forEach(async (key) => {
               if (cartbooks[key].id === cartbook.id) {
@@ -447,13 +447,13 @@ export default function Cart() {
       let noncheck_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //담겨있는 상품리스트
       Object.keys(checkedcartbooks).forEach(async (key) => {
         noncheck_cart = noncheck_cart.filter(
-          (item) => item.id !== checkedcartbooks[key].id
+          (item) => item.id !== checkedcartbooks[key].id,
         );
       });
       localStorage.removeItem("nonuser_cart");
       localStorage.setItem("nonuser_cart", JSON.stringify(noncheck_cart));
       setcartbooks(
-        noncheck_cart.map((cartbook) => ({ ...cartbook, isChecked: false }))
+        noncheck_cart.map((cartbook) => ({ ...cartbook, isChecked: false })),
       );
     } else {
       const config = {
@@ -466,11 +466,11 @@ export default function Cart() {
         try {
           const response = await axios.delete(
             `${baseApiUrl}/api/v1/cart/${checkedcartbooks[key].id}`,
-            config
+            config,
           );
           const newCartResponse = await axios.get(
             `${baseApiUrl}/api/v1/cart`,
-            config
+            config,
           );
           const newCartbooks = newCartResponse.data;
           setcartbooks(newCartbooks);
@@ -505,7 +505,7 @@ export default function Cart() {
       localStorage.removeItem("checkedcartbook");
       localStorage.setItem(
         "checkedcartbook",
-        JSON.stringify(localupdatedCartbooks)
+        JSON.stringify(localupdatedCartbooks),
       );
     } else {
       localStorage.removeItem("checkedcartbook");
