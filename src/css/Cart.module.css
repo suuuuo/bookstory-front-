@@ -97,7 +97,17 @@
   height: 330px;
   background-color: #f1f1f1;
   margin: 85px 0 0 auto;
+  overflow:hidden;
+
 }
+
+.sticky{
+  position: sticky;
+  top:0;
+
+
+}
+  
 
 .carttop{
     width: 1050px;

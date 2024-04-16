@@ -11,6 +11,25 @@ export default function Cart() {
   {
     /* 장바구니 조회 */
   }
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      if (window.scrollY > 660) {
+        setIsSticky(true);
+        console.log("Sticky:", isSticky);
+      } else {
+        setIsSticky(false);
+        console.log("Sticky:", isSticky);
+      }
+    };
+    window.addEventListener("scroll", scrollHandler);
+
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  });
+
   const [cartbooks, setcartbooks] = useState([
     {
       id: "",
@@ -595,9 +614,12 @@ export default function Cart() {
           </div>
         </div>
 
-        <div className={CartStyle.cart_right}>
+        {/*</div><div className={CartStyle.cart_right}>*/}
+        <div
+          className={`${CartStyle.cart_right} ${isSticky ? CartStyle.sticky : ""}`}
+        >
           <div className={CartStyle.right_card}>
-            <div style={{}}>
+            <div className={CartStyle.right_cart_div}>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.price_text}>상품 금액</p>
                 <p className={CartStyle.final_total}>{finalTotalPrice()}</p>
