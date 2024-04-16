@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import {Link} from 'react-router-dom';
 
 export default function Header() {
   const [isSignIn, setSignIn] = useState(false);
   const location = useLocation();
+
 
   useEffect(() => {
     const refreshToken = window.localStorage.getItem("refresh_token");
@@ -22,7 +24,7 @@ export default function Header() {
 
   const openModal = async (event) => {
     try {
-      const response = await fetch("http://localhost:8080/v1/bringCategory");
+      const response = await fetch("http://localhost:8080/v1/bookCategory");
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
       }
@@ -44,11 +46,6 @@ export default function Header() {
 
   return (
     <div style={{ backgroundColor: "white", paddingBottom: 20 }}>
-      {/* 배너 */}
-      <div style={{ padding: 30, backgroundColor: "gray", textAlign: "center" }}>
-        <a>배너</a>
-      </div>
-
       {/* 회원가입, 로그인, 고객센터 링크 */}
       <div style={{ display: "flex", backgroundColor: "#F0EBEB", height: 50 }}>
         <nav style={{ marginLeft: "auto", marginRight: 50 }}>
@@ -77,7 +74,9 @@ export default function Header() {
       {/* 로고 및 검색 입력 */}
       <div style={{ display: "flex", marginTop: 50 }}>
         <div style={{ marginLeft: "auto" }}>
+          <a href="/">
           <img alt="logo" src="img/bookstory.png" width={"30%"} />
+          </a>
           <input
             type="search"
             name="search"
@@ -93,6 +92,7 @@ export default function Header() {
         </div>
         <nav style={{ marginLeft: "auto" }}>
           <li>
+            <a href ="/cart">
             <button
               className="contrast"
               style={{
@@ -107,6 +107,7 @@ export default function Header() {
                 width={"100"}
               />
             </button>
+            </a>
           </li>
           <li>
             <button
@@ -154,7 +155,7 @@ export default function Header() {
                   &times;
                 </span>
                   {categories.map((category, index) => (
-                    <p><a href="#" key={index}>{category.name}</a></p>
+                    <p><a href={`http://localhost:5173/category/${category.id}`} key={index}>{category.name}</a></p>
                   ))}
                 
               </div>
@@ -163,24 +164,24 @@ export default function Header() {
           {/* 카테고리 메뉴 */}
           <ul>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">베스트셀러</a>
+              <Link to="/">베스트셀러</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">신간도서</a>
+              <Link to="/1">신간도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">추천도서</a>
+              <Link to="/2">추천도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">국내도서</a>
+              <Link to="/3">국내도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <a href="#">해외도서</a>
+              <Link to="/4">해외도서</Link>
             </li>
-            <hr />
           </ul>
         </nav>
       </div>
+      <hr width="100%" color="black"/>
     </div>
   );
 }
