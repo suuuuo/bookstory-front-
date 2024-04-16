@@ -246,19 +246,20 @@ export default function Qna() {
           ))}
         </tbody>
       </table>
-      <button onClick={toggleForm} className="submit-button">
-        작성하기
-      </button>
-
+      {hasToken && (
+          <button onClick={toggleForm} className="submit-button">
+            작성하기
+          </button>
+      )}
       {showForm && (
-        <form id="question-form" onSubmit={handleQuestionSubmit}>
+          <form id="question-form" onSubmit={handleQuestionSubmit}>
           <input
             type="text"
             id="title-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            maxlength="15"
+            maxLength="15"
             placeholder="제목을 입력하세요(15글자)"
           />
           <textarea
