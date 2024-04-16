@@ -17,10 +17,8 @@ export default function Cart() {
     const scrollHandler = () => {
       if (window.scrollY > 660) {
         setIsSticky(true);
-        console.log("Sticky:", isSticky);
       } else {
         setIsSticky(false);
-        console.log("Sticky:", isSticky);
       }
     };
     window.addEventListener("scroll", scrollHandler);
@@ -167,7 +165,6 @@ export default function Cart() {
     const [check, setcheck] = useState(true);
     const handleCheckboxChange = (e) => {
       const checked = e.target.checked; //isChecked
-      console.log(checked);
       onChange(checked); // 상태 변경?
 
       const checkbox = {
@@ -294,8 +291,6 @@ export default function Cart() {
 
       let checkedbook = JSON.parse(localStorage.getItem("checkedcartbook"));
       if (accesstoken === null) {
-        console.log("토큰 없음, 비회원!");
-
         let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
         Object.keys(updatecart).forEach(async (key) => {
           if (cartbook.id === updatecart[key].id) {
@@ -325,7 +320,7 @@ export default function Cart() {
             access: accesstoken, //토큰
           },
         };
-        console.log("토큰 있음, 회원!");
+
         (async () => {
           try {
             const response = await axios.put(
@@ -553,14 +548,29 @@ export default function Cart() {
     else return 3000;
   };
 
+  const point = () => {
+    const totalPrice = finalTotalPrice();
+    return totalPrice * 0.02;
+  };
+
+  const cartCount = () => {
+    const checkedcartbook = JSON.parse(localStorage.getItem("checkedcartbook"));
+    if (checkedcartbook === null) return 0;
+    else {
+      return checkedcartbook.length;
+    }
+  };
+
   const orderBtnHandler = () => {
     let accesstoken = JSON.parse(localStorage.getItem("access"));
     if (accesstoken === null) {
-      alert("주문 하려면 로그인을 해주세요!");
-      navigate("/login");
+      alert("주문하려면 로그인을 해주세요!");
+      navigate("/sign_in");
     } else {
+      //주문 화면?
     }
   };
+
   //장바구니 전체
   return (
     <div
@@ -577,7 +587,7 @@ export default function Cart() {
         </Helmet>
       </HelmetProvider>
 
-      <p className={CartStyle.carttop}>장바구니 ({cartbooks.length})</p>
+      <p className={CartStyle.carttop}>장바구니 ({cartCount()})</p>
       <div className={CartStyle.whole}>
         <div className="left">
           <div className={CartStyle.trashCard}>
@@ -647,7 +657,7 @@ export default function Cart() {
               </div>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.point_text}>적립 예정 포인트</p>
-                <p className={CartStyle.point_text2}>[xx P]</p>
+                <p className={CartStyle.point_text2}>{point()}</p>
               </div>
             </div>
             <div className={CartStyle.orderbutton} onClick={orderBtnHandler}>
