@@ -156,7 +156,7 @@ export default function Header() {
                 {categories.map((category, index) => (
                   <p>
                     <a
-                      href={`http://localhost:5173/category/${category.id}`}
+                      href={`/category/${category.id}`}
                       key={index}
                     >
                       {category.name}
