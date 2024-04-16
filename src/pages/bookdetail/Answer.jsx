@@ -11,6 +11,7 @@ function Answer({ questionId }) {
         const response = await axios.get(
           `http://localhost:8080/api/v1/answer/${questionId}`,
         );
+        console.log("답변을 불러왔습니다.", response);
         setAnswer(response.data);
         setLoading(false);
       } catch (error) {

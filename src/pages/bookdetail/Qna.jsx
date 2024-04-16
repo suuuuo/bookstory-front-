@@ -231,6 +231,7 @@ export default function Qna() {
                               <AnswerForm
                                 questions={questions}
                                 activeIndex={index}
+
                               />
                             </div>
                           )}
