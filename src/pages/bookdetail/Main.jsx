@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // useParams 훅 import
 import "../../css/BookMain.css";
-import Cartbutton from "../cartbutton";
+import CartButton from "../CartButton";
 
 export default function Main() {
   const [book, setBook] = useState({
@@ -65,7 +65,7 @@ export default function Main() {
           </div>
 
           <div className="buttons-container">
-            <Cartbutton
+            <CartButton
               className="add-to-cart"
               bookId={bookId}
               book={book}

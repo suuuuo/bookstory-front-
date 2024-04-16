@@ -4,8 +4,7 @@ import CartStyle from "../css/Cart.module.css";
 import axios from "axios";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-
-const baseApiUrl = "http://localhost:8080";
+import { baseApiUrl } from "../constants/apiUrl";
 
 export default function Cart() {
   const navigate = useNavigate();
