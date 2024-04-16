@@ -4,14 +4,30 @@ import CartStyle from "../css/Cart.module.css";
 import axios from "axios";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
-
-const baseApiUrl = "http://localhost:8080";
+import { baseApiUrl } from "../constants/apiUrl";
 
 export default function Cart() {
   const navigate = useNavigate();
   {
     /* 장바구니 조회 */
   }
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      if (window.scrollY > 660) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+    window.addEventListener("scroll", scrollHandler);
+
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  });
+
   const [cartbooks, setcartbooks] = useState([
     {
       id: "",
@@ -45,10 +61,7 @@ export default function Cart() {
           id: cartbook.id,
         }));
 
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(defaultCartbooks),
-        );
+        localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
 
         setcartbooks(nonuser_cartbooks1);
       } else {
@@ -110,10 +123,7 @@ export default function Cart() {
         }
         (async () => {
           try {
-            const response = await axios.get(
-              `${baseApiUrl}/api/v1/cart`,
-              config,
-            );
+            const response = await axios.get(`${baseApiUrl}/api/v1/cart`, config);
             const nonuser_cartbooks = response.data;
             setcartbooks(
               nonuser_cartbooks.map((cartbook) => ({
@@ -149,7 +159,6 @@ export default function Cart() {
     const [check, setcheck] = useState(true);
     const handleCheckboxChange = (e) => {
       const checked = e.target.checked; //isChecked
-      console.log(checked);
       onChange(checked); // 상태 변경?
 
       const checkbox = {
@@ -165,19 +174,13 @@ export default function Cart() {
       if (checked && checkedcartbook.valueOf(cartbook.id)) {
         //선택된 경우
         const newcheckedcartbook = [...checkedcartbook, checkbox];
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(newcheckedcartbook),
-        );
+        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
       } else {
         //해제된 경우
         const newcheckedcartbook = checkedcartbook.filter(
           (item) => item.id !== checkbox.id,
         );
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(newcheckedcartbook),
-        );
+        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
       }
     };
 
@@ -276,8 +279,6 @@ export default function Cart() {
 
       let checkedbook = JSON.parse(localStorage.getItem("checkedcartbook"));
       if (accesstoken === null) {
-        console.log("토큰 없음, 비회원!");
-
         let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
         Object.keys(updatecart).forEach(async (key) => {
           if (cartbook.id === updatecart[key].id) {
@@ -307,7 +308,7 @@ export default function Cart() {
             access: accesstoken, //토큰
           },
         };
-        console.log("토큰 있음, 회원!");
+
         (async () => {
           try {
             const response = await axios.put(
@@ -376,9 +377,7 @@ export default function Cart() {
             className={CartStyle.book_image} //이미지
           >
             <img
-              src={
-                cartbook.image || "https://source.unsplash.com/featured/?book"
-              }
+              src={cartbook.image || "https://source.unsplash.com/featured/?book"}
               style={{
                 width: "100%",
                 height: "100%",
@@ -490,10 +489,7 @@ export default function Cart() {
     }));
     if (checked) {
       localStorage.removeItem("checkedcartbook");
-      localStorage.setItem(
-        "checkedcartbook",
-        JSON.stringify(localupdatedCartbooks),
-      );
+      localStorage.setItem("checkedcartbook", JSON.stringify(localupdatedCartbooks));
     } else {
       localStorage.removeItem("checkedcartbook");
     }
@@ -535,14 +531,29 @@ export default function Cart() {
     else return 3000;
   };
 
+  const point = () => {
+    const totalPrice = finalTotalPrice();
+    return totalPrice * 0.02;
+  };
+
+  const cartCount = () => {
+    const checkedcartbook = JSON.parse(localStorage.getItem("checkedcartbook"));
+    if (checkedcartbook === null) return 0;
+    else {
+      return checkedcartbook.length;
+    }
+  };
+
   const orderBtnHandler = () => {
     let accesstoken = JSON.parse(localStorage.getItem("access"));
     if (accesstoken === null) {
-      alert("주문 하려면 로그인을 해주세요!");
-      navigate("/login");
+      alert("주문하려면 로그인을 해주세요!");
+      navigate("/sign_in");
     } else {
+      //주문 화면?
     }
   };
+
   //장바구니 전체
   return (
     <div
@@ -559,7 +570,7 @@ export default function Cart() {
         </Helmet>
       </HelmetProvider>
 
-      <p className={CartStyle.carttop}>장바구니 ({cartbooks.length})</p>
+      <p className={CartStyle.carttop}>장바구니 ({cartCount()})</p>
       <div className={CartStyle.whole}>
         <div className="left">
           <div className={CartStyle.trashCard}>
@@ -596,9 +607,12 @@ export default function Cart() {
           </div>
         </div>
 
-        <div className={CartStyle.cart_right}>
+        {/*</div><div className={CartStyle.cart_right}>*/}
+        <div
+          className={`${CartStyle.cart_right} ${isSticky ? CartStyle.sticky : ""}`}
+        >
           <div className={CartStyle.right_card}>
-            <div style={{}}>
+            <div className={CartStyle.right_cart_div}>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.price_text}>상품 금액</p>
                 <p className={CartStyle.final_total}>{finalTotalPrice()}</p>
@@ -626,7 +640,7 @@ export default function Cart() {
               </div>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.point_text}>적립 예정 포인트</p>
-                <p className={CartStyle.point_text2}>[xx P]</p>
+                <p className={CartStyle.point_text2}>{point()}</p>
               </div>
             </div>
             <div className={CartStyle.orderbutton} onClick={orderBtnHandler}>
@@ -656,8 +670,8 @@ export default function Cart() {
             -택배 배송은 기본배송지 기준으로 진행됩니다.
           </div>
           <div className={CartStyle.cartnotice}>
-            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두
-            함께 배송됩니다.
+            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두 함께
+            배송됩니다.
           </div>
         </details>
       </div>
