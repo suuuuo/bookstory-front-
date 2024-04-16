@@ -4,11 +4,11 @@ import { baseApiUrl } from "../constants/apiUrl";
 import { useNavigate } from "react-router-dom";
 
 const onNaverLogin = () => {
-  window.location.href = "http://localhost:8080/oauth2/authorization/naver";
+  window.location.href = `${baseApiUrl}/oauth2/authorization/naver`;
 };
 
 const onGoogleLogin = () => {
-  window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  window.location.href = `${baseApiUrl}/oauth2/authorization/google`;
 };
 
 export default function SignIn() {
@@ -28,6 +28,16 @@ export default function SignIn() {
   };
 
   const signIn = () => {
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      alert("유효하지 않은 이메일 형식입니다.");
+      return;
+    }
+
+    if (password.length < 4) {
+      alert("비밀번호는 4자리 이상이어야 합니다.");
+      return;
+    }
+
     (async () => {
       try {
         // 로그인 요청
@@ -45,7 +55,12 @@ export default function SignIn() {
 
         navigate("/test");
       } catch (error) {
-        alert(error.message);
+        if (error.response.data) {
+          console.log(error);
+          alert(error.response.data);
+        } else {
+          alert("회원가입 처리 중 문제가 발생했습니다.");
+        }
       }
     })();
   };
@@ -82,7 +97,6 @@ export default function SignIn() {
           onChange={onChange}
         />
         <button onClick={signIn}>로그인</button>
-
         <button onClick={onNaverLogin}>Naver Login</button>
         <button onClick={onGoogleLogin}>Google Login</button>
       </div>

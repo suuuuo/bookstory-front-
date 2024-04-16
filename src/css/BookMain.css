@@ -31,6 +31,7 @@ h1 {
 }
 
 .book-info {
+  max-width: 382px;
   margin-right: 100px;
   flex: 2.5;
 }

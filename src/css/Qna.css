@@ -16,10 +16,6 @@
   padding-left: 10px;
 }
 
-.question-details p {
-  text-align: left;
-}
-
 .qna-table {
   width: 100%;
   border-collapse: collapse; /* 테이블 경계선 합치기 */
@@ -83,9 +79,11 @@
 }
 
 .question-details p {
+  text-align: left;
   padding: 10px; /* 상세 정보 패딩 */
   background-color: #f0f0f0; /* 상세 정보 배경색 */
   margin-top: 10px;
+  min-height: 100px;
 }
 
 .comment-actions button {

@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import Test from "./pages/Test";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import SocialLoginHandler from "./pages/SocialLoginHandler";
 import Header from "./Components/Header.jsx";
 import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/cart";
+import BookCategory from "./pages/BookCategory.jsx";
 import Main from "./pages/bookdetail/Main.jsx";
 import Productpage from "./pages/bookdetail/Productpage.jsx";
 import OrderList from "./pages/order/orderList.jsx";
@@ -13,6 +15,26 @@ import OrderList from "./pages/order/orderList.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: (
+      <>
+        <Header />
+        <Home />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/category/:id",
+    element: (
+      <>
+        <Header />
+        <BookCategory />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/:id",
     element: (
       <>
         <Header />
@@ -36,9 +58,7 @@ const router = createBrowserRouter([
     path: "/sign_up",
     element: (
       <>
-        <Header />
-        <div>sign_up</div>
-        <Footer />
+        <SignUp />
       </>
     ),
   },
