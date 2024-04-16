@@ -155,10 +155,7 @@ export default function Header() {
                 </span>
                 {categories.map((category, index) => (
                   <p>
-                    <a
-                      href={`/category/${category.id}`}
-                      key={index}
-                    >
+                    <a href={`/category/${category.id}`} key={index}>
                       {category.name}
                     </a>
                   </p>

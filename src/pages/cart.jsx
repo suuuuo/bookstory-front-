@@ -85,7 +85,7 @@ export default function Cart() {
               try {
                 const response = await axios.get(
                   `${baseApiUrl}/api/v1/cart`,
-                  config
+                  config,
                 );
                 const nonuser_cartbooks = response.data;
                 setcartbooks(
@@ -112,7 +112,7 @@ export default function Cart() {
           try {
             const response = await axios.get(
               `${baseApiUrl}/api/v1/cart`,
-              config
+              config,
             );
             const nonuser_cartbooks = response.data;
             setcartbooks(
@@ -453,11 +453,11 @@ export default function Cart() {
         try {
           const response = await axios.delete(
             `${baseApiUrl}/api/v1/cart/${checkedcartbooks[key].id}`,
-            config
+            config,
           );
           const newCartResponse = await axios.get(
             `${baseApiUrl}/api/v1/cart`,
-            config
+            config,
           );
           const newCartbooks = newCartResponse.data;
           setcartbooks(newCartbooks);
