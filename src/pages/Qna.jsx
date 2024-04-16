@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import "../../css/Qna.css"; // CSS 파일 임포트
-import AnswerForm from "./AnswerForm"; // 답변 폼 임포트
+import "../css/Qna.css"; // CSS 파일 임포트
+import AnswerForm from "./AnswerForm.jsx"; // 답변 폼 임포트
 import Answer from "./Answer.jsx";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 export default function Qna() {
   const [questions, setQuestions] = useState([]);
@@ -20,7 +21,7 @@ export default function Qna() {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/question/${bookId}`,
+          `${baseApiUrl}/api/v1/question/${bookId}`,
         );
         setQuestions(
           response.data.map((question) => ({
@@ -62,7 +63,7 @@ export default function Qna() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/question",
+        `${baseApiUrl}/api/v1/question`,
         questionData,
         { headers },
       );
@@ -97,7 +98,7 @@ export default function Qna() {
 
     try {
       await axios.delete(
-        `http://localhost:8080/api/v1/question/${questionId}`,
+        `${baseApiUrl}/api/v1/question/${questionId}`,
         { headers },
       );
       setQuestions(questions.filter((q) => q.id !== questionId));
@@ -133,7 +134,7 @@ export default function Qna() {
 
     try {
       await axios.put(
-        `http://localhost:8080/api/v1/question/${questionId}`,
+        `${baseApiUrl}/api/v1/question/${questionId}`,
         { content: editContent },
         { headers },
       );
