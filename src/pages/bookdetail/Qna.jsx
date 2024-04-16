@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../css/Qna.css"; // CSS 파일 임포트
+import AnswerForm from "./AnswerForm"; // 답변 폼 임포트
+import Answer from "./Answer.jsx";
 
 export default function Qna() {
   const [questions, setQuestions] = useState([]);
@@ -25,9 +27,7 @@ export default function Qna() {
             ...question,
             createdAt: new Date(question.createdAt).toISOString().split("T")[0], // 날짜 형식 변경
             status:
-              question.status === "ANSWER_PENDING"
-                ? "답변예정"
-                : question.status, // 상태 텍스트 변경
+              question.status === "ANSWER_PENDING" ? "답변예정" : "답변완료", // 상태 텍스트 변경
           })),
         );
       } catch (error) {
@@ -74,15 +74,14 @@ export default function Qna() {
             .toISOString()
             .split("T")[0],
           status:
-            response.data.status === "ANSWER_PENDING"
-              ? "답변예정"
-              : response.data.status,
+            response.data.status === "ANSWER_PENDING" ? "답변예정" : "답변완료",
         },
       ]);
       setNewQuestion("");
       setTitle("");
       setShowForm(false);
     } catch (error) {
+      alert("접근 권한이 없습니다.");
       console.error("질문을 추가하는데 실패했습니다.", error);
     }
   };
@@ -109,9 +108,8 @@ export default function Qna() {
   };
 
   const toggleDropdown = (event, index) => {
-    // 이벤트 버블링 방지
     event.stopPropagation();
-
+    setEditIndex(-1); // 편집 모드 종료
     setActiveIndex(index === activeIndex ? null : index);
   };
 
@@ -120,9 +118,6 @@ export default function Qna() {
   };
 
   const handleEditClick = (index) => {
-
-
-
     setEditIndex(index);
     setEditContent(questions[index].content);
   };
@@ -218,6 +213,7 @@ export default function Qna() {
                       ) : (
                         <>
                           <p>{question.content}</p>
+                          <Answer questionId={question.id} />
                           {hasToken && (
                             <div className="comment-actions">
                               <button
@@ -232,6 +228,10 @@ export default function Qna() {
                               >
                                 삭제
                               </button>
+                              <AnswerForm
+                                questions={questions}
+                                activeIndex={index}
+                              />
                             </div>
                           )}
                         </>
@@ -265,7 +265,7 @@ export default function Qna() {
             onChange={(e) => setNewQuestion(e.target.value)}
             required
           ></textarea>
-          <button  type="submit" id="submit-button">
+          <button type="submit" id="submit-button">
             질문 제출
           </button>
         </form>

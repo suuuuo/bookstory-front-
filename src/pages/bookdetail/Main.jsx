@@ -125,7 +125,12 @@ export default function Main() {
           </div>
 
           <div className="buttons-container">
-            <button class="secondary" type="button" className="add-to-cart" onClick={Cartbutton}>
+            <button
+              class="secondary"
+              type="button"
+              className="add-to-cart"
+              onClick={Cartbutton}
+            >
               장바구니 담기
             </button>
             <button class="secondary" type="button" className="buy-now">
