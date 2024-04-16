@@ -26,12 +26,3 @@
 .clickableText:hover {
   color: #555;
 }
-
-.divider {
-  height: 2px;
-  width: 100%;
-  background-image: url("../img/line-horizontal.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
