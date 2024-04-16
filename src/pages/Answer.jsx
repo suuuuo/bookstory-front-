@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 function Answer({ questionId }) {
   const [answer, setAnswer] = useState(null);
@@ -9,7 +10,7 @@ function Answer({ questionId }) {
     const fetchAnswer = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/answer/${questionId}`,
+          `${baseApiUrl}/api/v1/answer/${questionId}`,
         );
         console.log("답변을 불러왔습니다.", response);
         setAnswer(response.data);
@@ -58,6 +59,7 @@ function Answer({ questionId }) {
           }
 
           #answer-content {
+            font-size: 14px;
             min-width: 445px;
             margin: 0;
             text-align: left;

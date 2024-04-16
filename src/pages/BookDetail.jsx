@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import "../../css/BookDetail.css"; // CSS 파일 임포트
+import { baseApiUrl } from "../constants/apiUrl.js";
+
+import "../css/BookDetail.css"; // CSS 파일 임포트
 
 export default function BookDetail() {
+
   const [book, setBook] = useState({
     itemName: "",
     author: "",
@@ -13,13 +16,14 @@ export default function BookDetail() {
     image: "",
   });
 
+
   const { bookId } = useParams();
 
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/v1/books/${bookId}`,
+          `${baseApiUrl}/api/v1/books/${bookId}`,
         );
         setBook(response.data);
       } catch (error) {

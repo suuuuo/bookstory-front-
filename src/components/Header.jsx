@@ -74,7 +74,7 @@ export default function Header() {
       <div style={{ display: "flex", marginTop: 50 }}>
         <div style={{ marginLeft: "auto" }}>
           <a href="/">
-            <img alt="logo" src="img/bookstory.png" width={"30%"} />
+            <img alt="logo" src="/img/bookstory.png" width={"30%"} />
           </a>
           <input
             type="search"
@@ -102,7 +102,7 @@ export default function Header() {
               >
                 <img
                   alt="shopping-cart"
-                  src="img/shopping-cart.svg"
+                  src="/img/shopping-cart.svg"
                   width={"100"}
                 />
               </button>
@@ -117,7 +117,7 @@ export default function Header() {
                 backgroundColor: "white",
               }}
             >
-              <img alt="user" src="img/user.svg" width={"70"} />
+              <img alt="user" src="/img/user.svg" width={"70"} />
             </button>
           </li>
         </nav>
@@ -132,7 +132,7 @@ export default function Header() {
             onClick={openModal}
             style={{ backgroundColor: "white" }}
           >
-            <img alt="menu" src="img/menu.svg" width={"40"} />
+            <img alt="menu" src="/img/menu.svg" width={"40"} />
           </button>
           {/* 모달 창 */}
           {isOpen && (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BookDetail from "./BookDetail.jsx";
 import Qna from "./Qna.jsx";
-import "../../css/ProductPage.css"; // CSS 파일 임포트
+import "../css/ProductPage.css"; // CSS 파일 임포트
 
 export default function Productpage() {
   const [activeSection, setActiveSection] = useState("bookDetail");
