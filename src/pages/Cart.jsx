@@ -3,18 +3,40 @@ import { useState, useEffect } from "react";
 import CartStyle from "../css/Cart.module.css";
 import axios from "axios";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
+import { baseApiUrl } from "../constants/apiUrl";
 
 export default function Cart() {
+  const navigate = useNavigate();
   {
     /* 장바구니 조회 */
   }
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      if (window.scrollY > 660) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+    window.addEventListener("scroll", scrollHandler);
+
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  });
+
   const [cartbooks, setcartbooks] = useState([
     {
       id: "",
+      bookId: "",
       itemName: "",
       price: "",
       image: "",
       count: "",
+      stock: "",
     },
   ]);
   const [cart, setcart] = useState([]);
@@ -39,10 +61,7 @@ export default function Cart() {
           id: cartbook.id,
         }));
 
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(defaultCartbooks),
-        );
+        localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
 
         setcartbooks(nonuser_cartbooks1);
       } else {
@@ -61,7 +80,7 @@ export default function Cart() {
               try {
                 const response = await axios.post(
                   //장바구니 db로 보내기
-                  "http://localhost:8080/api/v1/cart",
+                  `${baseApiUrl}/api/v1/cart`,
                   {
                     id: "",
                     bookId: nonuser_cart[key].id,
@@ -78,7 +97,7 @@ export default function Cart() {
               //db조회
               try {
                 const response = await axios.get(
-                  "http://localhost:8080/api/v1/cart",
+                  `${baseApiUrl}/api/v1/cart`,
                   config,
                 );
                 const nonuser_cartbooks = response.data;
@@ -104,10 +123,7 @@ export default function Cart() {
         }
         (async () => {
           try {
-            const response = await axios.get(
-              "http://localhost:8080/api/v1/cart",
-              config,
-            );
+            const response = await axios.get(`${baseApiUrl}/api/v1/cart`, config);
             const nonuser_cartbooks = response.data;
             setcartbooks(
               nonuser_cartbooks.map((cartbook) => ({
@@ -138,13 +154,12 @@ export default function Cart() {
   {
     /* 체크박스 */
   }
-  const [check, setcheck] = useState(true);
 
   const CartBook = ({ cartbook, isChecked, onChange }) => {
+    const [check, setcheck] = useState(true);
     const handleCheckboxChange = (e) => {
       const checked = e.target.checked; //isChecked
       onChange(checked); // 상태 변경?
-      setcheck(checked);
 
       const checkbox = {
         id: cartbook.id,
@@ -159,19 +174,13 @@ export default function Cart() {
       if (checked && checkedcartbook.valueOf(cartbook.id)) {
         //선택된 경우
         const newcheckedcartbook = [...checkedcartbook, checkbox];
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(newcheckedcartbook),
-        );
+        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
       } else {
         //해제된 경우
         const newcheckedcartbook = checkedcartbook.filter(
           (item) => item.id !== checkbox.id,
         );
-        localStorage.setItem(
-          "checkedcartbook",
-          JSON.stringify(newcheckedcartbook),
-        );
+        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
       }
     };
 
@@ -182,22 +191,39 @@ export default function Cart() {
     const accesstoken = localStorage.getItem("access");
 
     const countUp = (e) => {
-      setCount((pre) => (pre += 1));
+      if (count < cartbook.stock) {
+        setCount((pre) => (pre += 1));
+      } else {
+        alert("재고보다 많은 수를 담을 수 없습니다.");
+        return; // 함수 종료
+      }
+
+      let checkedbook = JSON.parse(localStorage.getItem("checkedcartbook"));
       if (accesstoken === null) {
         //비회원
         let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
+
         Object.keys(updatecart).forEach(async (key) => {
           if (cartbook.id === updatecart[key].id) {
             updatecart[key].count = count + 1;
           }
         });
-        localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
-        setcartbooks(
-          updatecart.map((cartbook) => ({
+
+        const updatedCart = updatecart.map((cartbook) => {
+          if (checkedbook.some((item) => item.id === cartbook.id)) {
+            return {
+              ...cartbook,
+              isChecked: true,
+            };
+          }
+          return {
             ...cartbook,
-            isChecked: check,
-          })),
-        );
+            isChecked: false,
+          };
+        });
+
+        localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
+        setcartbooks(updatedCart);
       } else {
         //회원
         const config = {
@@ -208,7 +234,7 @@ export default function Cart() {
         (async () => {
           try {
             const response = await axios.put(
-              "http://localhost:8080/api/v1/cart",
+              `${baseApiUrl}/api/v1/cart`,
               {
                 id: cartbook.id,
                 bookId: "",
@@ -221,7 +247,21 @@ export default function Cart() {
                 cartbooks[key].count = count + 1;
               }
             });
-            setcart(cartbooks);
+            if (checkedbook != null) {
+              const updatedCart = cartbooks.map((cartbook) => {
+                if (checkedbook.some((item) => item.id === cartbook.id)) {
+                  return {
+                    ...cartbook,
+                    isChecked: true,
+                  };
+                }
+                return {
+                  ...cartbook,
+                  isChecked: false,
+                };
+              });
+              setcartbooks(updatedCart);
+            }
           } catch (e) {
             console.error(e);
           }
@@ -230,10 +270,15 @@ export default function Cart() {
     };
 
     const countDown = () => {
-      setCount((pre) => (pre -= 1));
-      if (accesstoken === null) {
-        console.log("토큰 없음, 비회원!");
+      if (count > 1) {
+        setCount((pre) => (pre -= 1));
+      } else {
+        alert("최소 수량은 1개 입니다.");
+        return;
+      }
 
+      let checkedbook = JSON.parse(localStorage.getItem("checkedcartbook"));
+      if (accesstoken === null) {
         let updatecart = JSON.parse(localStorage.getItem("nonuser_cart"));
         Object.keys(updatecart).forEach(async (key) => {
           if (cartbook.id === updatecart[key].id) {
@@ -241,13 +286,21 @@ export default function Cart() {
             if (count - 1 < 1) updatecart[key].count = count;
           }
         });
-        localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
-        setcartbooks(
-          updatecart.map((cartbook) => ({
+        const updatedCart = updatecart.map((cartbook) => {
+          if (checkedbook.some((item) => item.id === cartbook.id)) {
+            return {
+              ...cartbook,
+              isChecked: true,
+            };
+          }
+          return {
             ...cartbook,
-            isChecked: check,
-          })),
-        );
+            isChecked: false,
+          };
+        });
+
+        localStorage.setItem("nonuser_cart", JSON.stringify(updatecart));
+        setcartbooks(updatedCart);
       } else {
         //회원
         const config = {
@@ -255,11 +308,11 @@ export default function Cart() {
             access: accesstoken, //토큰
           },
         };
-        console.log("토큰 있음, 회원!");
+
         (async () => {
           try {
             const response = await axios.put(
-              "http://localhost:8080/api/v1/cart",
+              `${baseApiUrl}/api/v1/cart`,
               {
                 id: cartbook.id,
                 count: count - 1,
@@ -271,12 +324,32 @@ export default function Cart() {
                 cartbooks[key].count = count - 1;
               }
             });
-            setcart(cartbooks);
+            if (checkedbook != null) {
+              const updatedCart = cartbooks.map((cartbook) => {
+                if (checkedbook.some((item) => item.id === cartbook.id)) {
+                  return {
+                    ...cartbook,
+                    isChecked: true,
+                  };
+                }
+                return {
+                  ...cartbook,
+                  isChecked: false,
+                };
+              });
+              setcartbooks(updatedCart);
+            }
           } catch (e) {
             console.error(e);
           }
         })();
       }
+    };
+
+    const ImageClickHandler = (e) => {
+      const num = cartbook.bookId;
+      console.log(num);
+      navigate(`/book/${num}`);
     };
 
     {
@@ -304,11 +377,13 @@ export default function Cart() {
             className={CartStyle.book_image} //이미지
           >
             <img
-              src={cartbook.image}
+              src={cartbook.image || "https://source.unsplash.com/featured/?book"}
               style={{
                 width: "100%",
                 height: "100%",
+                cursor: "pointer",
               }}
+              onClick={ImageClickHandler}
             />
           </div>
           <div //제목, 가격
@@ -376,11 +451,11 @@ export default function Cart() {
       Object.keys(checkedcartbooks).forEach(async (key) => {
         try {
           const response = await axios.delete(
-            `http://localhost:8080/api/v1/cart/${checkedcartbooks[key].id}`,
+            `${baseApiUrl}/api/v1/cart/${checkedcartbooks[key].id}`,
             config,
           );
           const newCartResponse = await axios.get(
-            "http://localhost:8080/api/v1/cart",
+            `${baseApiUrl}/api/v1/cart`,
             config,
           );
           const newCartbooks = newCartResponse.data;
@@ -414,10 +489,7 @@ export default function Cart() {
     }));
     if (checked) {
       localStorage.removeItem("checkedcartbook");
-      localStorage.setItem(
-        "checkedcartbook",
-        JSON.stringify(localupdatedCartbooks),
-      );
+      localStorage.setItem("checkedcartbook", JSON.stringify(localupdatedCartbooks));
     } else {
       localStorage.removeItem("checkedcartbook");
     }
@@ -458,6 +530,30 @@ export default function Cart() {
     if (totalprice >= 50000) return 0;
     else return 3000;
   };
+
+  const point = () => {
+    const totalPrice = finalTotalPrice();
+    return totalPrice * 0.02;
+  };
+
+  const cartCount = () => {
+    const checkedcartbook = JSON.parse(localStorage.getItem("checkedcartbook"));
+    if (checkedcartbook === null) return 0;
+    else {
+      return checkedcartbook.length;
+    }
+  };
+
+  const orderBtnHandler = () => {
+    let accesstoken = JSON.parse(localStorage.getItem("access"));
+    if (accesstoken === null) {
+      alert("주문하려면 로그인을 해주세요!");
+      navigate("/sign_in");
+    } else {
+      //주문 화면?
+    }
+  };
+
   //장바구니 전체
   return (
     <div
@@ -474,7 +570,7 @@ export default function Cart() {
         </Helmet>
       </HelmetProvider>
 
-      <p className={CartStyle.carttop}>장바구니 ({cartbooks.length})</p>
+      <p className={CartStyle.carttop}>장바구니 ({cartCount()})</p>
       <div className={CartStyle.whole}>
         <div className="left">
           <div className={CartStyle.trashCard}>
@@ -511,9 +607,12 @@ export default function Cart() {
           </div>
         </div>
 
-        <div className={CartStyle.cart_right}>
+        {/*</div><div className={CartStyle.cart_right}>*/}
+        <div
+          className={`${CartStyle.cart_right} ${isSticky ? CartStyle.sticky : ""}`}
+        >
           <div className={CartStyle.right_card}>
-            <div style={{}}>
+            <div className={CartStyle.right_cart_div}>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.price_text}>상품 금액</p>
                 <p className={CartStyle.final_total}>{finalTotalPrice()}</p>
@@ -535,14 +634,18 @@ export default function Cart() {
             <div className={CartStyle.price_card2}>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.rightcard_text2}>[결제 예상 금액]</p>
-                <p className={CartStyle.rightcard_text3}></p>
+                <p className={CartStyle.rightcard_text3}>
+                  {finalTotalPrice() + deliveryfee()}
+                </p>
               </div>
               <div className={CartStyle.rightcard_text}>
                 <p className={CartStyle.point_text}>적립 예정 포인트</p>
-                <p className={CartStyle.point_text2}>[xx P]</p>
+                <p className={CartStyle.point_text2}>{point()}</p>
               </div>
             </div>
-            <div className={CartStyle.orderbutton}>주문하기</div>
+            <div className={CartStyle.orderbutton} onClick={orderBtnHandler}>
+              주문하기
+            </div>
           </div>
         </div>
       </div>
@@ -567,8 +670,8 @@ export default function Cart() {
             -택배 배송은 기본배송지 기준으로 진행됩니다.
           </div>
           <div className={CartStyle.cartnotice}>
-            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두
-            함께 배송됩니다.
+            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두 함께
+            배송됩니다.
           </div>
         </details>
       </div>
