@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom"; // useParams 훅 import
-import "../../css/BookMain.css";
-import CartButton from "../CartButton";
+import "../css/BookMain.css";
+import CartButton from "./CartButton.jsx";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 export default function Main() {
   const [book, setBook] = useState({
@@ -21,7 +22,7 @@ export default function Main() {
       try {
         // 동적으로 bookId를 URL에 삽입하여 API 요청
         const response = await axios.get(
-          `http://localhost:8080/api/v1/books/${bookId}`,
+          `${baseApiUrl}/api/v1/books/${bookId}`,
         );
         setBook(response.data);
       } catch (error) {
@@ -71,7 +72,7 @@ export default function Main() {
               book={book}
               quantityRef={quantityRef}
             />
-            <button class="secondary" type="button" className="buy-now">
+            <button className="secondary" type="button" >
               책구매
             </button>
           </div>

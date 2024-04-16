@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 
 function AnswerForm({ questions, activeIndex }) {
@@ -14,7 +15,7 @@ function AnswerForm({ questions, activeIndex }) {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/answer`,
+        `${baseApiUrl}/api/v1/answer`,
         {
           questionId: questions[activeIndex].id,
           content: answerContent,
