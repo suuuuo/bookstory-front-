@@ -5,7 +5,7 @@ import "../css/BookMain.css";
 import CartButton from "./CartButton.jsx";
 import { baseApiUrl } from "../constants/apiUrl.js";
 
-export default function Main() {
+export default function BookMain() {
   const [book, setBook] = useState({
     itemName: "",
     author: "",

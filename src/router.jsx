@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
-import Main from "./pages/Main.jsx";
+import BookMain from "./pages/BookMain.jsx";
 import Productpage from "./pages/Productpage.jsx";
 
 const router = createBrowserRouter([
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Main />
+        <BookMain />
         <Productpage />
         <Footer />
       </>
