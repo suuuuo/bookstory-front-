@@ -47,14 +47,14 @@ const Cartbutton = ({ bookId, book, quantityRef }) => {
         }
 
         const iscomfirmed = window.confirm(
-          "상품이 담겼습니다! 장바구니로 이동하시겠습니까?"
+          "상품이 담겼습니다! 장바구니로 이동하시겠습니까?",
         );
         if (iscomfirmed) navigate("/cart");
       } else {
         alert(
           "담으려는 수가 재고보다 많습니다! 개수를 조정해주세요! (재고:" +
             stock +
-            ")"
+            ")",
         );
       }
     } else {
@@ -73,12 +73,12 @@ const Cartbutton = ({ bookId, book, quantityRef }) => {
               bookId: bookId,
               count: count,
             },
-            config
+            config,
           );
           console.log(response.data);
 
           const iscomfirmed = window.confirm(
-            "상품이 담겼습니다! 장바구니로 이동하시겠습니까?"
+            "상품이 담겼습니다! 장바구니로 이동하시겠습니까?",
           );
           if (iscomfirmed) navigate("/cart");
         } catch (e) {
