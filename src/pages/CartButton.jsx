@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseApiUrl } from "../constants/apiUrl";
 
-const baseApiUrl = "http://localhost:8080";
-
-const Cartbutton = ({ bookId, book, quantityRef }) => {
+const CartButton = ({ bookId, book, quantityRef }) => {
   const navigate = useNavigate();
   const accesstoken = localStorage.getItem("access"); //로컬에 토큰 있는지 확인
 
@@ -51,11 +50,7 @@ const Cartbutton = ({ bookId, book, quantityRef }) => {
         );
         if (iscomfirmed) navigate("/cart");
       } else {
-        alert(
-          "담으려는 수가 재고보다 많습니다! 개수를 조정해주세요! (재고:" +
-            stock +
-            ")",
-        );
+        alert("담으려는 수가 재고보다 많습니다! 개수를 조정해주세요!");
       }
     } else {
       const config = {
@@ -99,4 +94,4 @@ const Cartbutton = ({ bookId, book, quantityRef }) => {
   );
 };
 
-export default Cartbutton;
+export default CartButton;

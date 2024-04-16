@@ -6,7 +6,7 @@ import SocialLoginHandler from "./pages/SocialLoginHandler";
 import Header from "./Components/Header.jsx";
 import Footer from "./Components/Footer";
 import Home from "./pages/Home";
-import Cart from "./pages/cart";
+import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
 import Main from "./pages/bookdetail/Main.jsx";
 import Productpage from "./pages/bookdetail/Productpage.jsx";
