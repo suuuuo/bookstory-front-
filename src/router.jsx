@@ -8,11 +8,9 @@ import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
-import Main from "./pages/bookdetail/Main.jsx";
-import Productpage from "./pages/bookdetail/Productpage.jsx";
-import OrderList from "./pages/order/getAllMyOrders.jsx";
-import SaveOrder from "./pages/order/saveOrder.jsx";
-import MyPage from "./pages/MyPage.jsx";
+import BookMain from "./pages/BookMain.jsx";
+import ProductPage from "./pages/ProductPage.jsx";
+import BookSave from "./pages/BookSave.jsx";
 
 const router = createBrowserRouter([
   {
@@ -97,12 +95,22 @@ const router = createBrowserRouter([
   {
     path: "/book/:bookId",
     element: (
-      <div>
+      <>
         <Header />
-        <Main />
-        <Productpage />
+        <BookMain />
+        <ProductPage />
         <Footer />
-      </div>
+      </>
+    ),
+  },
+  {
+    path: "admin/book/",
+    element: (
+      <>
+        <Header />
+        <BookSave />
+        <Footer />
+      </>
     ),
   },
   {
