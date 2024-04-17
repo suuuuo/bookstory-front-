@@ -10,6 +10,7 @@ import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
 import BookMain from "./pages/BookMain.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
+import BookSave from "./pages/BookSave.jsx";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,17 @@ const router = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "admin/book/",
+    element: (
+        <>
+          <Header />
+          <BookSave />
+          <Footer />
+        </>
+    ),
+  },
+
 ]);
 
 export default router;
