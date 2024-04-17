@@ -11,6 +11,9 @@ import BookCategory from "./pages/BookCategory.jsx";
 import BookMain from "./pages/BookMain.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import BookSave from "./pages/BookSave.jsx";
+import OrderList from "./pages/order/getAllMyOrders.jsx";
+import MyPage from "./pages/MyPage.jsx";
+import SaveOrder from "./pages/order/saveOrder.jsx";
 
 const router = createBrowserRouter([
   {
