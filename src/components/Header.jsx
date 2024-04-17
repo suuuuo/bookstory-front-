@@ -117,7 +117,6 @@ export default function Header() {
                 marginRight: "10%",
                 backgroundColor: "white",
               }}
-            >
               <img alt="user" src="/img/user.svg" width={"70"} />
             </button>
             </a>
