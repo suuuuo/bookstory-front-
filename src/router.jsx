@@ -9,7 +9,8 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
 import BookMain from "./pages/BookMain.jsx";
-import Productpage from "./pages/Productpage.jsx";
+import ProductPage from "./pages/ProductPage.jsx";
+import BookSave from "./pages/BookSave.jsx";
 
 const router = createBrowserRouter([
   {
@@ -97,7 +98,17 @@ const router = createBrowserRouter([
       <>
         <Header />
         <BookMain />
-        <Productpage />
+        <ProductPage />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "admin/book/",
+    element: (
+      <>
+        <Header />
+        <BookSave />
         <Footer />
       </>
     ),

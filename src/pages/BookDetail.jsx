@@ -6,7 +6,6 @@ import { baseApiUrl } from "../constants/apiUrl.js";
 import "../css/BookDetail.css"; // CSS 파일 임포트
 
 export default function BookDetail() {
-
   const [book, setBook] = useState({
     itemName: "",
     author: "",
@@ -15,7 +14,6 @@ export default function BookDetail() {
     description: "",
     image: "",
   });
-
 
   const { bookId } = useParams();
 
