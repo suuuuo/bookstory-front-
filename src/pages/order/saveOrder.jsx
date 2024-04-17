@@ -18,9 +18,9 @@ export default function saveOrder() {
 
       // API에 전송할 주문 데이터 생성
       const requestOrder = {
-          cartId: "",
-          orderStatus: "NEW",
-          totalPrice: totalPrice
+        cartId: "",
+        orderStatus: "NEW",
+        totalPrice: totalPrice,
       };
 
       // 주문 API 호출

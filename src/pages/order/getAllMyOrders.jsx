@@ -45,13 +45,11 @@ export default function OrderList() {
   // 화면 보이게 하기
   return (
     <div className="container">
-      <div className="item">
-      </div>
+      <div className="item"></div>
 
       <div className="itemOrder">
         <h1>주문 내역</h1>
-       </div>
-
+      </div>
     </div>
   );
 }
