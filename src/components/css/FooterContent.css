@@ -27,14 +27,15 @@
 
 .member li {
   list-style-type: none;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   width: calc(10% - 70px); /* 3개의 아이템이 한 줄에 배치되도록 설정 */
 }
 
 .stack li {
   list-style-type: none;
-  margin-bottom: 5px;
-  width: calc(10% - 70px);
+  margin-bottom: 30px;
+  width: calc(20% - 160px);
+  font-size: 13px;
 }
 
 /* 각 목록 아이템의 하이퍼링크 스타일 */
