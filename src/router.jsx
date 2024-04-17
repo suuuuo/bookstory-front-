@@ -10,7 +10,9 @@ import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
 import Main from "./pages/bookdetail/Main.jsx";
 import Productpage from "./pages/bookdetail/Productpage.jsx";
-import OrderList from "./pages/order/orderList.jsx";
+import OrderList from "./pages/order/getAllMyOrders.jsx";
+import SaveOrder from "./pages/order/saveOrder.jsx";
+import MyPage from "./pages/MyPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -107,8 +109,28 @@ const router = createBrowserRouter([
     path: "/myorders",
     element: (
       <>
+      <Header />
+      <OrderList />
+      <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/order",
+    element: (
+      <>
         <Header />
-        <OrderList />
+        <SaveOrder />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/mypage",
+    element: (
+      <>
+        <Header />
+        <MyPage />
         <Footer />
       </>
     ),

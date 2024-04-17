@@ -519,6 +519,9 @@ export default function Cart() {
       .filter((cartbook) => cartbook.isChecked)
       .map((cartbook) => cartbook.price * cartbook.count);
     let totalPrice = prices.reduce((acc, price) => acc + price, 0);
+    // 이하영 : totalPrice를 localStorage에 저장하겠습니다!
+    localStorage.setItem("totalPrice", totalPrice);
+
     return totalPrice;
   };
 
@@ -551,6 +554,7 @@ export default function Cart() {
       navigate("/sign_in");
     } else {
       //주문 화면?
+      navigate("/order");
     }
   };
 
