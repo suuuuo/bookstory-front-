@@ -74,7 +74,7 @@ export default function BookMain() {
               book={book}
               quantityRef={quantityRef}
             />
-            <button className="secondary" type="button">
+            <button className="buy-now" type="button">
               책구매
             </button>
           </div>
