@@ -37,6 +37,7 @@ export default function Cart() {
       image: "",
       count: "",
       stock: "",
+      isbn: "",
     },
   ]);
   const [cart, setcart] = useState([]);
@@ -47,10 +48,10 @@ export default function Cart() {
       let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //로컬 스토리지의 비회원 장바구니 가져옴
 
       if (accesstoken === null) {
-        //비회원 로직
         if (nonuser_cart === null) nonuser_cart = [];
         const nonuser_cartbooks = nonuser_cart;
 
+        //비회원 로직
         const nonuser_cartbooks1 = nonuser_cartbooks.map((cartbook) => ({
           ...cartbook,
           isChecked: true,
@@ -68,6 +69,7 @@ export default function Cart() {
 
         setcartbooks(nonuser_cartbooks1);
       } else {
+        console.log(accesstoken);
         //회원 로직
         const config = {
           //헤더에 토큰 추가
@@ -104,6 +106,7 @@ export default function Cart() {
                   config,
                 );
                 const nonuser_cartbooks = response.data;
+                console.log(nonuser_cartbooks);
                 setcartbooks(
                   nonuser_cartbooks.map((cartbook) => ({
                     ...cartbook,
@@ -123,31 +126,33 @@ export default function Cart() {
             })();
           });
           localStorage.removeItem("nonuser_cart");
+        } else {
+          (async () => {
+            try {
+              const response = await axios.get(
+                `${baseApiUrl}/api/v1/cart`,
+                config,
+              );
+              const nonuser_cartbooks = response.data;
+              console.log(nonuser_cartbooks);
+              setcartbooks(
+                nonuser_cartbooks.map((cartbook) => ({
+                  ...cartbook,
+                  isChecked: true,
+                })),
+              );
+              const defaultCartbooks = nonuser_cartbooks.map((cartbook) => ({
+                id: cartbook.id,
+              }));
+              localStorage.setItem(
+                "checkedcartbook",
+                JSON.stringify(defaultCartbooks),
+              );
+            } catch (e) {
+              console.error(e);
+            }
+          })();
         }
-        (async () => {
-          try {
-            const response = await axios.get(
-              `${baseApiUrl}/api/v1/cart`,
-              config,
-            );
-            const nonuser_cartbooks = response.data;
-            setcartbooks(
-              nonuser_cartbooks.map((cartbook) => ({
-                ...cartbook,
-                isChecked: true,
-              })),
-            );
-            const defaultCartbooks = nonuser_cartbooks.map((cartbook) => ({
-              id: cartbook.id,
-            }));
-            localStorage.setItem(
-              "checkedcartbook",
-              JSON.stringify(defaultCartbooks),
-            );
-          } catch (e) {
-            console.error(e);
-          }
-        })();
       }
     };
     newCart();
@@ -390,7 +395,8 @@ export default function Cart() {
           >
             <img
               src={
-                cartbook.image || "https://source.unsplash.com/featured/?book"
+                `img/images/${cartbook.isbn}.jpg` ||
+                "https://source.unsplash.com/featured/?book"
               }
               style={{
                 width: "100%",

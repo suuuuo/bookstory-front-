@@ -21,9 +21,10 @@ const CartButton = ({ bookId, book, quantityRef }) => {
           bookId: parseInt(bookId),
           itemName: book.itemName,
           price: parseInt(book.price),
-          image: book.image || "https://source.unsplash.com/featured/?book",
+          image: book.image,
           count: count,
           stock: book.stock,
+          isbn: book.isbn,
         };
 
         if (nonuser_cart == null) {

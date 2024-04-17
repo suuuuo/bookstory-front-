@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import MyPage from "../MyPage";
 import "../../css/getAllMyOrders.css";
 
 export default function OrderList() {
