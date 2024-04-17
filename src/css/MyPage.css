@@ -1,0 +1,43 @@
+.myMain {
+    /* border: 1px red solid; */
+    width: 60%;
+    margin: 0 20% 5% 20%;
+    font-size: 18px;
+  }
+  #top {
+    margin-bottom: 50px;
+    font-size: 16px;
+  }
+  
+  #profile {
+    /* border: 1px yellowgreen solid; */
+    width: 130px;
+    margin: 0 auto;
+    width: fit-content;
+  }
+  
+  #profile p {
+    margin-bottom: 40px;
+  }
+  
+  #profile li {
+    list-style-type: none;
+  }
+  
+  #profile li a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  #profile li a:hover {
+    text-decoration: underline; /* 마우스 오버시 밑줄 표시 */
+    cursor: pointer;
+    color: black;
+  }
+  #profileImg {
+    width: 130px;
+    height: 160px;
+    border: 1px gray solid;
+    background-color: lightgray;
+  }
+  

@@ -109,6 +109,7 @@ export default function Header() {
             </a>
           </li>
           <li>
+          <a href="/mypage">
             <button
               className="contrast"
               style={{
@@ -119,6 +120,7 @@ export default function Header() {
             >
               <img alt="user" src="/img/user.svg" width={"70"} />
             </button>
+            </a>
           </li>
         </nav>
       </div>
