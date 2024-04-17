@@ -36,12 +36,12 @@ function FooterContent() {
         <p>Stack</p>
         <ul>
           <li>Java</li>
-          <li>Java</li>
-          <li>Java</li>
-          <li>Java</li>
-          <li>Java</li>
-          <li>Java</li>
-          <li>Java</li>
+          <li>Spring Boot</li>
+          <li>Spring Security</li>
+          <li>JPA</li>
+          <li>JUnit</li>
+          <li>MySQL</li>
+          <li>React.js</li>
         </ul>
       </div>
       <p>Copyright © Elice Team 2. 2024 All Rights Reserved.</p>
