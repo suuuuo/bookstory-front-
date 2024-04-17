@@ -383,7 +383,7 @@ export default function Cart() {
           >
             <img
               src={
-                `images/${cartbook.isbn}.jpg` ||
+                `/img/images/${book.isbn}.jpg` ||
                 "https://source.unsplash.com/featured/?book"
               }
               style={{
