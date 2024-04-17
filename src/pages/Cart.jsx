@@ -62,7 +62,10 @@ export default function Cart() {
           id: cartbook.id,
         }));
 
-        localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(defaultCartbooks),
+        );
 
         setcartbooks(nonuser_cartbooks1);
       } else {
@@ -126,7 +129,10 @@ export default function Cart() {
         } else {
           (async () => {
             try {
-              const response = await axios.get(`${baseApiUrl}/api/v1/cart`, config);
+              const response = await axios.get(
+                `${baseApiUrl}/api/v1/cart`,
+                config,
+              );
               const nonuser_cartbooks = response.data;
               console.log(nonuser_cartbooks);
               setcartbooks(
@@ -179,13 +185,19 @@ export default function Cart() {
       if (checked && checkedcartbook.valueOf(cartbook.id)) {
         //선택된 경우
         const newcheckedcartbook = [...checkedcartbook, checkbox];
-        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(newcheckedcartbook),
+        );
       } else {
         //해제된 경우
         const newcheckedcartbook = checkedcartbook.filter(
           (item) => item.id !== checkbox.id,
         );
-        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(newcheckedcartbook),
+        );
       }
     };
 
@@ -497,7 +509,10 @@ export default function Cart() {
     }));
     if (checked) {
       localStorage.removeItem("checkedcartbook");
-      localStorage.setItem("checkedcartbook", JSON.stringify(localupdatedCartbooks));
+      localStorage.setItem(
+        "checkedcartbook",
+        JSON.stringify(localupdatedCartbooks),
+      );
     } else {
       localStorage.removeItem("checkedcartbook");
     }
@@ -678,8 +693,8 @@ export default function Cart() {
             -택배 배송은 기본배송지 기준으로 진행됩니다.
           </div>
           <div className={CartStyle.cartnotice}>
-            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두 함께
-            배송됩니다.
+            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두
+            함께 배송됩니다.
           </div>
         </details>
       </div>
