@@ -97,10 +97,9 @@ export default function Qna() {
     const headers = { access: ` ${token.trim()}` };
 
     try {
-      await axios.delete(
-        `${baseApiUrl}/api/v1/question/${questionId}`,
-        { headers },
-      );
+      await axios.delete(`${baseApiUrl}/api/v1/question/${questionId}`, {
+        headers,
+      });
       setQuestions(questions.filter((q) => q.id !== questionId));
     } catch (error) {
       alert("접근 권한이 없습니다.");
@@ -232,7 +231,6 @@ export default function Qna() {
                               <AnswerForm
                                 questions={questions}
                                 activeIndex={index}
-
                               />
                             </div>
                           )}
@@ -247,12 +245,12 @@ export default function Qna() {
         </tbody>
       </table>
       {hasToken && (
-          <button onClick={toggleForm} className="submit-button">
-            작성하기
-          </button>
+        <button onClick={toggleForm} className="submit-button">
+          작성하기
+        </button>
       )}
       {showForm && (
-          <form id="question-form" onSubmit={handleQuestionSubmit}>
+        <form id="question-form" onSubmit={handleQuestionSubmit}>
           <input
             type="text"
             id="title-input"

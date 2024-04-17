@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { baseApiUrl } from "../constants/apiUrl.js";
 
-
 function AnswerForm({ questions, activeIndex }) {
   const [answerContent, setAnswerContent] = useState("");
   const [showAnswerForm, setShowAnswerForm] = useState(false);
@@ -11,7 +10,6 @@ function AnswerForm({ questions, activeIndex }) {
     event.preventDefault();
     const token = localStorage.getItem("access");
     const headers = { access: ` ${token.trim()}` };
-
 
     try {
       const response = await axios.post(
@@ -27,7 +25,6 @@ function AnswerForm({ questions, activeIndex }) {
       setShowAnswerForm(false); // 답변 제출 후 폼 숨기기
 
       window.location.reload();
-
     } catch (error) {
       console.error("답변 저장 실패:", error);
     }
