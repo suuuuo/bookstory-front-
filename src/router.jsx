@@ -3,8 +3,8 @@ import Test from "./pages/Test";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import SocialLoginHandler from "./pages/SocialLoginHandler";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./Components/Header.jsx";
+import Footer from "./Components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
@@ -109,6 +109,36 @@ const router = createBrowserRouter([
       <>
         <Header />
         <BookSave />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/myorders",
+    element: (
+      <>
+        <Header />
+        <OrderList />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/order",
+    element: (
+      <>
+        <Header />
+        <SaveOrder />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/mypage",
+    element: (
+      <>
+        <Header />
+        <MyPage />
         <Footer />
       </>
     ),
