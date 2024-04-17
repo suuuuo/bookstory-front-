@@ -109,16 +109,17 @@ export default function Header() {
             </a>
           </li>
           <li>
-            <button
+            <a href="/mypage">
+            <button>
               className="contrast"
               style={{
                 width: 60,
                 marginRight: "10%",
                 backgroundColor: "white",
               }}
-            >
               <img alt="user" src="/img/user.svg" width={"70"} />
             </button>
+            </a>
           </li>
         </nav>
       </div>
