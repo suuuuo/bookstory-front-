@@ -10,6 +10,7 @@ import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
 import BookMain from "./pages/BookMain.jsx";
 import Productpage from "./pages/Productpage.jsx";
+import Search from "./pages/Search.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <BookCategory />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/search/:keyword",
+    element: (
+      <>
+        <Header />
+        <Search />
         <Footer />
       </>
     ),

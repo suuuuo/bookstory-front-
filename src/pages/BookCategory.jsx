@@ -16,10 +16,6 @@ const BookCategory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/v1/bookCategory/bring/${id}`,
-        );
-        setBooks(response.data);
 
         const categoryResponse = await axios.get(
           `http://localhost:8080/v1/bookCategory`,
@@ -88,10 +84,8 @@ const BookCategory = () => {
       <div style={{ display: "flex" }}>
         <table
           style={{
-            backgroundColor: "gray",
-            position: "absolute",
             width: "20px",
-            height: "50%",
+            height: "80%",
             marginLeft: "30px",
             border: "1px solid black",
             borderCollapse: "collapse",
@@ -118,10 +112,8 @@ const BookCategory = () => {
         {showSecondTable && (
           <table
             style={{
-              position: "absolute",
-              marginLeft: "80px",
               width: "30px",
-              height: "50%",
+              height: "80%",
               border: "1px solid black",
               borderCollapse: "collapse",
             }}
@@ -147,9 +139,7 @@ const BookCategory = () => {
         {showThirdTable && (
           <table
             style={{
-              position: "absolute",
-              marginLeft: "130px",
-              height: "50%",
+              height: "80%",
               width: "20px",
               border: "1px solid black",
               borderCollapse: "collapse",
