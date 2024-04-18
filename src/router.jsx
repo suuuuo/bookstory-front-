@@ -135,7 +135,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "admin/book/",
+    path: "/admin/book/",
     element: (
       <>
         <Header />
