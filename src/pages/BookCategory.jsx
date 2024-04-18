@@ -5,8 +5,8 @@ import { baseApiUrl } from "../constants/apiUrl.js";
 
 const BookCategory = () => {
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 인덱스
-  const itemsPerPage = 20; // 한 페이지에 표시할 아이템 수
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 20; 
   const [categories, setCategories] = useState([]);
   const { id } = useParams();
   const [lowRankCategory, setLowRankCategory] = useState([]);
