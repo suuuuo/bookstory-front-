@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../css/getAllMyOrders.css";
+// import "../../css/getAllMyOrders.css";
+import { baseApiUrl } from "../../constants/apiUrl";
+
 
 export default function OrderList() {
   // 상태 초기화
@@ -14,11 +16,14 @@ export default function OrderList() {
     const fetchOrders = async () => {
       try {
         // 주문 목록 조회
-        const response = await axios.get(`/api/v1/orders`, {
+        const response = await axios.get(`${baseApiUrl}/api/v1/orders`, {
           headers: {
             access: token,
           },
-          withCredentials: true,
+          params: {
+            page: 0,
+            size: 15,
+          },
         });
 
         setOrders(response.data.content);
@@ -36,7 +41,7 @@ export default function OrderList() {
       <div key={order.id}>
         <p>주문 번호: {order.id}</p>
         <p>주문 상태: {order.orderStatus}</p>
-        {/* 주문 정보의 나머지 필드들을 출력 */}
+        <p>주문 날짜: {order.orderDate}</p>
       </div>
     ));
   };
@@ -48,6 +53,8 @@ export default function OrderList() {
 
       <div className="itemOrder">
         <h1>주문 내역</h1>
+        {error && <p>{error}</p>}
+        {orders.length > 0 ? renderOrders() : <p>주문 내역이 없습니다.</p>}
       </div>
     </div>
   );
