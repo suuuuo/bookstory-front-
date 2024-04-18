@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 const Search = () => {
     const { keyword } = useParams();
-    const [book, setBook] = useState([]);
+    const [book, setBook] = useState({
+      itemName: "",
+      author: "",
+      price: "",
+      publisher: "",
+      description: "",
+      image: "",
+      category: ""
+    });  
     const [lowRankCategory, setLowRankCategory] = useState([]);
     const [rankCategory, setRankCategory] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -15,27 +24,27 @@ const Search = () => {
         const fetchData = async () => {
           try {
             const categoryResponse = await axios.get(
-              `http://localhost:8080/v1/bookCategory`,
+              `${baseApiUrl}/v1/bookCategory`,
             );
             setCategories(categoryResponse.data);
             
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-          try {
             const bookResponse = await axios.get(
-                `http://localhost:8080/api/books/${keyword}`,
-            );
-            setBook(bookResponse.data);
-          }catch(error){
+              `${baseApiUrl}/api/v1/books/title?title=${keyword}`
+          );
+
+          setBook(bookResponse.data);
+          } catch (error) {
             console.error("Error fetching data:", error);
           }
         };
 
         fetchData();
-      }, []);
+      }, [keyword]);
     
-
+      const handleCardClick = (bookId) => {
+        window.location.href = `/book/${bookId}`;
+      };
+    
     const handleCategoryListClick = (categoryId) => {
         window.location.href = `/category/${categoryId}`;
       };
@@ -43,7 +52,7 @@ const Search = () => {
       const handleCategoryClick = async (categoryId) => {
         try {
           const response = await axios.get(
-            `http://localhost:8080/v1/bookCategory/lowRank/${categoryId}`,
+            `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
           );
           console.log(response.data);
           setRankCategory(response.data);
@@ -56,7 +65,7 @@ const Search = () => {
       const handlelowCategoryClick = async (categoryId) => {
         try {
           const response = await axios.get(
-            `http://localhost:8080/v1/bookCategory/lowRank/${categoryId}`,
+            `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
           );
           console.log(response.data);
           setLowRankCategory(response.data);
@@ -155,7 +164,45 @@ const Search = () => {
     </table>
   )};
   
-  <div>{book.itemName}</div>
+
+  <div
+                onClick={() => handleCardClick(book.bookId)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "1000px",
+                  height: "300px",
+                  margin: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                }}
+              >
+                <img
+            src={`/img/images/${book.isbn}.jpg`}
+            alt="책 사진"
+            className="book-image"
+            style={{width: "25%", height: "80%", marginRight: "50px"}}
+          />
+                <div
+                  className="card-content"
+                  style={{ padding: "10px", flex: "1" }}
+                >
+                  <p className="title">{book.itemName}</p>
+                  <p>작가 : {book.author}</p>
+                  <p>출판사 : {book.publisher}</p>
+                  <p>가격 : {book.price} 원</p>
+                  <p>
+                    {book.category.map((category, index) => (
+                      <React.Fragment key={index}>
+                        {category}
+                        {index < book.category.length - 1 && " > "}
+                      </React.Fragment>
+                    ))}
+                  </p>
+                </div>
+              </div>
+  <div>책 : {book.itemName}</div>
   </div>
   );
 };

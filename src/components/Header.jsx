@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { baseApiUrl } from "../constants/apiUrl.js";
+
 
 export default function Header() {
   const [isSignIn, setSignIn] = useState(false);
@@ -48,7 +50,7 @@ export default function Header() {
 
   const openModal = async (event) => {
     try {
-      const response = await fetch("http://localhost:8080/v1/bookCategory");
+      const response = await fetch(`${baseApiUrl}/v1/bookCategory`);
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
       }
@@ -137,16 +139,17 @@ export default function Header() {
             </a>
           </li>
           <li>
+            <a href="/mypage">
             <button
               className="contrast"
               style={{
                 width: 60,
                 marginRight: "10%",
                 backgroundColor: "white",
-              }}
-            >
+              }}>
               <img alt="user" src="/img/user.svg" width={"70"} />
             </button>
+            </a>
           </li>
         </nav>
       </div>
@@ -197,16 +200,16 @@ export default function Header() {
               <Link to="/">베스트셀러</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/1">신간도서</Link>
+              <Link to="/21">신간도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/2">추천도서</Link>
+              <Link to="/20">추천도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/3">국내도서</Link>
+              <Link to="/1">국내도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/4">해외도서</Link>
+              <Link to="/2">서양도서</Link>
             </li>
           </ul>
         </nav>

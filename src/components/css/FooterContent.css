@@ -33,8 +33,9 @@
 
 .stack li {
   list-style-type: none;
-  margin-bottom: 5px;
-  width: calc(10% - 70px);
+  margin-bottom: 20px;
+  width: calc(30% - 280px);
+  font-size: 12px;
 }
 
 /* 각 목록 아이템의 하이퍼링크 스타일 */

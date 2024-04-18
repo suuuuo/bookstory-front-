@@ -10,6 +10,7 @@ export default function BookMain() {
     itemName: "",
     author: "",
     price: "",
+    isbn: "",
     publisher: "",
     description: "",
     image: "",
@@ -24,6 +25,7 @@ export default function BookMain() {
         const response = await axios.get(
           `${baseApiUrl}/api/v1/books/${bookId}`,
         );
+        console.log(response);
         setBook(response.data);
       } catch (error) {
         console.error("책 정보를 가져오는데 실패했습니다.", error);
@@ -43,7 +45,7 @@ export default function BookMain() {
           <p className="author">글쓴이: {book.author}</p>
           <p className="publisher">출판사: {book.publisher}</p>
           <img
-            src={book.image || "https://source.unsplash.com/featured/?book"}
+            src={`/img/images/${book.isbn}.jpg`}
             alt="책 사진"
             className="book-image"
           />
@@ -72,7 +74,7 @@ export default function BookMain() {
               book={book}
               quantityRef={quantityRef}
             />
-            <button className="secondary" type="button" >
+            <button className="buy-now" type="button">
               책구매
             </button>
           </div>

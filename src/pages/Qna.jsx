@@ -16,6 +16,7 @@ export default function Qna() {
   const [activeIndex, setActiveIndex] = useState(null); // 드롭다운 상태 관리
   const [editIndex, setEditIndex] = useState(-1); // 편집 중인 질문의 인덱스
   const [editContent, setEditContent] = useState(""); // 편집 중인 내용
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -41,6 +42,11 @@ export default function Qna() {
     }
 
     const token = localStorage.getItem("access");
+    if (token) {
+      const payload = token.split(".")[1]; // 토큰의 페이로드 부분 추출
+      const decodedPayload = JSON.parse(atob(payload)); // Base64 디코드 후 JSON 파싱
+      setUserRole(decodedPayload.role); // 역할 정보 저장
+    }
     setHasToken(!!token);
   }, [bookId]);
 
@@ -97,10 +103,9 @@ export default function Qna() {
     const headers = { access: ` ${token.trim()}` };
 
     try {
-      await axios.delete(
-        `${baseApiUrl}/api/v1/question/${questionId}`,
-        { headers },
-      );
+      await axios.delete(`${baseApiUrl}/api/v1/question/${questionId}`, {
+        headers,
+      });
       setQuestions(questions.filter((q) => q.id !== questionId));
     } catch (error) {
       alert("접근 권한이 없습니다.");
@@ -229,11 +234,12 @@ export default function Qna() {
                               >
                                 삭제
                               </button>
-                              <AnswerForm
-                                questions={questions}
-                                activeIndex={index}
-
-                              />
+                              {userRole === "ADMIN" && (
+                                <AnswerForm
+                                  questions={questions}
+                                  activeIndex={index}
+                                />
+                              )}
                             </div>
                           )}
                         </>
@@ -247,12 +253,12 @@ export default function Qna() {
         </tbody>
       </table>
       {hasToken && (
-          <button onClick={toggleForm} className="submit-button">
-            작성하기
-          </button>
+        <button onClick={toggleForm} className="submit-button">
+          작성하기
+        </button>
       )}
       {showForm && (
-          <form id="question-form" onSubmit={handleQuestionSubmit}>
+        <form id="question-form" onSubmit={handleQuestionSubmit}>
           <input
             type="text"
             id="title-input"

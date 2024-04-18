@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 const BookCategory = () => {
   const [books, setBooks] = useState([]);
@@ -17,12 +18,12 @@ const BookCategory = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/v1/bookCategory/bring/${id}`,
+          `${baseApiUrl}/v1/bookCategory/bring/${id}`,
         );
         setBooks(response.data);
 
         const categoryResponse = await axios.get(
-          `http://localhost:8080/v1/bookCategory`,
+          `${baseApiUrl}/v1/bookCategory`,
         );
         setCategories(categoryResponse.data);
       } catch (error) {
@@ -54,7 +55,7 @@ const BookCategory = () => {
   const handleCategoryClick = async (categoryId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/v1/bookCategory/lowRank/${categoryId}`,
+        `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
       );
       console.log(response.data);
       setRankCategory(response.data);
@@ -67,7 +68,7 @@ const BookCategory = () => {
   const handlelowCategoryClick = async (categoryId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/v1/bookCategory/lowRank/${categoryId}`,
+        `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
       );
       console.log(response.data);
       setLowRankCategory(response.data);
@@ -194,11 +195,11 @@ const BookCategory = () => {
                 }}
               >
                 <img
-                  src="https://source.unsplash.com/featured/?book"
-                  alt="책 사진"
-                  className="book-image"
-                  style={{ width: "30%", height: "auto", marginRight: "60px" }}
-                />
+            src={`/img/images/${book.isbn}.jpg`}
+            alt="책 사진"
+            className="book-image"
+            style={{width: "25%", height: "80%", marginRight: "50px"}}
+          />
                 <div
                   className="card-content"
                   style={{ padding: "10px", flex: "1" }}

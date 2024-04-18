@@ -53,7 +53,7 @@ export default function SignIn() {
 
         window.localStorage.setItem("access", access);
 
-        navigate("/");
+        navigate("/test");
       } catch (error) {
         if (error.response.data) {
           console.log(error);

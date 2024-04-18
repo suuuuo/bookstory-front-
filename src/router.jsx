@@ -1,16 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Test from "./pages/Test";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import SocialLoginHandler from "./pages/SocialLoginHandler";
-import Header from "./components/Header";
+import Header from "./components/Header.jsx";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
+import Category from "./pages/Category.jsx";
 import BookMain from "./pages/BookMain.jsx";
-import Productpage from "./pages/Productpage.jsx";
+import ProductPage from "./pages/ProductPage.jsx";
 import Search from "./pages/Search.jsx";
+import BookSave from "./pages/BookSave.jsx";
+import OrderList from "./pages/order/getAllMyOrders.jsx";
+import MyPage from "./pages/MyPage.jsx";
+import SaveOrder from "./pages/order/saveOrder.jsx";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +24,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Home />
+        <Navigate to="/22" replace />
         <Footer />
       </>
     ),
@@ -108,7 +114,47 @@ const router = createBrowserRouter([
       <>
         <Header />
         <BookMain />
-        <Productpage />
+        <ProductPage />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "admin/book/",
+    element: (
+      <>
+        <Header />
+        <BookSave />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/myorders",
+    element: (
+      <>
+        <Header />
+        <OrderList />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/order",
+    element: (
+      <>
+        <Header />
+        <SaveOrder />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/mypage",
+    element: (
+      <>
+        <Header />
+        <MyPage />
         <Footer />
       </>
     ),

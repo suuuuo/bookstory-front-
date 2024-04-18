@@ -37,6 +37,7 @@ export default function Cart() {
       image: "",
       count: "",
       stock: "",
+      isbn: "",
     },
   ]);
   const [cart, setcart] = useState([]);
@@ -47,10 +48,10 @@ export default function Cart() {
       let nonuser_cart = JSON.parse(localStorage.getItem("nonuser_cart")); //로컬 스토리지의 비회원 장바구니 가져옴
 
       if (accesstoken === null) {
-        //비회원 로직
         if (nonuser_cart === null) nonuser_cart = [];
         const nonuser_cartbooks = nonuser_cart;
 
+        //비회원 로직
         const nonuser_cartbooks1 = nonuser_cartbooks.map((cartbook) => ({
           ...cartbook,
           isChecked: true,
@@ -61,10 +62,14 @@ export default function Cart() {
           id: cartbook.id,
         }));
 
-        localStorage.setItem("checkedcartbook", JSON.stringify(defaultCartbooks));
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(defaultCartbooks),
+        );
 
         setcartbooks(nonuser_cartbooks1);
       } else {
+        console.log(accesstoken);
         //회원 로직
         const config = {
           //헤더에 토큰 추가
@@ -101,6 +106,7 @@ export default function Cart() {
                   config,
                 );
                 const nonuser_cartbooks = response.data;
+                console.log(nonuser_cartbooks);
                 setcartbooks(
                   nonuser_cartbooks.map((cartbook) => ({
                     ...cartbook,
@@ -120,28 +126,33 @@ export default function Cart() {
             })();
           });
           localStorage.removeItem("nonuser_cart");
+        } else {
+          (async () => {
+            try {
+              const response = await axios.get(
+                `${baseApiUrl}/api/v1/cart`,
+                config,
+              );
+              const nonuser_cartbooks = response.data;
+              console.log(nonuser_cartbooks);
+              setcartbooks(
+                nonuser_cartbooks.map((cartbook) => ({
+                  ...cartbook,
+                  isChecked: true,
+                })),
+              );
+              const defaultCartbooks = nonuser_cartbooks.map((cartbook) => ({
+                id: cartbook.id,
+              }));
+              localStorage.setItem(
+                "checkedcartbook",
+                JSON.stringify(defaultCartbooks),
+              );
+            } catch (e) {
+              console.error(e);
+            }
+          })();
         }
-        (async () => {
-          try {
-            const response = await axios.get(`${baseApiUrl}/api/v1/cart`, config);
-            const nonuser_cartbooks = response.data;
-            setcartbooks(
-              nonuser_cartbooks.map((cartbook) => ({
-                ...cartbook,
-                isChecked: true,
-              })),
-            );
-            const defaultCartbooks = nonuser_cartbooks.map((cartbook) => ({
-              id: cartbook.id,
-            }));
-            localStorage.setItem(
-              "checkedcartbook",
-              JSON.stringify(defaultCartbooks),
-            );
-          } catch (e) {
-            console.error(e);
-          }
-        })();
       }
     };
     newCart();
@@ -174,13 +185,19 @@ export default function Cart() {
       if (checked && checkedcartbook.valueOf(cartbook.id)) {
         //선택된 경우
         const newcheckedcartbook = [...checkedcartbook, checkbox];
-        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(newcheckedcartbook),
+        );
       } else {
         //해제된 경우
         const newcheckedcartbook = checkedcartbook.filter(
           (item) => item.id !== checkbox.id,
         );
-        localStorage.setItem("checkedcartbook", JSON.stringify(newcheckedcartbook));
+        localStorage.setItem(
+          "checkedcartbook",
+          JSON.stringify(newcheckedcartbook),
+        );
       }
     };
 
@@ -377,7 +394,10 @@ export default function Cart() {
             className={CartStyle.book_image} //이미지
           >
             <img
-              src={cartbook.image || "https://source.unsplash.com/featured/?book"}
+              src={
+                `img/images/${cartbook.isbn}.jpg` ||
+                "https://source.unsplash.com/featured/?book"
+              }
               style={{
                 width: "100%",
                 height: "100%",
@@ -489,7 +509,10 @@ export default function Cart() {
     }));
     if (checked) {
       localStorage.removeItem("checkedcartbook");
-      localStorage.setItem("checkedcartbook", JSON.stringify(localupdatedCartbooks));
+      localStorage.setItem(
+        "checkedcartbook",
+        JSON.stringify(localupdatedCartbooks),
+      );
     } else {
       localStorage.removeItem("checkedcartbook");
     }
@@ -519,6 +542,9 @@ export default function Cart() {
       .filter((cartbook) => cartbook.isChecked)
       .map((cartbook) => cartbook.price * cartbook.count);
     let totalPrice = prices.reduce((acc, price) => acc + price, 0);
+    // 이하영 : totalPrice를 localStorage에 저장하겠습니다!
+    localStorage.setItem("totalPrice", totalPrice);
+
     return totalPrice;
   };
 
@@ -551,6 +577,7 @@ export default function Cart() {
       navigate("/sign_in");
     } else {
       //주문 화면?
+      navigate("/order");
     }
   };
 
@@ -670,8 +697,8 @@ export default function Cart() {
             -택배 배송은 기본배송지 기준으로 진행됩니다.
           </div>
           <div className={CartStyle.cartnotice}>
-            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두 함께
-            배송됩니다.
+            -상품별 배송일정이 서로 다를시 가장 늦은 일정의 상품 기준으로 모두
+            함께 배송됩니다.
           </div>
         </details>
       </div>
