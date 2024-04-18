@@ -40,7 +40,6 @@ export default function SignIn() {
 
     (async () => {
       try {
-        // 로그인 요청
         const response = await axios.post(
           `${baseApiUrl}/login`,
           signInInputData,
@@ -48,19 +47,17 @@ export default function SignIn() {
             withCredentials: true,
           },
         );
-        // 로그인 처리
+        console.log("response:", response);
         const access = response.headers.access;
+        console.log("access: ", access);
 
         window.localStorage.setItem("access", access);
 
-        navigate("/test");
+        navigate("/");
+        console.log(response);
       } catch (error) {
-        if (error.response.data) {
-          console.log(error);
-          alert(error.response.data);
-        } else {
-          alert("회원가입 처리 중 문제가 발생했습니다.");
-        }
+        console.log(error);
+        alert("회원가입 처리 중 문제가 발생했습니다.");
       }
     })();
   };
