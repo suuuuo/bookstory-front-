@@ -4,6 +4,9 @@ import Test from "./pages/Test";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import SocialLoginHandler from "./pages/SocialLoginHandler";
+import UserProfile from "./pages/UserProfile.jsx";
+import UserList from "./pages/admin/UserList";
+import UserEdit from "./pages/admin/UserEdit";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -16,6 +19,7 @@ import Search from "./pages/Search.jsx";
 import BookSave from "./pages/BookSave.jsx";
 import OrderList from "./pages/order/getAllMyOrders.jsx";
 import MyPage from "./pages/MyPage.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
 import SaveOrder from "./pages/order/saveOrder.jsx";
 
 const router = createBrowserRouter([
@@ -89,6 +93,30 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/user_profile",
+    element: (
+      <>
+        <UserProfile />
+      </>
+    ),
+  },
+  {
+    path: "/admin_user_list",
+    element: (
+      <>
+        <UserList />
+      </>
+    ),
+  },
+  {
+    path: "/admin_user_edit/:userId",
+    element: (
+      <>
+        <UserEdit />
+      </>
+    ),
+  },
+  {
     path: "/test",
     element: (
       <>
@@ -120,7 +148,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "admin/book/",
+    path: "/admin/book/",
     element: (
       <>
         <Header />
@@ -146,6 +174,14 @@ const router = createBrowserRouter([
         <Header />
         <SaveOrder />
         <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <>
+        <AdminPage />
       </>
     ),
   },
