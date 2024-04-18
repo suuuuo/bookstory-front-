@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../../css/getAllMyOrders.css";
 
 export default function OrderList() {
   // 상태 초기화
