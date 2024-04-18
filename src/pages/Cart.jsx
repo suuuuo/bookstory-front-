@@ -461,6 +461,7 @@ export default function Cart() {
       setcartbooks(
         noncheck_cart.map((cartbook) => ({ ...cartbook, isChecked: false })),
       );
+      localStorage.removeItem("checkedcartbook");
     } else {
       const config = {
         headers: {
