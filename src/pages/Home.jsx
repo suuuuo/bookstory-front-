@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { baseApiUrl } from "../constants/apiUrl.js";
 
 const CardsContainer = () => {
   const [books, setBooks] = useState([]);
@@ -11,9 +12,10 @@ const CardsContainer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/v1/bookCategory/bring/${id}`,
+          `${baseApiUrl}/v1/bookCategory/bring/${id}`,
         );
         setBooks(response.data);
+        setCurrentPage(0);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -47,18 +49,19 @@ const CardsContainer = () => {
               style={{
                 flex: "0 0 auto",
                 width: "300px",
+                height: "550px",
                 margin: "10px",
-                border: "1px solid #ccc",
+                border: "2px solid #ccc",
                 borderRadius: "5px",
                 boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <img
-                src="https://source.unsplash.com/featured/?book"
-                alt="책 사진"
-                className="book-image"
-                style={{ width: "300px", height: "auto", marginBottom: "10px" }}
-              />
+                   <img
+            src={`/img/images/${book.isbn}.jpg`}
+            alt="책 사진"
+            className="book-image"
+            style={{width: "300px", height: "50%", marginRight: "50px"}}
+          />
               <div className="card-content" style={{ padding: "10px" }}>
                 <p className="title">{book.itemName}</p>
                 <p>작가 : {book.author}</p>

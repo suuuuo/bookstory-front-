@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Test from "./pages/Test";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -11,8 +12,10 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
+import Category from "./pages/Category.jsx";
 import BookMain from "./pages/BookMain.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
+import Search from "./pages/Search.jsx";
 import BookSave from "./pages/BookSave.jsx";
 import OrderList from "./pages/order/getAllMyOrders.jsx";
 import MyPage from "./pages/MyPage.jsx";
@@ -25,7 +28,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Home />
+        <Navigate to="/22" replace />
         <Footer />
       </>
     ),
@@ -36,6 +39,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <BookCategory />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/search/:keyword",
+    element: (
+      <>
+        <Header />
+        <Search />
         <Footer />
       </>
     ),
