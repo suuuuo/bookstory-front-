@@ -12,7 +12,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart.jsx";
 import BookCategory from "./pages/BookCategory.jsx";
-import Category from "./pages/Category.jsx";
 import BookMain from "./pages/BookMain.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import Search from "./pages/Search.jsx";

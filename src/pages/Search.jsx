@@ -12,14 +12,12 @@ const Search = () => {
       publisher: "",
       description: "",
       image: "",
-      category: ""
     });  
     const [lowRankCategory, setLowRankCategory] = useState([]);
     const [rankCategory, setRankCategory] = useState([]);
     const [categories, setCategories] = useState([]);
     const [showSecondTable, setShowSecondTable] = useState(false);
     const [showThirdTable, setShowThirdTable] = useState(false);
-
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -30,7 +28,8 @@ const Search = () => {
             
             const bookResponse = await axios.get(
               `${baseApiUrl}/api/v1/books/title?title=${keyword}`
-          );
+            ); 
+          
 
           setBook(bookResponse.data);
           } catch (error) {
@@ -173,6 +172,7 @@ const Search = () => {
                   width: "1000px",
                   height: "300px",
                   margin: "10px",
+                  marginLeft: "300px",
                   border: "1px solid #ccc",
                   borderRadius: "5px",
                   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
@@ -192,17 +192,9 @@ const Search = () => {
                   <p>작가 : {book.author}</p>
                   <p>출판사 : {book.publisher}</p>
                   <p>가격 : {book.price} 원</p>
-                  <p>
-                    {book.category.map((category, index) => (
-                      <React.Fragment key={index}>
-                        {category}
-                        {index < book.category.length - 1 && " > "}
-                      </React.Fragment>
-                    ))}
-                  </p>
+                 
                 </div>
               </div>
-  <div>책 : {book.itemName}</div>
   </div>
   );
 };
