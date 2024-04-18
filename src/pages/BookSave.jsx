@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { baseApiUrl } from "../constants/apiUrl.js";
 
-function BookCreate() {
+const BookSave = () => {
+  const [categoriesLevel1, setCategoriesLevel1] = useState([]); // 첫 번째 드롭다운 리스트의 데이터
+  const [categoriesLevel2, setCategoriesLevel2] = useState([]); // 두 번째 드롭다운 리스트의 데이터
+  const [categoriesLevel3, setCategoriesLevel3] = useState([]); // 세 번째 드롭다운 리스트의 데이터
+  const [selectedCategoryLevel1, setSelectedCategoryLevel1] = useState(""); // 첫 번째 드롭다운 리스트에서 선택된 값
+  const [selectedCategoryLevel2, setSelectedCategoryLevel2] = useState(""); // 두 번째 드롭다운 리스트에서 선택된 값
+  const [selectedCategoryLevel3, setSelectedCategoryLevel3] = useState(""); // 세 번째 드롭다운 리스트에서 선택된 값
   const [newBook, setNewBook] = useState({
     itemName: "",
     price: 0,
@@ -10,6 +16,67 @@ function BookCreate() {
     description: "",
     publisher: "",
   });
+
+  useEffect(() => {
+    // 카테고리 데이터를 가져오는 함수
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${baseApiUrl}/v1/bookCategory`);
+        setCategoriesLevel1(response.data);
+      } catch (error) {
+        console.error("Error fetching category data:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    // 두 번째 드롭다운 리스트의 데이터를 가져오는 함수
+    const fetchCategoriesLevel2 = async () => {
+      if (selectedCategoryLevel1) {
+        try {
+          const response = await axios.get(`${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel1}`);
+          setCategoriesLevel2(response.data);
+        } catch (error) {
+          console.error("Error fetching category data:", error);
+        }
+      }
+    };
+
+    fetchCategoriesLevel2();
+  }, [selectedCategoryLevel1]);
+
+  useEffect(() => {
+    // 세 번째 드롭다운 리스트의 데이터를 가져오는 함수
+    const fetchCategoriesLevel3 = async () => {
+      if (selectedCategoryLevel2) {
+        try {
+          const response = await axios.get(`${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel2}`);
+          setCategoriesLevel3(response.data);
+        } catch (error) {
+          console.error("Error fetching category data:", error);
+        }
+      }
+    };
+
+    fetchCategoriesLevel3();
+  }, [selectedCategoryLevel2]);
+
+  const handleCategoryLevel1Change = (event) => {
+    setSelectedCategoryLevel1(event.target.value);
+    setSelectedCategoryLevel2("");
+    setSelectedCategoryLevel3("");
+  };
+
+  const handleCategoryLevel2Change = (event) => {
+    setSelectedCategoryLevel2(event.target.value);
+    setSelectedCategoryLevel3("");
+  };
+
+  const handleCategoryLevel3Change = (event) => {
+    setSelectedCategoryLevel3(event.target.value);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +86,7 @@ function BookCreate() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleBookSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("access");
     if (!token) {
@@ -30,6 +97,7 @@ function BookCreate() {
     const headers = { access: ` ${token.trim()}` };
 
     try {
+      // 먼저 새 책을 추가하는 API 호출
       const response = await axios.post(
         `${baseApiUrl}/api/v1/books/save`,
         newBook,
@@ -37,19 +105,31 @@ function BookCreate() {
       );
       alert("Book added successfully!");
       console.log(response.data);
+
+     const { bookId } = response.data;
+
+      // 선택된 카테고리들의 ID를 사용하여 API로 데이터를 보내는 함수
+      const categoryResponse = await axios.post(`${baseApiUrl}/v1/bookCategory/add`, {
+        bookId: bookId,
+        categoryLevel1: selectedCategoryLevel1,
+        categoryLevel2: selectedCategoryLevel2,
+        categoryLevel3: selectedCategoryLevel3,
+      });
+      console.log("Category data sent successfully:", categoryResponse.data);
+      
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to add the book");
+      alert("Failed to add the book or send category data");
     }
   };
 
   return (
-    <div
-      className="container"
-      style={{ maxWidth: "600px", margin: "auto", marginTop: "20px" }}
-    >
-      <form onSubmit={handleSubmit} className="card">
+    <div className="container" style={{ maxWidth: "600px", margin: "auto", marginTop: "20px" }}>
+      <form onSubmit={handleBookSubmit} className="card">
         <h1>Add New Book</h1>
+       
+
+        {/* 책 정보 입력 폼 */}
         <div className="form-group">
           <label>Title</label>
           <input
@@ -103,6 +183,38 @@ function BookCreate() {
             required
             className="input"
           />
+           {/* 첫 번째 드롭다운 리스트 */}
+
+        <label>Category</label>
+        <select value={selectedCategoryLevel1} onChange={handleCategoryLevel1Change}>
+          <option value="">-- Select an option --</option>
+          {categoriesLevel1.map((category, index) => (
+            <option key={index} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+
+        {/* 두 번째 드롭다운 리스트 */}
+
+        <select value={selectedCategoryLevel2} onChange={handleCategoryLevel2Change}>
+          <option value="">-- Select an option --</option>
+          {categoriesLevel2.map((category, index) => (
+            <option key={index} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+
+        {/* 세 번째 드롭다운 리스트 */}
+        <select value={selectedCategoryLevel3} onChange={handleCategoryLevel3Change}>
+          <option value="">-- Select an option --</option>
+          {categoriesLevel3.map((category, index) => (
+            <option key={index} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
         </div>
         <button type="submit" className="btn btn-primary">
           Submit
@@ -110,6 +222,6 @@ function BookCreate() {
       </form>
     </div>
   );
-}
+};
 
-export default BookCreate;
+export default BookSave;
