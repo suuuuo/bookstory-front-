@@ -18,10 +18,20 @@ const Search = () => {
               `http://localhost:8080/v1/bookCategory`,
             );
             setCategories(categoryResponse.data);
+            
           } catch (error) {
             console.error("Error fetching data:", error);
           }
+          try {
+            const bookResponse = await axios.get(
+                `http://localhost:8080/api/books/${keyword}`,
+            );
+            setBook(bookResponse.data);
+          }catch(error){
+            console.error("Error fetching data:", error);
+          }
         };
+
         fetchData();
       }, []);
     
@@ -144,6 +154,8 @@ const Search = () => {
       </thead>
     </table>
   )};
+  
+  <div>{book.itemName}</div>
   </div>
   );
 };
