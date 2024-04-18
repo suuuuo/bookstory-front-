@@ -1,0 +1,274 @@
+.trashCard {
+  width: 725px;
+  height: 60px;
+  background-color: #eaeaea;
+  margin-bottom: 25px;
+  display: flex;
+}
+
+.book_image {
+  width: 135px;
+  height: 200px;
+  margin-top: 15px;
+  margin-left: 15px;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.trashicon_back {
+  background-color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  margin: auto 20px auto auto;
+}
+
+.whole {
+  width: 1050px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.whole_card {
+  width: 725px;
+  height: 235px;
+  border-collapse: collapse;
+  display: flex;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+  margin-bottom: 1px;
+}
+
+.card1 {
+  width: 430px;
+  height: 230px;
+  display: flex;
+}
+
+.titlepart {
+  width: 200px;
+  height: 45px;
+  font-size: 14px;
+  margin: 55px 0 0 10px;
+  text-align: center;
+}
+
+.buttonpart {
+  width: 300px;
+  height: 230px;
+  border-left: 1px solid black;
+}
+
+.countpart {
+  padding-top: 20px;
+  padding-left: 106px;
+  display: flex;
+}
+.countbtn {
+  width: 30px;
+  height: 30px;
+  background-color: lightblue;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.totalprice {
+  width: 120px;
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 60px;
+  margin-left: 90px;
+}
+
+.count {
+  text-align: center;
+  width: 35px;
+  height: 30px;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: gray;
+}
+
+.cart_right {
+  width: 250px;
+  height: 330px;
+  background-color: #f1f1f1;
+  margin: 85px 0 0 auto;
+  overflow: hidden;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+}
+
+.carttop {
+  width: 1050px;
+  font-size: 20px;
+  margin: 8px auto;
+}
+
+.right_card {
+  height: 120px;
+  width: 200px;
+  margin: 0 auto;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: gray;
+  display: flex;
+  padding-top: 25px;
+}
+
+.rightcard_text {
+  width: 200px;
+  height: 20px;
+  display: flex;
+  margin: 0 auto 12px auto;
+}
+
+.orderbutton {
+  width: 180px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  color: gray;
+  font-weight: bold;
+  background-color: #e0e0e0;
+  margin: 25px 10px 0 10px;
+  cursor: pointer;
+  padding-top: 12px;
+}
+
+.allselect {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 21px 0 0 5px;
+}
+
+.pricetopcard {
+  height: 210px;
+  width: 200px;
+  margin: 0 auto;
+  padding-top: 35px;
+}
+
+.price_card2 {
+  margin-bottom: 20px;
+  width: 200px;
+  height: 65px;
+}
+
+.imgstyle {
+  width: 20px;
+  height: 25px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.deliveryfee {
+  font-size: 14px;
+}
+
+.deliveryfee_text {
+  font-size: 14px;
+  margin-left: auto;
+}
+
+.rightcard_text2 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.rightcard_text3 {
+  font-size: 14px;
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.deliverynotice {
+  width: 200px;
+  height: 20px;
+  display: flex;
+  margin: auto;
+}
+
+.point_text {
+  font-size: 12px;
+  color: #7f7f7f;
+}
+
+.notice_card {
+  width: 600px;
+  height: 130px;
+  margin: 150px auto 0 auto;
+}
+.point_text2 {
+  font-size: 12px;
+  margin-left: auto;
+  color: #7f7f7f;
+}
+
+.deliverynotice_text {
+  font-size: 10px;
+  color: gray;
+  margin-left: auto;
+}
+
+.right_cart3 {
+  width: 200px;
+  height: 20px;
+  margin: 0 auto 5px auto;
+  display: flex;
+}
+
+.price_text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.final_total {
+  font-size: 14px;
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.cartnotice {
+  font-size: 12px;
+  color: gray;
+  width: 580px;
+  height: 25px;
+  margin-left: 20px;
+  background-color: #e0e0e0;
+}
+
+.cartnotice_button {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 17px 17px 0 20px;
+  height: 60px;
+  color: black;
+  background-color: #e0e0e0;
+  border: none;
+}
+.cartnotice_button:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  color: black;
+  background-color: #e0e0e0;
+}
+
+.right-panel {
+  width: 1050px;
+  height: 50px;
+  background-color: antiquewhite;
+}
+
+.right-panel-active {
+  width: 1050px;
+  height: 50px;
+  background-color: #e0e0e0;
+}
