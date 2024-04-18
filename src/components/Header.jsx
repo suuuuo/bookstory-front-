@@ -1,10 +1,37 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { baseApiUrl } from "../constants/apiUrl.js";
+
 
 export default function Header() {
   const [isSignIn, setSignIn] = useState(false);
   const location = useLocation();
+  
+  const navigate =useNavigate();
+  
+  
+    const [enteredKeyword, setEnteredKeyword] = useState("");
+  
+    const changeHandler = (e) => {
+      e.preventDefault();
+      setEnteredKeyword(e.target.value);
+    };
+  
+    const enterHandler = (e) => {
+      if (e.keyCode === 13) {
+        searchHandler(enteredKeyword, e.keyCode);
+        setEnteredKeyword("");
+      }
+    };
+    const searchHandler = (enteredKeyword, enteredKeyCode)=>{
+      if(enteredKeyword.trim().length !==0 && enteredKeyCode ===13){
+        navigate(`/search/${enteredKeyword}`);
+      }
+    };
+    
+    
 
   useEffect(() => {
     const refreshToken = window.localStorage.getItem("refresh_token");
@@ -23,7 +50,7 @@ export default function Header() {
 
   const openModal = async (event) => {
     try {
-      const response = await fetch("http://localhost:8080/v1/bookCategory");
+      const response = await fetch(`${baseApiUrl}/v1/bookCategory`);
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
       }
@@ -81,6 +108,9 @@ export default function Header() {
             name="search"
             placeholder="Search"
             aria-label="Search"
+            onChange={changeHandler}
+            onKeyDown={enterHandler}
+            value={enteredKeyword}
             style={{
               backgroundColor: "white",
               width: "70%",
@@ -110,15 +140,16 @@ export default function Header() {
           </li>
           <li>
             <a href="/mypage">
-            <button
-              className="contrast"
-              style={{
-                width: 60,
-                marginRight: "10%",
-                backgroundColor: "white",
-              }}>
-              <img alt="user" src="/img/user.svg" width={"70"} />
-            </button>
+              <button
+                className="contrast"
+                style={{
+                  width: 60,
+                  marginRight: "10%",
+                  backgroundColor: "white",
+                }}
+              >
+                <img alt="user" src="/img/user.svg" width={"70"} />
+              </button>
             </a>
           </li>
         </nav>
@@ -170,16 +201,16 @@ export default function Header() {
               <Link to="/">베스트셀러</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/1">신간도서</Link>
+              <Link to="/21">신간도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/2">추천도서</Link>
+              <Link to="/20">추천도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/3">국내도서</Link>
+              <Link to="/1">국내도서</Link>
             </li>
             <li style={{ marginLeft: 50 }}>
-              <Link to="/4">해외도서</Link>
+              <Link to="/2">서양도서</Link>
             </li>
           </ul>
         </nav>
