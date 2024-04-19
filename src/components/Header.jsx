@@ -46,7 +46,7 @@ export default function Header() {
 
   const openModal = async (event) => {
     try {
-      const response = await fetch(`${baseApiUrl}/v1/bookCategory`);
+      const response = await fetch(`${baseApiUrl}/api/v1/bookCategory`);
       if (!response.ok) {
         throw new Error("Failed to fetch categories");
       }

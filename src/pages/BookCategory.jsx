@@ -18,12 +18,12 @@ const BookCategory = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${baseApiUrl}/v1/bookCategory/bring/${id}`,
+          `${baseApiUrl}/api/v1/bookCategory/bring/${id}`,
         );
         setBooks(response.data);
 
         const categoryResponse = await axios.get(
-          `${baseApiUrl}/v1/bookCategory`,
+          `${baseApiUrl}/api/v1/bookCategory`,
         );
         setCategories(categoryResponse.data);
       } catch (error) {
@@ -55,7 +55,7 @@ const BookCategory = () => {
   const handleCategoryClick = async (categoryId) => {
     try {
       const response = await axios.get(
-        `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
+        `${baseApiUrl}/api/v1/bookCategory/lowRank/${categoryId}`,
       );
       console.log(response.data);
       setRankCategory(response.data);
@@ -68,7 +68,7 @@ const BookCategory = () => {
   const handlelowCategoryClick = async (categoryId) => {
     try {
       const response = await axios.get(
-        `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
+        `${baseApiUrl}/api/v1/bookCategory/lowRank/${categoryId}`,
       );
       console.log(response.data);
       setLowRankCategory(response.data);
@@ -175,7 +175,6 @@ const BookCategory = () => {
             display: "flex",
             flexDirection: "column",
             left: "300",
-            
           }}
         >
           {books
@@ -185,7 +184,6 @@ const BookCategory = () => {
                 key={index}
                 onClick={() => handleCardClick(book.bookId)}
                 style={{
-                  
                   display: "flex",
                   alignItems: "center",
                   width: "1000px",

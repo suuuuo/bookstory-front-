@@ -96,10 +96,10 @@ function Answer({ questionId }) {
         <div id="answer-create">
           <table>
             <tbody>
-            <tr>
-              <td className="createdBy">{answer.createdBy}</td>
-              <td>{formatDate(answer.createdAt)}</td>
-            </tr>
+              <tr>
+                <td className="createdBy">{answer.createdBy}</td>
+                <td>{formatDate(answer.createdAt)}</td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -110,15 +110,18 @@ const BookSave = () => {
       alert("Book added successfully!");
       console.log(response.data);
 
-     const { id } = response.data;
+      const { id } = response.data;
 
       // 선택된 카테고리들의 ID를 사용하여 API로 데이터를 보내는 함수
-      const categoryResponse = await axios.post(`${baseApiUrl}/v1/bookCategory/add`, {
-        bookId: id,
-        categoryLevel1: selectedCategoryLevel1,
-        categoryLevel2: selectedCategoryLevel2,
-        categoryLevel3: selectedCategoryLevel3,
-      });
+      const categoryResponse = await axios.post(
+        `${baseApiUrl}/v1/bookCategory/add`,
+        {
+          bookId: id,
+          categoryLevel1: selectedCategoryLevel1,
+          categoryLevel2: selectedCategoryLevel2,
+          categoryLevel3: selectedCategoryLevel3,
+        },
+      );
       console.log("Category data sent successfully:", categoryResponse.data);
     } catch (error) {
       console.error("Error:", error);
