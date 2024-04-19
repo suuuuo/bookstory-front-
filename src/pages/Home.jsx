@@ -39,7 +39,7 @@ const CardsContainer = () => {
 
   return (
     <div>
-      <div style={{ display: "flex",justifyContent:"center", }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         {books
           .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
           .map((book, index) => (

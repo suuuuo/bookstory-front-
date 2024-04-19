@@ -75,6 +75,7 @@ export default function Qna() {
         questionData,
         { headers },
       );
+      console.log(response.data);
       setQuestions([
         ...questions,
         {
