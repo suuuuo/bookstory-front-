@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/react,node,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,node,yarn
 
+### ssl cert
+./.well-known
+
 ### Node ###
 # Logs
 logs
