@@ -120,7 +120,7 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      );
+
       {/* 로고 및 검색 입력 */}
       <div style={{ display: "flex", marginTop: 50 }}>
         <div style={{ marginLeft: "auto" }}>
