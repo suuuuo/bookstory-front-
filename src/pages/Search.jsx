@@ -22,7 +22,7 @@ const Search = () => {
     const fetchData = async () => {
       try {
         const categoryResponse = await axios.get(
-          `${baseApiUrl}/v1/bookCategory`,
+          `${baseApiUrl}/api/v1/bookCategory`,
         );
         setCategories(categoryResponse.data);
 
@@ -50,7 +50,7 @@ const Search = () => {
   const handleCategoryClick = async (categoryId) => {
     try {
       const response = await axios.get(
-        `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
+        `${baseApiUrl}/api/v1/bookCategory/lowRank/${categoryId}`,
       );
       console.log(response.data);
       setRankCategory(response.data);
@@ -63,7 +63,7 @@ const Search = () => {
   const handlelowCategoryClick = async (categoryId) => {
     try {
       const response = await axios.get(
-        `${baseApiUrl}/v1/bookCategory/lowRank/${categoryId}`,
+        `${baseApiUrl}/api/v1/bookCategory/lowRank/${categoryId}`,
       );
       console.log(response.data);
       setLowRankCategory(response.data);
