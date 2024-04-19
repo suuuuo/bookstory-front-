@@ -21,7 +21,7 @@ const BookSave = () => {
     // 카테고리 데이터를 가져오는 함수
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${baseApiUrl}/v1/bookCategory`);
+        const response = await axios.get(`${baseApiUrl}/api/v1/bookCategory`);
         setCategoriesLevel1(response.data);
       } catch (error) {
         console.error("Error fetching category data:", error);
@@ -37,7 +37,7 @@ const BookSave = () => {
       if (selectedCategoryLevel1) {
         try {
           const response = await axios.get(
-            `${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel1}`,
+            `${baseApiUrl}/api/v1/bookCategory/lowRank/${selectedCategoryLevel1}`,
           );
           setCategoriesLevel2(response.data);
         } catch (error) {
@@ -55,7 +55,7 @@ const BookSave = () => {
       if (selectedCategoryLevel2) {
         try {
           const response = await axios.get(
-            `${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel2}`,
+            `${baseApiUrl}/api/v1/bookCategory/lowRank/${selectedCategoryLevel2}`,
           );
           setCategoriesLevel3(response.data);
         } catch (error) {
@@ -114,7 +114,7 @@ const BookSave = () => {
 
       // 선택된 카테고리들의 ID를 사용하여 API로 데이터를 보내는 함수
       const categoryResponse = await axios.post(
-        `${baseApiUrl}/v1/bookCategory/add`,
+        `${baseApiUrl}/api/v1/bookCategory/add`,
         {
           bookId: id,
           categoryLevel1: selectedCategoryLevel1,
