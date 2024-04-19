@@ -29,7 +29,7 @@ export default function Qna() {
         setQuestions(
           response.data.map((question) => ({
             ...question,
-            createdAt: new Date(question.createdAt).toISOString().split("T")[0], // 날짜 형식 변경
+            // createdAt: new Date(question.createdAt).toISOString().split("T")[0], // 날짜 형식 변경
             status:
               question.status === "ANSWER_PENDING" ? "답변예정" : "답변완료", // 상태 텍스트 변경
           })),
@@ -80,7 +80,7 @@ export default function Qna() {
         ...questions,
         {
           ...response.data,
-          createdAt: response.data.createdAt,
+          // createdAt: response.data.createdAt,
           status:
             response.data.status === "ANSWER_PENDING" ? "답변예정" : "답변완료",
         },
