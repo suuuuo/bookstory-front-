@@ -162,20 +162,22 @@ export default function Header() {
               </button>
             </a>
           </li>
-          <li>
-            <a href="/mypage">
-              <button
-                className="contrast"
-                style={{
-                  width: 60,
-                  marginRight: "10%",
-                  backgroundColor: "white",
-                }}
-              >
-                <img alt="user" src="/img/user.svg" width={"70"} />
-              </button>
-            </a>
-          </li>
+          {isSignIn && ( // 로그인 상태일 때만 마이페이지 버튼을 보여줍니다.
+            <li>
+              <a href="/mypage">
+                <button
+                  className="contrast"
+                  style={{
+                    width: 60,
+                    marginRight: "10%",
+                    backgroundColor: "white",
+                  }}
+                >
+                  <img alt="user" src="/img/user.svg" width={"70"} />
+                </button>
+              </a>
+            </li>
+          )}
         </nav>
       </div>
       {/* 메뉴 버튼 */}
