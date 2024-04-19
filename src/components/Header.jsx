@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -30,15 +31,29 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const refreshToken = window.localStorage.getItem("refresh_token");
-    const accessToken = window.localStorage.getItem("access_token");
+    const accessToken = window.localStorage.getItem("access");
 
-    if (refreshToken && accessToken) {
+    if (accessToken) {
       setSignIn(true);
     } else {
       setSignIn(false);
     }
   }, [location]);
+
+  const LogoutHandler = async () => {
+    try {
+      await axios.post(
+        `${baseApiUrl}/api/v1/logout`,
+        {},
+        { withCredentials: true },
+      );
+      window.localStorage.removeItem("access");
+      setSignIn(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -72,18 +87,31 @@ export default function Header() {
       <div style={{ display: "flex", backgroundColor: "#F0EBEB", height: 50 }}>
         <nav style={{ marginLeft: "auto", marginRight: 50 }}>
           <ul>
-            <li>
-              <a href="/sign_up" style={{ fontSize: 15 }}>
-                회원가입
-              </a>
-            </li>
-            <li>|</li>
-            <li>
-              <a href="/sign_in" style={{ fontSize: 15 }}>
-                로그인
-              </a>
-            </li>
-            <li>|</li>
+            {!isSignIn ? (
+              <>
+                <li>
+                  <a href="/sign_up" style={{ fontSize: 15 }}>
+                    회원가입
+                  </a>
+                </li>
+                <li>|</li>
+                <li>
+                  <a href="/sign_in" style={{ fontSize: 15 }}>
+                    로그인
+                  </a>
+                </li>
+                <li>|</li>
+              </>
+            ) : (
+              <li>
+                <a
+                  onClick={LogoutHandler}
+                  style={{ fontSize: 15, color: "blue", background: "none" }}
+                >
+                  로그아웃
+                </a>
+              </li>
+            )}
             <li>
               <a href="#" style={{ fontSize: 15 }}>
                 고객센터
@@ -92,7 +120,7 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-
+      );
       {/* 로고 및 검색 입력 */}
       <div style={{ display: "flex", marginTop: 50 }}>
         <div style={{ marginLeft: "auto" }}>
@@ -150,7 +178,6 @@ export default function Header() {
           </li>
         </nav>
       </div>
-
       {/* 메뉴 버튼 */}
       <div style={{ display: "flex", marginTop: 80, justifyContent: "center" }}>
         <nav>
