@@ -12,7 +12,7 @@ const CardsContainer = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${baseApiUrl}/v1/bookCategory/bring/${id}`,
+          `${baseApiUrl}/api/v1/bookCategory/bring/${id}`,
         );
         setBooks(response.data);
         setCurrentPage(0);
