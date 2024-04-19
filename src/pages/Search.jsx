@@ -163,7 +163,7 @@ const Search = () => {
       )}
       ;
       <div
-        onClick={() => handleCardClick(book.bookId)}
+        onClick={() => handleCardClick(book.id)}
         style={{
           display: "flex",
           alignItems: "center",

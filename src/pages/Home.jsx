@@ -39,7 +39,7 @@ const CardsContainer = () => {
 
   return (
     <div>
-      <div style={{ display: "flex", overflowX: "auto" }}>
+      <div style={{ display: "flex",justifyContent:"center", }}>
         {books
           .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
           .map((book, index) => (
@@ -48,8 +48,8 @@ const CardsContainer = () => {
               onClick={() => handleCardClick(book.bookId)}
               style={{
                 flex: "0 0 auto",
-                width: "300px",
-                height: "550px",
+                width: "305px",
+                height: "700px",
                 margin: "10px",
                 border: "2px solid #ccc",
                 borderRadius: "5px",
