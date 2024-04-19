@@ -105,7 +105,7 @@ const BookCategory = () => {
                 onClick={handleFirstTableClick}
               >
                 <td
-                  style={{ fontSize: "10px" }}
+                  style={{ fontSize: "15px" }}
                   onClick={() => handleCategoryClick(category.id)}
                 >
                   {category.name}
@@ -131,7 +131,7 @@ const BookCategory = () => {
                   scope="col"
                 >
                   <td
-                    style={{ fontSize: "10px" }}
+                    style={{ fontSize: "15px" }}
                     onClick={() => handlelowCategoryClick(category.id)}
                   >
                     {category.name}
@@ -158,7 +158,7 @@ const BookCategory = () => {
                   scope="col"
                 >
                   <td
-                    style={{ fontSize: "10px" }}
+                    style={{ fontSize: "15px" }}
                     onClick={() => handleCategoryListClick(category.id)}
                   >
                     {category.name}
@@ -175,6 +175,7 @@ const BookCategory = () => {
             display: "flex",
             flexDirection: "column",
             left: "300",
+            
           }}
         >
           {books
@@ -184,6 +185,7 @@ const BookCategory = () => {
                 key={index}
                 onClick={() => handleCardClick(book.bookId)}
                 style={{
+                  
                   display: "flex",
                   alignItems: "center",
                   width: "1000px",
