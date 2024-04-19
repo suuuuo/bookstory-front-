@@ -36,7 +36,9 @@ const BookSave = () => {
     const fetchCategoriesLevel2 = async () => {
       if (selectedCategoryLevel1) {
         try {
-          const response = await axios.get(`${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel1}`);
+          const response = await axios.get(
+            `${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel1}`,
+          );
           setCategoriesLevel2(response.data);
         } catch (error) {
           console.error("Error fetching category data:", error);
@@ -52,7 +54,9 @@ const BookSave = () => {
     const fetchCategoriesLevel3 = async () => {
       if (selectedCategoryLevel2) {
         try {
-          const response = await axios.get(`${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel2}`);
+          const response = await axios.get(
+            `${baseApiUrl}/v1/bookCategory/lowRank/${selectedCategoryLevel2}`,
+          );
           setCategoriesLevel3(response.data);
         } catch (error) {
           console.error("Error fetching category data:", error);
@@ -106,17 +110,19 @@ const BookSave = () => {
       alert("Book added successfully!");
       console.log(response.data);
 
-     const { bookId } = response.data;
+      const { bookId } = response.data;
 
       // 선택된 카테고리들의 ID를 사용하여 API로 데이터를 보내는 함수
-      const categoryResponse = await axios.post(`${baseApiUrl}/v1/bookCategory/add`, {
-        bookId: bookId,
-        categoryLevel1: selectedCategoryLevel1,
-        categoryLevel2: selectedCategoryLevel2,
-        categoryLevel3: selectedCategoryLevel3,
-      });
+      const categoryResponse = await axios.post(
+        `${baseApiUrl}/v1/bookCategory/add`,
+        {
+          bookId: bookId,
+          categoryLevel1: selectedCategoryLevel1,
+          categoryLevel2: selectedCategoryLevel2,
+          categoryLevel3: selectedCategoryLevel3,
+        },
+      );
       console.log("Category data sent successfully:", categoryResponse.data);
-      
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to add the book or send category data");
@@ -124,10 +130,12 @@ const BookSave = () => {
   };
 
   return (
-    <div className="container" style={{ maxWidth: "600px", margin: "auto", marginTop: "20px" }}>
+    <div
+      className="container"
+      style={{ maxWidth: "600px", margin: "auto", marginTop: "20px" }}
+    >
       <form onSubmit={handleBookSubmit} className="card">
         <h1>Add New Book</h1>
-       
 
         {/* 책 정보 입력 폼 */}
         <div className="form-group">
@@ -183,38 +191,47 @@ const BookSave = () => {
             required
             className="input"
           />
-           {/* 첫 번째 드롭다운 리스트 */}
+          {/* 첫 번째 드롭다운 리스트 */}
 
-        <label>Category</label>
-        <select value={selectedCategoryLevel1} onChange={handleCategoryLevel1Change}>
-          <option value="">-- Select an option --</option>
-          {categoriesLevel1.map((category, index) => (
-            <option key={index} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+          <label>Category</label>
+          <select
+            value={selectedCategoryLevel1}
+            onChange={handleCategoryLevel1Change}
+          >
+            <option value="">-- Select an option --</option>
+            {categoriesLevel1.map((category, index) => (
+              <option key={index} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
 
-        {/* 두 번째 드롭다운 리스트 */}
+          {/* 두 번째 드롭다운 리스트 */}
 
-        <select value={selectedCategoryLevel2} onChange={handleCategoryLevel2Change}>
-          <option value="">-- Select an option --</option>
-          {categoriesLevel2.map((category, index) => (
-            <option key={index} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+          <select
+            value={selectedCategoryLevel2}
+            onChange={handleCategoryLevel2Change}
+          >
+            <option value="">-- Select an option --</option>
+            {categoriesLevel2.map((category, index) => (
+              <option key={index} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
 
-        {/* 세 번째 드롭다운 리스트 */}
-        <select value={selectedCategoryLevel3} onChange={handleCategoryLevel3Change}>
-          <option value="">-- Select an option --</option>
-          {categoriesLevel3.map((category, index) => (
-            <option key={index} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+          {/* 세 번째 드롭다운 리스트 */}
+          <select
+            value={selectedCategoryLevel3}
+            onChange={handleCategoryLevel3Change}
+          >
+            <option value="">-- Select an option --</option>
+            {categoriesLevel3.map((category, index) => (
+              <option key={index} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit" className="btn btn-primary">
           Submit

@@ -4,34 +4,30 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { baseApiUrl } from "../constants/apiUrl.js";
 
-
 export default function Header() {
   const [isSignIn, setSignIn] = useState(false);
   const location = useLocation();
-  
-  const navigate =useNavigate();
-  
-  
-    const [enteredKeyword, setEnteredKeyword] = useState("");
-  
-    const changeHandler = (e) => {
-      e.preventDefault();
-      setEnteredKeyword(e.target.value);
-    };
-  
-    const enterHandler = (e) => {
-      if (e.keyCode === 13) {
-        searchHandler(enteredKeyword, e.keyCode);
-        setEnteredKeyword("");
-      }
-    };
-    const searchHandler = (enteredKeyword, enteredKeyCode)=>{
-      if(enteredKeyword.trim().length !==0 && enteredKeyCode ===13){
-        navigate(`/search/${enteredKeyword}`);
-      }
-    };
-    
-    
+
+  const navigate = useNavigate();
+
+  const [enteredKeyword, setEnteredKeyword] = useState("");
+
+  const changeHandler = (e) => {
+    e.preventDefault();
+    setEnteredKeyword(e.target.value);
+  };
+
+  const enterHandler = (e) => {
+    if (e.keyCode === 13) {
+      searchHandler(enteredKeyword, e.keyCode);
+      setEnteredKeyword("");
+    }
+  };
+  const searchHandler = (enteredKeyword, enteredKeyCode) => {
+    if (enteredKeyword.trim().length !== 0 && enteredKeyCode === 13) {
+      navigate(`/search/${enteredKeyword}`);
+    }
+  };
 
   useEffect(() => {
     const refreshToken = window.localStorage.getItem("refresh_token");
