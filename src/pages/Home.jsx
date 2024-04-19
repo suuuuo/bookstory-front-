@@ -56,12 +56,12 @@ const CardsContainer = () => {
                 boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
               }}
             >
-                   <img
-            src={`/img/images/${book.isbn}.jpg`}
-            alt="책 사진"
-            className="book-image"
-            style={{width: "300px", height: "50%", marginRight: "50px"}}
-          />
+              <img
+                src={`/img/images/${book.isbn}.jpg`}
+                alt="책 사진"
+                className="book-image"
+                style={{ width: "300px", height: "50%", marginRight: "50px" }}
+              />
               <div className="card-content" style={{ padding: "10px" }}>
                 <p className="title">{book.itemName}</p>
                 <p>작가 : {book.author}</p>

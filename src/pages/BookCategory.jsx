@@ -6,7 +6,7 @@ import { baseApiUrl } from "../constants/apiUrl.js";
 const BookCategory = () => {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 20; 
+  const itemsPerPage = 20;
   const [categories, setCategories] = useState([]);
   const { id } = useParams();
   const [lowRankCategory, setLowRankCategory] = useState([]);
@@ -197,11 +197,11 @@ const BookCategory = () => {
                 }}
               >
                 <img
-            src={`/img/images/${book.isbn}.jpg`}
-            alt="책 사진"
-            className="book-image"
-            style={{width: "25%", height: "80%", marginRight: "50px"}}
-          />
+                  src={`/img/images/${book.isbn}.jpg`}
+                  alt="책 사진"
+                  className="book-image"
+                  style={{ width: "25%", height: "80%", marginRight: "50px" }}
+                />
                 <div
                   className="card-content"
                   style={{ padding: "10px", flex: "1" }}
