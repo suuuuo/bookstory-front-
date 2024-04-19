@@ -75,14 +75,12 @@ export default function Qna() {
         questionData,
         { headers },
       );
-      console.log(response.data);
+      console.log("response data:", response.data);
       setQuestions([
         ...questions,
         {
           ...response.data,
-          createdAt: new Date(response.data.createdAt)
-            .toISOString()
-            .split("T")[0],
+          createdAt: response.data.createdAt,
           status:
             response.data.status === "ANSWER_PENDING" ? "답변예정" : "답변완료",
         },
