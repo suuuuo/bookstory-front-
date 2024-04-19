@@ -24,8 +24,8 @@ export default function Qna() {
         const response = await axios.get(
           `${baseApiUrl}/api/v1/question/${bookId}`,
         );
-        console.log('Data type:', typeof response.data);  // 데이터 타입 로그 출력
-        console.log('Data:', response.data);  // 데이터 내용 로그 출력
+        console.log("Data type:", typeof response.data); // 데이터 타입 로그 출력
+        console.log("Data:", response.data); // 데이터 내용 로그 출력
         setQuestions(
           response.data.map((question) => ({
             ...question,
