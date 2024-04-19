@@ -7,7 +7,7 @@ export default function MyPage() {
 
       <div className="user">
         <div id="profile">
-          <p>[]님, 환영합니다.</p>
+          <p>환영합니다.</p>
           <ul>
             <li>
               <a href="/user_profile">회원정보</a>
