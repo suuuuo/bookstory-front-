@@ -18,14 +18,12 @@ export default function Qna() {
   const [editContent, setEditContent] = useState(""); // 편집 중인 내용
   const [userRole, setUserRole] = useState(null);
 
-
   function formatDate(date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
   }
-
 
   useEffect(() => {
     const fetchQuestions = async () => {
