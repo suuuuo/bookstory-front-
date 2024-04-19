@@ -175,7 +175,6 @@ const BookCategory = () => {
             display: "flex",
             flexDirection: "column",
             left: "300",
-            
           }}
         >
           {books
@@ -185,7 +184,6 @@ const BookCategory = () => {
                 key={index}
                 onClick={() => handleCardClick(book.bookId)}
                 style={{
-                  
                   display: "flex",
                   alignItems: "center",
                   width: "1000px",
